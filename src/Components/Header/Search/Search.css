@@ -1,0 +1,20 @@
+#search .search__shadow{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#search .search__btn{
+    animation: widthFull 1s linear;
+    width: 0px;
+    display: block;
+    overflow-x: hidden;
+    animation-fill-mode: forwards;
+}
+
+@keyframes widthFull{
+    from{
+        width: 0px;
+    }
+    to{
+        width: 50px;
+    }
+}
