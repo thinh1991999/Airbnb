@@ -1,0 +1,64 @@
+#date_box .disable{
+    opacity: 0.2;
+    cursor: default;
+}
+
+#date_box .react-calendar{
+    border: unset;
+    width: 100%;
+}
+
+#date_box .react-calendar__viewContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+#date_box .react-calendar__month-view__days__day--neighboringMonth{
+    opacity: 0;
+}
+
+
+
+#date_box .enable{
+    height: 50.28px;
+    
+}
+#date_box .react-calendar__tile--active,
+#date_box .react-calendar__tile--hasActive{
+    background-color: black;
+    border-radius: 50%;
+    color: white;
+}
+
+
+#date_box .react-calendar__tile--active.react-calendar__tile:enabled:hover,
+#date_box .react-calendar__tile--hasActive.react-calendar__tile:enabled:hover,
+#date_box .react-calendar__tile--now.react-calendar__tile--hasActive,
+#date_box .react-calendar__tile--active.react-calendar__tile{
+    background-color: black;
+    border-radius: 50%;
+    color: white;
+}
+
+#date_box .disable.react-calendar__tile:enabled:hover{
+    background-color: unset;
+    border: unset;
+}
+
+#date_box .react-calendar__tile:enabled:hover{
+    background-color: unset;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+#date_box .react-calendar__year-view .react-calendar__tile{
+    height: auto;
+}
+
+#date_box .react-calendar__tile--now{
+    background-color: unset;
+}
+
+#date_box abbr:where([title]){
+    text-decoration: unset !important;
+}

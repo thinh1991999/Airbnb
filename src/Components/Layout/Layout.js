@@ -4,6 +4,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
+      {children}
     </>
   );
 }
