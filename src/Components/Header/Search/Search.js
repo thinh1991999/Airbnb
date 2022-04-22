@@ -1,17 +1,38 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./Search.css";
+import SearchBox from "./SearchBox/SearchBox";
+import {
+  setSearchValue,
+  setElementSearch,
+  setActiveSearchForm,
+} from "../../../Store/HeaderSlice/HeaderSlice";
+import PlaceBox from "./PlaceBox/PlaceBox";
+import DateBox from "./DateBox/DateBox";
+import moment from "moment";
 
 function Search() {
+  const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
-  const searchActive = useSelector((state) => state.root.searchActive);
+  const activeSearchForm = useSelector(
+    (state) => state.header.activeSearchForm
+  );
+  const searchValue = useSelector((state) => state.header.searchValue);
+  const elementSearch = useSelector((state) => state.header.elementSearch);
 
   const [navData, setNavData] = useState([]);
   const [currentNav, setCurrentNav] = useState(0);
-  const [activeSearch, setActiveSearch] = useState(null);
 
   const formRef = useRef(null);
+  const handleFocusInput = () => {
+    dispatch(setActiveSearchForm("SEARCH_INPUT"));
+    dispatch(setElementSearch({ element: <PlaceBox />, left: 0 }));
+  };
+  const handleClickSearch = (index, element) => {
+    dispatch(setActiveSearchForm(index));
+    dispatch(setElementSearch({ element, left: 0, right: 0 }));
+  };
 
   useEffect(() => {
     setNavData([
@@ -21,10 +42,14 @@ function Search() {
           {
             name: "Nhận phòng",
             value: "Thêm ngày",
+            hint: "inDate",
+            element: <DateBox />,
           },
           {
             name: "Trả phòng",
             value: "Thêm ngày",
+            hint: "outDate",
+            element: <DateBox />,
           },
           {
             name: "Khách",
@@ -49,7 +74,7 @@ function Search() {
 
   const eventClick = (e) => {
     if (!formRef.current.contains(e.target)) {
-      setActiveSearch(null);
+      dispatch(setActiveSearchForm(null));
     }
   };
 
@@ -60,11 +85,15 @@ function Search() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if (activeSearchForm === null) {
+  //     setElementSearch(null);
+  //   }
+  // }, [activeSearchForm]);
+
   return (
-    <div
-      className={`absolute overflow-hidden top-0 mt-5 left-0 right-0  bg-black`}
-    >
-      <div>
+    <div className={`absolute  top-0 mt-5 left-0 right-0  bg-black`}>
+      <div className="">
         <div className="flex justify-center">
           <ul
             className={` flex text-center justify-center transition-all duration-300 ease-linear`}
@@ -76,7 +105,7 @@ function Search() {
                   key={index}
                   onClick={() => {
                     setCurrentNav(index);
-                    setActiveSearch(null);
+                    dispatch(setActiveSearchForm(null));
                   }}
                 >
                   {item.title}
@@ -90,18 +119,18 @@ function Search() {
             })}
           </ul>
         </div>
-        <div className="flex justify-center">
-          <div>
+        <div className="flex justify-center ">
+          <div className="">
             <form
               id="search"
               action=""
               onSubmit={(e) => e.preventDefault()}
-              className="mt-5 lg:min-w-[800px]  flex justify-between bg-stone-200 rounded-full"
+              className="mt-5 lg:min-w-[800px]  flex justify-between bg-stone-200 rounded-full relative"
               ref={formRef}
             >
               <div
                 className={`${
-                  activeSearch === "SEARCH_INPUT"
+                  activeSearchForm === "SEARCH_INPUT"
                     ? "bg-white search__shadow"
                     : "hover:bg-stone-300"
                 } flex flex-1  cursor-pointer text-black rounded-full flex-col text-sm font-semibold`}
@@ -113,17 +142,23 @@ function Search() {
                   Địa điểm
                 </label>
                 <input
-                  onFocus={() => setActiveSearch("SEARCH_INPUT")}
-                  onBlur={() => setActiveSearch(null)}
+                  onFocus={handleFocusInput}
+                  onChange={(e) =>
+                    dispatch(
+                      setSearchValue({ ...searchValue, place: e.target.value })
+                    )
+                  }
+                  autoComplete={"off"}
                   className="px-8 pb-4 bg-transparent outline-none placeholder:text-black"
                   type="text"
                   id="searchPlace"
                   placeholder="Bạn sắp đi đâu"
+                  value={searchValue.place || ""}
                 />
               </div>
               <div className="flex min-w-[50%]">
                 {navData[currentNav]?.buttons?.map((item, index) => {
-                  const { name, value } = item;
+                  const { name, value, element, hint } = item;
                   if (index === navData[currentNav]?.buttons.length - 1) {
                     return (
                       <>
@@ -135,22 +170,24 @@ function Search() {
                         <div
                           key={index}
                           className={` ${
-                            activeSearch === index
+                            activeSearchForm === index
                               ? "bg-white search__shadow"
                               : "hover:bg-stone-300"
                           } pl-8 cursor-pointer pr-2 flex flex-1 justify-between rounded-full text-black transition-all duration-300 ease-linear `}
-                          onClick={() => setActiveSearch(index)}
+                          onClick={() => handleClickSearch(index, element)}
                         >
                           <div className="flex flex-col items-start justify-center">
                             <span className="text-sm font-semibold">
                               {name}
                             </span>
-                            <span className="text-sm">{value}</span>
+                            <span className="text-sm">
+                              {searchValue[hint] ? searchValue[hint] : value}
+                            </span>
                           </div>
                           <div className="flex items-center ml-10">
                             <button
                               className={`${
-                                activeSearch !== null
+                                activeSearchForm !== null
                                   ? "bg-gradient-to-r from-pink-600 to-pink-500"
                                   : "primary--BGcolor"
                               } p-4 transition-all duration-300 ease-linear justify-end flex items-center text-xl text-white rounded-full primary--BGcolor`}
@@ -158,7 +195,9 @@ function Search() {
                               <AiOutlineSearch />
                               <div
                                 className={`${
-                                  activeSearch !== null ? "w-[80px]" : "w-0 h-0"
+                                  activeSearchForm !== null
+                                    ? "w-[80px]"
+                                    : "w-0 h-0"
                                 } transition-all duration-300 ease-linear flex items-center overflow-hidden`}
                               >
                                 <span className="capitalize whitespace-nowrap text-base font-medium">
@@ -181,20 +220,27 @@ function Search() {
                       <button
                         key={index}
                         className={` ${
-                          activeSearch === index
+                          activeSearchForm === index
                             ? "bg-white search__shadow"
                             : "hover:bg-stone-300"
                         } px-8 flex flex-col items-center justify-center rounded-full text-black transition-all duration-300 ease-linear `}
-                        onClick={() => setActiveSearch(index)}
+                        onClick={() => handleClickSearch(index, element)}
                         type={"button"}
                       >
                         <span className="text-sm font-semibold">{name}</span>
-                        <span className="text-sm">{value}</span>
+                        <span className="text-sm">
+                          {searchValue[hint]
+                            ? moment(searchValue[hint])
+                                .format("MM/DD/YYYY")
+                                .toString()
+                            : value}
+                        </span>
                       </button>
                     </>
                   );
                 })}
               </div>
+              {elementSearch && <SearchBox>{elementSearch?.element}</SearchBox>}
             </form>
           </div>
         </div>

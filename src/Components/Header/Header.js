@@ -8,15 +8,15 @@ import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search/Search";
 import { useEffect } from "react";
-import { setSearchActive } from "../../Store/RootSlice/RootSlice";
+import { setSearchActive } from "../../Store/HeaderSlice/HeaderSlice";
 
 function Header() {
   const language = useSelector((state) => state.root.language);
-  const searchActive = useSelector((state) => state.root.searchActive);
+  const searchActive = useSelector((state) => state.header.searchActive);
   const dispatch = useDispatch();
 
   const scrollEvent = (e) => {
-    console.log(e);
+    // console.log(e);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function Header() {
             <svg
               width="102"
               height="32"
-              fill="rgb(255, 56, 92)"
+              fill={`${searchActive ? "white" : "rgb(255, 56, 92)"}`}
               style={{
                 display: "block",
               }}
