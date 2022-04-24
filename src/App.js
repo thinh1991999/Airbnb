@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./Components";
-import { HomePage } from "./Pages";
+import { HomePage, RoomListPage } from "./Pages";
 
 function App() {
   return (
@@ -11,6 +11,14 @@ function App() {
           element={
             <Layout>
               <HomePage />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/rooms/:locId"
+          element={
+            <Layout>
+              <RoomListPage />
             </Layout>
           }
         ></Route>

@@ -27,8 +27,9 @@
     background-color: rgb(255, 56, 92)
 }
 
-.shadow--0{
-}
-
-.shadow--1{
+.one__line__text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
 }

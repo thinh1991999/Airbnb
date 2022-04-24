@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import headerSlice from "./HeaderSlice/HeaderSlice";
+import roomsSlice from "./RoomListSlice/RoomListSlice";
 import rootSlice from "./RootSlice/RootSlice";
 
 function AppProvider({ children }) {
@@ -8,6 +9,7 @@ function AppProvider({ children }) {
     reducer: {
       header: headerSlice,
       root: rootSlice,
+      rooms: roomsSlice,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

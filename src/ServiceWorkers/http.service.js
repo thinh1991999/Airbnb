@@ -4,15 +4,16 @@ import AxiosServ from "./axios.service";
 class HttpRequestService {
   constructor() {}
 
-  layDanhSachPhim = () => {
-    const uri = "/api/QuanLyPhim/LayDanhSachPhim";
-    return AxiosServ.getMethod(uri, false);
-  };
   layDanhSachViTri = (location) => {
     const uri = "/api/locations";
     AxiosServ.axiosConfig.params = {
       location,
     };
+    return AxiosServ.getMethod(uri, false);
+  };
+  layDanhSachPhong = (params) => {
+    const uri = "/api/rooms";
+    AxiosServ.axiosConfig.params = params;
     return AxiosServ.getMethod(uri, false);
   };
 

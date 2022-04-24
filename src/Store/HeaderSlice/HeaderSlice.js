@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   searchActive: true,
   searchValue: {},
+  searchParams: {},
   elementSearch: null,
   activeSearchForm: null,
 };
@@ -23,6 +24,9 @@ export const headerSlice = createSlice({
     setActiveSearchForm: (state, action) => {
       state.activeSearchForm = action.payload;
     },
+    setSearchParams: (state, action) => {
+      state.searchParams = action.payload;
+    },
   },
 });
 
@@ -31,6 +35,7 @@ export const {
   setSearchValue,
   setElementSearch,
   setActiveSearchForm,
+  setSearchParams,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;

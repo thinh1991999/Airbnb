@@ -45,7 +45,7 @@ function DateBox() {
   }, [searchValue]);
 
   return (
-    <div id="date_box" className="">
+    <div id="date_box" className="px-5">
       <Calendar
         // onChange={onChange}
         tileClassName={handleDisableDay}
