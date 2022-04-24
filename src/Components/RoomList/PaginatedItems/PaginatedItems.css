@@ -1,0 +1,30 @@
+#PaginatedItems ul{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+#PaginatedItems ul li.previous,
+#PaginatedItems ul li.next{
+    margin: 0 10px;
+    width: auto ;
+    font-weight: bold;
+}
+#PaginatedItems ul li.disabled a{
+    opacity: 50%;
+    cursor: not-allowed;
+}
+#PaginatedItems ul li{
+    margin: 0 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+}
+
+#PaginatedItems ul .selected{
+    background-color: black;
+    color: white;
+}

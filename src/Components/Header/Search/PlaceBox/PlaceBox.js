@@ -1,30 +1,54 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineRight } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { httpServ } from "../../../../ServiceWorkers";
 import { GoLocation } from "react-icons/go";
+import {
+  setSearchParams,
+  setSearchValue,
+} from "../../../../Store/HeaderSlice/HeaderSlice";
 
 function PlaceBox() {
+  const searchValue = useSelector((state) => state.header.searchValue);
+  const searchParams = useSelector((state) => state.header.searchParams);
+  const dispatch = useDispatch();
+
   const [suggestArr, setSuggestArr] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { place } = useSelector((state) => state.header.searchValue);
+  const handleChoosePlace = (name, _id) => {
+    dispatch(setSearchValue({ ...searchValue, place: name }));
+    dispatch(
+      setSearchParams({
+        ...searchParams,
+        locationId: _id,
+      })
+    );
+  };
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setLoading(true);
-      httpServ.layDanhSachViTri(place).then((res) => {
+      httpServ.layDanhSachViTri(searchValue.place).then((res) => {
         setSuggestArr(res.data);
+        if (res.data.length > 0) {
+          dispatch(
+            setSearchParams({
+              ...searchParams,
+              locationId: res.data[0]._id,
+            })
+          );
+        }
         setLoading(false);
       });
     }, 100);
     return () => {
       clearTimeout(timeOut);
     };
-  }, [place]);
-
-  if (!place) {
+  }, [searchValue.place]);
+  console.log(searchParams);
+  if (!searchValue.place) {
     return (
       <div className="px-10">
         <h2>Moi luc,moi noi</h2>
@@ -58,14 +82,23 @@ function PlaceBox() {
       {suggestArr.map((item, index) => {
         const { name, image, _id, province } = item;
         if (index > 4) return;
+        const address = name + ", " + province;
         return (
-          <div className="flex items-center my-2 cursor-pointer py-2 px-10 hover:bg-gray-400">
-            <div className="p-3 bg-gray-200 rounded-md">
-              <GoLocation />
+          <div
+            onClick={() => handleChoosePlace(name, _id)}
+            className="flex items-center my-2 cursor-pointer py-2 px-10 hover:bg-gray-400"
+            key={_id}
+          >
+            <div className=" bg-gray-200 rounded-md overflow-hidden">
+              {/* <GoLocation />
+               */}
+              <img
+                src={image}
+                className="w-[50px] h-[40px] object-cover"
+                alt=""
+              />
             </div>{" "}
-            <div className="ml-2 text-base capitalize">
-              {name}, {province}
-            </div>
+            <div className="ml-2 text-base capitalize">{address}</div>
           </div>
         );
       })}
