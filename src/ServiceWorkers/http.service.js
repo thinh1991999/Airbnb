@@ -18,7 +18,11 @@ class HttpRequestService {
   };
 
   dangNhap = (data) => {
-    const uri = "/api/QuanLyNguoiDung/DangNhap";
+    const uri = "/api/auth/login";
+    return AxiosServ.postMethod(uri, data);
+  };
+  dangKy = (data) => {
+    const uri = "/api/auth/register";
     return AxiosServ.postMethod(uri, data);
   };
 }

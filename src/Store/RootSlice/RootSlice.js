@@ -4,14 +4,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   language: getLanguage(localStorageServ.languageTheme.get()),
+  languageHint: localStorageServ.languageTheme.get() || "VN",
+  user: null,
 };
 
 export const rootSlice = createSlice({
   name: "root",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      localStorageServ.userInfo.set(action.payload);
+      state.user = action.payload;
+    },
+  },
 });
 
-// export const {} = rootSlice.actions;
+export const { setUser } = rootSlice.actions;
 
 export default rootSlice.reducer;

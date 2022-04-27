@@ -7,16 +7,25 @@ import { HiUserCircle } from "react-icons/hi";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search/Search";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setSearchActive } from "../../Store/HeaderSlice/HeaderSlice";
+import LanguageSetting from "./LanguageSetting/LanguageSetting";
 
 function Header() {
   const language = useSelector((state) => state.root.language);
   const searchActive = useSelector((state) => state.header.searchActive);
   const dispatch = useDispatch();
+  const [lastScroll, setLastScroll] = useState(0);
 
   const scrollEvent = (e) => {
-    // console.log(e);
+    const currentScroll = e.target.scrollingElement.scrollTop;
+    if (currentScroll >= lastScroll) {
+      dispatch(setSearchActive(false));
+      setLastScroll(currentScroll);
+    } else {
+      dispatch(setSearchActive(true));
+      setLastScroll(currentScroll);
+    }
   };
 
   useEffect(() => {
@@ -24,14 +33,14 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", scrollEvent);
     };
-  }, []);
+  }, [lastScroll]);
 
   return (
     <div
       id="header"
       className={`fixed ${
         searchActive ? "bg-black text-white" : "bg-white text-black"
-      }   top-0 left-0 right-0 `}
+      }   top-0 left-0 right-0 z-50`}
     >
       <div className="relative">
         <div className=" lg:mx-20 lg:py-5 ">
@@ -62,7 +71,11 @@ function Header() {
                   </button>
                 </div>
               )}
-              <div className={`${searchActive ? "block" : "hidden"} `}>
+              <div
+                className={`${
+                  searchActive ? "scale-100" : "scale-0"
+                } transition duration-300 ease-linear`}
+              >
                 <Search />
               </div>
             </div>
@@ -82,6 +95,7 @@ function Header() {
               >
                 <AiOutlineGlobal />
               </button>
+              <LanguageSetting />
               <button
                 className={`${
                   searchActive ? "bg-gray-100 text-black" : ""

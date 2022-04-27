@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+
 import "./DateBox.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
