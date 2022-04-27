@@ -1,0 +1,7 @@
+#map button.gm-control-active.gm-fullscreen-control{
+    display: none !important;
+}
+
+#map .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom{
+    bottom: unset !important;
+}

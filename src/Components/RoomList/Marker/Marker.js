@@ -8,22 +8,13 @@ function Marker({ index, data, mapSize }) {
   const [positionSub, setPositionSub] = useState({});
 
   const itemRef = useRef(null);
-  const {
-    name,
-    description,
-    image,
-    _id,
-    price,
-    guests,
-    bedRoom,
-    bath,
-    locationId: { valueate },
-  } = data;
-  const newPrice = price.toLocaleString("it-IT", {
-    style: "currency",
-    currency: "VND",
-  });
-
+  const { name, description, image, price } = data;
+  const newPrice = price
+    ? price?.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      })
+    : 0;
   const handleActive = () => {
     setActive(true);
   };
@@ -101,8 +92,10 @@ function Marker({ index, data, mapSize }) {
               <span className="text-pink-500 mr-1">
                 <AiFillStar />
               </span>{" "}
-              {valueate / 2}{" "}
-              <span className="font-thin ml-1">({valueate})</span>
+              {data?.locationId?.valueate / 2}{" "}
+              <span className="font-thin ml-1">
+                ({data?.locationId?.valueate})
+              </span>
             </p>
             <p className="font-thin one__line__text">{description}</p>
             <p className="font-semibold one__line__text text-gray-700">

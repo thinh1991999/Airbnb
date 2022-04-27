@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setHoverActive } from "../../../Store/RoomListSlice/RoomListSlice";
+import { Link } from "react-router-dom";
 
 function Items({ currentItems }) {
   const dispatch = useDispatch();
@@ -45,47 +47,89 @@ function Items({ currentItems }) {
             guests,
             bedRoom,
             bath,
+            wifi,
+            pool,
+            kitchen,
+            indoorFireplace,
+            hotTub,
+            heating,
+            gym,
+            elevator,
+            dryer,
+            cableTV,
           } = item;
-          const newPrice = price.toLocaleString("it-IT", {
-            style: "currency",
-            currency: "VND",
-          });
+          console.log(item);
+          const newPrice = price
+            ? price?.toLocaleString("it-IT", {
+                style: "currency",
+                currency: "VND",
+              })
+            : 0;
           return (
             <div
               ref={itemRef}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave()}
-              className="flex w-full items-stretch py-8"
+              className={` py-8 border-t ${
+                index === currentItems.length - 1 ? "border-b" : ""
+              }`}
               key={_id}
             >
-              <div className=" w-[250px] rounded-md  bg-gray-400">
-                <LazyLoadImage
-                  height={"100%"}
-                  src={image} // use normal <img> attributes as props
-                  width={250}
-                  effect="opacity"
-                  className="rounded-md h-full  object-cover"
-                />
-              </div>
-              <div className="ml-4 flex flex-1 flex-col justify-between">
-                <div className="">
-                  <h5 className="text-base font-thin mb-2">{name}</h5>
-                  <p className="one__line__text">{description}</p>
-                  <div className="h-[1px] w-[40px] bg-gray-300 my-3"></div>
-                  <p className="flex items-center">
-                    {guests} guests <span className="flex items-center">.</span>
-                  </p>
+              <Link
+                to={"/"}
+                className="flex w-full items-stretch cursor-pointer"
+              >
+                <div className=" w-[250px] rounded-md  bg-gray-400">
+                  <LazyLoadImage
+                    height={"100%"}
+                    src={image}
+                    width={250}
+                    effect="opacity"
+                    className="rounded-md h-full  object-cover"
+                  />
                 </div>
-                <div className="flex justify-between mt-10">
-                  <div className="">abc</div>
-                  <p>
-                    <span className="font-medium text-lg text-black">
-                      {newPrice}
-                    </span>
-                    / đêm
-                  </p>
+                <div className="ml-4 flex flex-1 flex-col justify-between">
+                  <div className="">
+                    <h5 className="text-base font-thin mb-2 capitalize">
+                      {name}
+                    </h5>
+                    <p className="one__line__text capitalize">{description}</p>
+                    <div className="h-[1px] w-[40px] bg-gray-300 my-3"></div>
+                    <p className="flex items-center capitalize">
+                      {guests || 0} khách ,{bedRoom || 0} phòng ngủ, {bath || 0}{" "}
+                      phòng tắm
+                      <span className="flex items-center">.</span>
+                    </p>
+                    <p className="flex items-center capitalize">
+                      {wifi && "wifi ,"} {pool && "bể bơi ,"}
+                      {kitchen && "nhà bếp ,"}
+                      {indoorFireplace && "lò sưởi ,"}
+                      {hotTub && "nước nóng ,"}
+                      {heating && "lò vi sóng ,"}
+                      {gym && "gym ,"}
+                      {elevator && "thang máy ,"}
+                      {dryer && "máy sấy ,"}
+                      {cableTV && "truyền hình cáp"}
+                      <span className="flex items-center">.</span>
+                    </p>
+                  </div>
+                  <div className="flex justify-between mt-10">
+                    <div className="flex items-center">
+                      <span className="text-pink-500 mr-1">
+                        <AiFillStar />
+                      </span>{" "}
+                      {item?.locationId?.valueate / 2 || 4}{" "}
+                      <span className="font-thin ">(169 đánh giá)</span>
+                    </div>
+                    <p>
+                      <span className="font-medium text-lg text-black">
+                        {newPrice}
+                      </span>
+                      / đêm
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           );
         })}
