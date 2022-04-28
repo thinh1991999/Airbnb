@@ -37,20 +37,20 @@ function Search() {
         title: language.HeaderAddress,
         buttons: [
           {
-            name: "Nhận phòng",
-            value: "Thêm ngày",
+            name: language.SearchTakeRoom,
+            value: language.SearchAddDay,
             hint: "inDate",
             element: <DateBox />,
           },
           {
-            name: "Trả phòng",
-            value: "Thêm ngày",
+            name: language.SearchPayRoom,
+            value: language.SearchAddDay,
             hint: "outDate",
             element: <DateBox />,
           },
           {
-            name: "Khách",
-            value: "Thêm khách",
+            name: language.SearchGuest,
+            value: language.SearchAddGuest,
             hint: "members",
             element: <MemberBox />,
           },
@@ -85,14 +85,8 @@ function Search() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (activeSearchForm === null) {
-  //     setElementSearch(null);
-  //   }
-  // }, [activeSearchForm]);
-
   return (
-    <div className={`absolute  top-0 mt-5 left-0 right-0  bg-black`}>
+    <div className={`absolute  top-0 mt-5 left-0 right-0  `}>
       <div className="">
         <div className="flex justify-center">
           <ul
@@ -101,7 +95,7 @@ function Search() {
             {navData.map((item, index) => {
               return (
                 <li
-                  className="relative mx-4 whitespace-nowrap group font-medium cursor-pointer py-2 transition-all duration-300 ease-linear"
+                  className="capitalize relative mx-4 whitespace-nowrap group font-medium cursor-pointer py-2 transition-all duration-300 ease-linear"
                   key={index}
                   onClick={() => {
                     setCurrentNav(index);
@@ -112,7 +106,7 @@ function Search() {
                   <div
                     className={`${
                       currentNav === index ? "w-full" : "w-0"
-                    } absolute bottom-0  group-hover:w-full transition-all duration-300 ease-linear h-[2px] bg-white`}
+                    } absolute bottom-0  group-hover:w-full transition-all duration-300 ease-linear h-[2px] bg-black dark:bg-white`}
                   ></div>
                 </li>
               );
@@ -125,7 +119,7 @@ function Search() {
               id="search"
               action=""
               onSubmit={(e) => e.preventDefault()}
-              className="mt-5 lg:min-w-[800px]  flex justify-between bg-stone-200 rounded-full relative"
+              className="mt-5 lg:min-w-[850px]  flex justify-between bg-stone-200 rounded-full relative"
               ref={formRef}
             >
               <div
@@ -139,7 +133,7 @@ function Search() {
                   htmlFor="searchPlace"
                   className="px-8 pt-4 cursor-pointer"
                 >
-                  Địa điểm
+                  {language.SearchAdress}
                 </label>
                 <input
                   onFocus={handleFocusInput}
@@ -152,7 +146,7 @@ function Search() {
                   className="px-8 pb-4 bg-transparent outline-none placeholder:text-black"
                   type="text"
                   id="searchPlace"
-                  placeholder="Bạn sắp đi đâu"
+                  placeholder={language.SearchAdressFinal}
                   value={searchValue.place || ""}
                 />
               </div>

@@ -1,10 +1,13 @@
+import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./Components";
-import { HomePage, AccountPage, RoomListPage } from "./Pages";
+import { HomePage, AccountPage, RoomListPage, UserPage } from "./Pages";
 
 function App() {
+  const mode = useSelector((state) => state.root.mode);
+
   return (
-    <div className="">
+    <div className={`${mode === "DARK" && `dark`}`}>
       <Routes>
         <Route
           path="/"
@@ -35,6 +38,14 @@ function App() {
           element={
             <Layout>
               <RoomListPage />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/user"
+          element={
+            <Layout>
+              <UserPage />
             </Layout>
           }
         ></Route>

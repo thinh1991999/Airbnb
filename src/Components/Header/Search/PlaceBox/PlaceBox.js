@@ -12,6 +12,7 @@ import {
 function PlaceBox() {
   const searchValue = useSelector((state) => state.header.searchValue);
   const searchParams = useSelector((state) => state.header.searchParams);
+  const language = useSelector((state) => state.root.language);
   const dispatch = useDispatch();
 
   const [suggestArr, setSuggestArr] = useState([]);
@@ -47,13 +48,13 @@ function PlaceBox() {
       clearTimeout(timeOut);
     };
   }, [searchValue.place]);
-  console.log(searchParams);
+
   if (!searchValue.place) {
     return (
       <div className="px-10">
-        <h2>Moi luc,moi noi</h2>
+        <h2>{language.SearchEveryWhere}</h2>
         <button className="flex mt-5 min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn">
-          <span>Tìm kiếm linh hoạt</span>
+          <span>{language.FlexSearh}</span>
           <span className="p-2">
             <AiOutlineRight />
           </span>
@@ -63,16 +64,16 @@ function PlaceBox() {
   }
 
   if (loading) {
-    return <h2 className="px-10">Loading...</h2>;
+    return <h2 className="px-10">{language.Loading}...</h2>;
   }
 
   return (
     <div className="pl-2">
       {!suggestArr && (
         <>
-          <h2>Moi luc,moi noi</h2>
+          <h2>{language.SearchEveryWhere}</h2>
           <button className="flex mt-5 min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn">
-            <span>Tìm kiếm linh hoạt</span>
+            <span>{language.FlexSearh}</span>
             <span className="p-2">
               <AiOutlineRight />
             </span>
@@ -102,7 +103,9 @@ function PlaceBox() {
           </div>
         );
       })}
-      {suggestArr.length === 0 && <h2 className="px-10">Notthing to see</h2>}
+      {suggestArr.length === 0 && (
+        <h2 className="px-10">{language.NothingToSee}</h2>
+      )}
     </div>
   );
 }

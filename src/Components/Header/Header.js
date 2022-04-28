@@ -3,19 +3,34 @@ import {
   AiOutlineGlobal,
   AiOutlineMenu,
 } from "react-icons/ai";
+import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search/Search";
-import { useEffect, useState } from "react";
-import { setSearchActive } from "../../Store/HeaderSlice/HeaderSlice";
+import { useEffect, useRef, useState } from "react";
+import {
+  setSearchActive,
+  setShowLanguageSetting,
+  setShowUserSetting,
+} from "../../Store/HeaderSlice/HeaderSlice";
 import LanguageSetting from "./LanguageSetting/LanguageSetting";
+import { setMode } from "../../Store/RootSlice/RootSlice";
+import { Link } from "react-router-dom";
+import UserSetting from "./UserSetting/UserSetting";
 
 function Header() {
   const language = useSelector((state) => state.root.language);
+  const mode = useSelector((state) => state.root.mode);
   const searchActive = useSelector((state) => state.header.searchActive);
+  const showSearch = useSelector((state) => state.header.showSearch);
+  const showLanguageSetting = useSelector(
+    (state) => state.header.showLanguageSetting
+  );
+  const showUserSetting = useSelector((state) => state.header.showUserSetting);
   const dispatch = useDispatch();
   const [lastScroll, setLastScroll] = useState(0);
+  const headerRef = useRef(null);
 
   const scrollEvent = (e) => {
     const currentScroll = e.target.scrollingElement.scrollTop;
@@ -35,12 +50,27 @@ function Header() {
     };
   }, [lastScroll]);
 
+  const clickEvent = (e) => {
+    if (!headerRef.current.contains(e.target) && window.pageYOffset !== 0) {
+      dispatch(setSearchActive(false));
+    }
+  };
+
+  useEffect(() => {
+    window.pageYOffset === 0 && dispatch(setSearchActive(true));
+    window.addEventListener("click", clickEvent);
+    return () => {
+      window.removeEventListener("click", clickEvent);
+    };
+  }, []);
+
   return (
     <div
+      ref={headerRef}
       id="header"
       className={`fixed ${
-        searchActive ? "bg-black text-white" : "bg-white text-black"
-      }   top-0 left-0 right-0 z-50`}
+        searchActive && showSearch ? " h-[300px]" : ""
+      }   top-0 left-0 right-0 z-50 bg-white text-black dark:bg-black dark:text-white`}
     >
       <div className="relative">
         <div className=" lg:mx-20 lg:py-5 ">
@@ -49,7 +79,7 @@ function Header() {
               <svg
                 width="102"
                 height="32"
-                fill={`${searchActive ? "white" : "rgb(255, 56, 92)"}`}
+                fill={`${mode === "DARK" ? "white" : `rgb(255, 56, 92)`} `}
                 style={{
                   display: "block",
                 }}
@@ -58,22 +88,24 @@ function Header() {
               </svg>
             </div>
             <div className="flex-1">
-              {!searchActive && (
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => dispatch(setSearchActive(!searchActive))}
-                    className="flex min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
-                  >
-                    <span>{language.HeaderSearch}</span>
-                    <span className="p-2 text-white rounded-full primary--BGcolor">
-                      <AiOutlineSearch />
-                    </span>
-                  </button>
-                </div>
-              )}
               <div
                 className={`${
-                  searchActive ? "scale-100" : "scale-0"
+                  !searchActive && showSearch ? "flex" : "hidden"
+                }  justify-center`}
+              >
+                <button
+                  onClick={() => dispatch(setSearchActive(!searchActive))}
+                  className="flex min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
+                >
+                  <span>{language.HeaderSearch}</span>
+                  <span className="p-2 text-white rounded-full primary--BGcolor">
+                    <AiOutlineSearch />
+                  </span>
+                </button>
+              </div>
+              <div
+                className={`${
+                  searchActive && showSearch ? "scale-100" : "scale-0"
                 } transition duration-300 ease-linear`}
               >
                 <Search />
@@ -82,28 +114,45 @@ function Header() {
             <div className="lg:w-1/4 text-xl flex justify-end relative z-10">
               <button
                 className={`${
-                  searchActive ? "hover:bg-gray-800" : "hover:bg-gray-100"
+                  mode === "DARK" ? "hover:bg-gray-800" : "hover:bg-gray-200"
                 } px-3 transition-all duration-300 ease-linear text-base py-1 rounded-full `}
                 onClick={() => dispatch(setSearchActive(!searchActive))}
               >
                 {language.HeaderHouseOwn}
               </button>
               <button
+                onClick={() =>
+                  dispatch(setShowLanguageSetting(!showLanguageSetting))
+                }
                 className={`${
-                  searchActive ? "hover:bg-gray-800" : "hover:bg-gray-100"
+                  mode === "DARK" ? "hover:bg-gray-800" : "hover:bg-gray-200"
                 } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear `}
               >
                 <AiOutlineGlobal />
               </button>
-              <LanguageSetting />
+              {showLanguageSetting && <LanguageSetting />}
               <button
+                onClick={() =>
+                  dispatch(setMode(mode === "DARK" ? "LIGHT" : "DARK"))
+                }
                 className={`${
-                  searchActive ? "bg-gray-100 text-black" : ""
-                } flex items-center  px-3 py-1 rounded-full border ml-4 user__btn `}
+                  mode === "DARK" ? "hover:bg-gray-800" : "hover:bg-gray-200"
+                } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear `}
               >
-                <AiOutlineMenu className="mr-4" />
-                <HiUserCircle className="text-3xl" />
+                {mode === "DARK" ? <BsFillSunFill /> : <BsFillMoonFill />}
               </button>
+              <div className="relative">
+                <button
+                  onClick={() => dispatch(setShowUserSetting(!showUserSetting))}
+                  className={`${
+                    searchActive ? "bg-gray-100 text-black" : ""
+                  } flex items-center  px-3 py-1 rounded-full border ml-4 user__btn `}
+                >
+                  <AiOutlineMenu className="mr-4" />
+                  <HiUserCircle className="text-3xl" />
+                </button>
+                {showUserSetting && <UserSetting />}
+              </div>
             </div>
           </div>
         </div>

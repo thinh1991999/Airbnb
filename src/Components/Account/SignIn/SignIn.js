@@ -4,9 +4,11 @@ import Validator from "../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../../../Store/RootSlice/RootSlice";
+import { useDispatch } from "react-redux";
 
 function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [signInValue, setSignInValue] = useState({
     email: "",
@@ -44,7 +46,7 @@ function SignIn() {
       httpServ
         .dangNhap(signInValue)
         .then((res) => {
-          setUser(res.data.user);
+          dispatch(setUser(res.data.user));
           setLoading(false);
           navigate("/");
         })
