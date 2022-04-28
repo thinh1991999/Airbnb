@@ -12,6 +12,7 @@ function SearchNav({ navData, currentNav }) {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
   const searchParams = useSelector((state) => state.header.searchParams);
+  const language = useSelector((state) => state.root.language);
   const activeSearchForm = useSelector(
     (state) => state.header.activeSearchForm
   );
@@ -87,10 +88,10 @@ function SearchNav({ navData, currentNav }) {
                     <div
                       className={`${
                         activeSearchForm !== null ? "w-[80px]" : "w-0 h-0"
-                      } transition-all duration-300 ease-linear flex items-center overflow-hidden`}
+                      } transition-all duration-300 ease-linear flex justify-center items-center overflow-hidden`}
                     >
                       <span className="capitalize whitespace-nowrap text-base font-medium">
-                        tim kiem
+                        {language.Search}
                       </span>
                     </div>
                   </button>

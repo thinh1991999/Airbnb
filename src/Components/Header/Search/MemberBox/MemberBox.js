@@ -6,6 +6,7 @@ import { setSearchValue } from "../../../../Store/HeaderSlice/HeaderSlice";
 function MemberBox() {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
+  const language = useSelector((state) => state.root.language);
 
   const [options, setOptions] = useState([]);
   const [data, setData] = useState(searchValue.members || {});
@@ -56,31 +57,31 @@ function MemberBox() {
   useEffect(() => {
     setOptions([
       {
-        title: "Người lớn",
-        des: "Từ 13 tuổi trở lên",
+        title: language.SearchAdult,
+        des: language.Search13More,
         type: "KH",
         hint: "NL",
       },
       {
-        title: "Trẻ em",
-        des: "Độ tuổi 2 - 12",
+        title: language.SearchChildren,
+        des: language.Search2To12,
         type: "KH",
         hint: "TE",
       },
       {
-        title: "Em bé",
-        des: "Dưới 2 tuổi",
+        title: language.SearchBaby,
+        des: language.SearchLow2,
         type: "EB",
         hint: "EB",
       },
       {
-        title: "Thú cưng",
-        des: "Dưới 2",
+        title: language.SearchPet,
+        des: language.SearchLow2Pet,
         type: "TC",
         hint: "TC",
       },
     ]);
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     dispatch(setSearchValue({ ...searchValue, members: data }));

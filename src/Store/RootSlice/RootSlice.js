@@ -5,7 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   language: getLanguage(localStorageServ.languageTheme.get()),
   languageHint: localStorageServ.languageTheme.get() || "VN",
-  user: null,
+  user: localStorageServ.userInfo.get(),
+  mode: localStorageServ.modeTheme.get() || "LIGHT",
 };
 
 export const rootSlice = createSlice({
@@ -16,9 +17,18 @@ export const rootSlice = createSlice({
       localStorageServ.userInfo.set(action.payload);
       state.user = action.payload;
     },
+    setMode: (state, action) => {
+      localStorageServ.modeTheme.set(action.payload);
+      state.mode = action.payload;
+    },
+    setLanguageHint: (state, action) => {
+      state.language = getLanguage(action.payload);
+      localStorageServ.languageTheme.set(action.payload);
+      state.languageHint = action.payload;
+    },
   },
 });
 
-export const { setUser } = rootSlice.actions;
+export const { setUser, setMode, setLanguageHint } = rootSlice.actions;
 
 export default rootSlice.reducer;

@@ -2,10 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   searchActive: false,
+  showSearch: true,
   searchValue: {},
   searchParams: {},
   elementSearch: null,
   activeSearchForm: null,
+  showLanguageSetting: false,
+  showUserSetting: false,
 };
 
 export const headerSlice = createSlice({
@@ -14,6 +17,9 @@ export const headerSlice = createSlice({
   reducers: {
     setSearchActive: (state, action) => {
       state.searchActive = action.payload;
+    },
+    setShowSearch: (state, action) => {
+      state.showSearch = action.payload;
     },
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
@@ -27,15 +33,24 @@ export const headerSlice = createSlice({
     setSearchParams: (state, action) => {
       state.searchParams = action.payload;
     },
+    setShowLanguageSetting: (state, action) => {
+      state.showLanguageSetting = action.payload;
+    },
+    setShowUserSetting: (state, action) => {
+      state.showUserSetting = action.payload;
+    },
   },
 });
 
 export const {
   setSearchActive,
+  setShowSearch,
   setSearchValue,
   setElementSearch,
   setActiveSearchForm,
   setSearchParams,
+  setShowLanguageSetting,
+  setShowUserSetting,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;
