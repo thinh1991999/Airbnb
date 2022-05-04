@@ -1,0 +1,12 @@
+#RoomDetailInfo abbr:where([title]){
+    text-decoration: none;
+}
+
+#RoomDetailInfo .react-calendar{
+    border: unset;
+}
+
+.react-calendar__navigation button:enabled:hover{
+    background: unset;
+    opacity: 0.5;
+}

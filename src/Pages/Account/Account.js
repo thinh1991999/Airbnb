@@ -1,5 +1,5 @@
-import SignIn from "../../Components/Account/SignIn/SignIn";
-import SignUp from "../../Components/Account/SignUp/SignUp";
+import SignIn from "../../Components/PageAccount/SignIn/SignIn";
+import SignUp from "../../Components/PageAccount/SignUp/SignUp";
 import "./Account.css";
 
 function Account({ type }) {

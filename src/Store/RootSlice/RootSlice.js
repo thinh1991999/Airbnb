@@ -6,6 +6,7 @@ const initialState = {
   language: getLanguage(localStorageServ.languageTheme.get()),
   languageHint: localStorageServ.languageTheme.get() || "VN",
   user: localStorageServ.userInfo.get(),
+  token: localStorageServ.token.get(),
   mode: localStorageServ.modeTheme.get() || "LIGHT",
 };
 
@@ -16,6 +17,10 @@ export const rootSlice = createSlice({
     setUser: (state, action) => {
       localStorageServ.userInfo.set(action.payload);
       state.user = action.payload;
+    },
+    setToken: (state, action) => {
+      localStorageServ.token.set(action.payload);
+      state.token = action.payload;
     },
     setMode: (state, action) => {
       localStorageServ.modeTheme.set(action.payload);
@@ -29,6 +34,7 @@ export const rootSlice = createSlice({
   },
 });
 
-export const { setUser, setMode, setLanguageHint } = rootSlice.actions;
+export const { setUser, setMode, setLanguageHint, setToken } =
+  rootSlice.actions;
 
 export default rootSlice.reducer;

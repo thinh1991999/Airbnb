@@ -57,7 +57,7 @@ function SearchNav({ navData, currentNav }) {
         if (index === navData[currentNav]?.buttons.length - 1) {
           return (
             <>
-              <div className="flex items-center">
+              <div className="flex items-center" key={index}>
                 <span className="text-black/[0.2] text-2xl font-thin">|</span>
               </div>
               <div
@@ -102,7 +102,7 @@ function SearchNav({ navData, currentNav }) {
         }
         return (
           <>
-            <div className="flex items-center">
+            <div className="flex items-center" key={index}>
               <span className="text-black/[0.2] text-2xl font-thin">|</span>
             </div>
             <button

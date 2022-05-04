@@ -2,6 +2,7 @@ class LocalStorageKey {
   LANGUAGE_THEME = "LANGUAGE_THEME";
   MODE_THEME = "MODE_THEME";
   USER_INFO = "USER_INFO";
+  TOKEN = "TOKEN";
 }
 class BaseStorage {
   key;
@@ -35,6 +36,7 @@ class LocalStorageService extends LocalStorageKey {
   languageTheme = new BaseStorage(this.LANGUAGE_THEME);
   modeTheme = new BaseStorage(this.MODE_THEME);
   userInfo = new BaseStorage(this.USER_INFO);
+  token = new BaseStorage(this.TOKEN);
 }
 
 const localStorageServ = new LocalStorageService();

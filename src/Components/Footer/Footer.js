@@ -52,7 +52,7 @@ function Footer() {
   }, []);
 
   return (
-    <div className="w-full px-20 bg-gray-100">
+    <div className="w-full px-20 bg-gray-100 dark:bg-gray-800">
       <div className="w-full border-b-[1px] py-10 flex justify-between">
         <div className="lg:w-1/4 px-2">
           <h5 className="font-bold">{supports?.title}</h5>
