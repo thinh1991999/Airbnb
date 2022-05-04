@@ -3,7 +3,7 @@ import httpServ from "../../../ServiceWorkers/http.service";
 import Validator from "../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { setUser } from "../../../Store/RootSlice/RootSlice";
+import { setToken, setUser } from "../../../Store/RootSlice/RootSlice";
 import { useDispatch } from "react-redux";
 
 function SignIn() {
@@ -46,6 +46,7 @@ function SignIn() {
       httpServ
         .dangNhap(signInValue)
         .then((res) => {
+          dispatch(setToken(res.data.token));
           dispatch(setUser(res.data.user));
           setLoading(false);
           navigate("/");

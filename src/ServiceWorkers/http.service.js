@@ -14,7 +14,11 @@ class HttpRequestService {
   layDanhSachPhong = (params) => {
     const uri = "/api/rooms";
     AxiosServ.axiosConfig.params = params;
-    return AxiosServ.getMethod(uri, false);
+    return AxiosServ.getMethod(uri, true);
+  };
+  layThongTinChiTietUser = (id, loading = true) => {
+    const uri = "/api/users/" + id;
+    return AxiosServ.getMethod(uri, loading);
   };
 
   dangNhap = (data) => {
@@ -24,6 +28,15 @@ class HttpRequestService {
   dangKy = (data) => {
     const uri = "/api/auth/register";
     return AxiosServ.postMethod(uri, data);
+  };
+  capNhatAnhDaiDien = (data, token) => {
+    const uri = "/api/users/upload-avatar";
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, data);
+  };
+  layThongTinChiTietPhong = (id) => {
+    const uri = "/api/rooms/" + id;
+    return AxiosServ.getMethod(uri, true);
   };
 }
 

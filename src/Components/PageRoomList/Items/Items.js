@@ -76,7 +76,7 @@ function Items({ currentItems }) {
               key={_id}
             >
               <Link
-                to={"/"}
+                to={`/roomDetail/${_id}`}
                 className="flex w-full items-stretch cursor-pointer"
               >
                 <div className=" w-[250px] rounded-md  bg-gray-400">

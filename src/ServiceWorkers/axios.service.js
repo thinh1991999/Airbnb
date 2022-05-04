@@ -1,4 +1,9 @@
 import Axios from "axios";
+import { store } from "../Store/AppProvider";
+import {
+  setStartLoading,
+  setStopLoading,
+} from "../Store/LoadingSlice/LoadingSlice";
 
 class AxiosService {
   axios;
@@ -64,9 +69,11 @@ class AxiosService {
   }
 
   handleFlow(method, loading = true) {
+    loading && store.dispatch(setStartLoading());
     return new Promise((resolve, reject) => {
       method
         .then((res) => {
+          store.dispatch(setStopLoading());
           resolve({
             data: res.data,
             status: res.status,
@@ -74,6 +81,7 @@ class AxiosService {
           });
         })
         .catch((err) => {
+          store.dispatch(setStopLoading());
           this.handleError(err);
           reject({
             err: err,
@@ -90,8 +98,9 @@ class AxiosService {
       case 403:
       // window.location.assign("/login");
       //   break;
-      // default:
-      //   break;
+      default:
+        window.location.assign("/error");
+        break;
     }
   };
   //

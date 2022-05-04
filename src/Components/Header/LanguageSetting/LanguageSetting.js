@@ -35,7 +35,7 @@ function LanguageSetting() {
   useEffect(() => {
     wrapRef?.current?.addEventListener("click", eventClick);
     return () => {
-      wrapRef.current.removeEventListener("click", eventClick);
+      wrapRef?.current?.removeEventListener("click", eventClick);
     };
   }, []);
 
