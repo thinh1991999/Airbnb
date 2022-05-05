@@ -1,0 +1,19 @@
+#BookTicket abbr:where([title]){
+    text-decoration: none;
+}
+
+#BookTicket .react-calendar{
+    border: unset;
+}
+
+#BookTicket .react-calendar__navigation button:enabled:hover{
+    background: unset;
+    opacity: 0.5;
+}
+
+#BookTicket .react-calendar--doubleView{
+    width: 100%;
+}
+#BookTicket,#MemberBoxTicket{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

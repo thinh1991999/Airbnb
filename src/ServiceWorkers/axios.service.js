@@ -99,7 +99,7 @@ class AxiosService {
       // window.location.assign("/login");
       //   break;
       default:
-        window.location.assign("/error");
+        // window.location.assign("/error");
         break;
     }
   };

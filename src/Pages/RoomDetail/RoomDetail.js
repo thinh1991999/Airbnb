@@ -13,6 +13,7 @@ export default function RoomDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
+  const [rateData, setRateData] = useState(null);
   const [subImgs, setSubImgs] = useState([
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img1.webp?alt=media&token=b22c6a2f-f439-46ee-a361-1c13254698a1",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img2.webp?alt=media&token=150c93a8-ba6a-4a82-910f-ea5f194d7c1e",
@@ -28,14 +29,16 @@ export default function RoomDetail() {
     httpServ.layThongTinChiTietPhong(id).then((res) => {
       setDetailData(res.data);
     });
+    httpServ.layDanhGiaPhong(id).then((res) => {
+      setRateData(res.data);
+    });
   }, [id]);
 
   useEffect(() => {
     dispatch(setShowSearch(false));
   }, []);
 
-  const { name, guests, bedRoom, bath, description } = detailData;
-  console.log(detailData);
+  const { name, price } = detailData;
   return (
     <div className="pt-[96px] container mx-auto relative">
       {!showImages && (
@@ -85,13 +88,16 @@ export default function RoomDetail() {
               </button>
             </div>
           </div>
-          <div className="flex mt-10 items-stretch">
+          <div className="flex py-10 items-stretch">
             <div className="lg:w-4/6 lg:pr-20">
               <InfoShow detailData={detailData} />
             </div>
             <div className="lg:w-2/6">
-              <BookTicket />
+              <BookTicket price={price} />
             </div>
+          </div>
+          <div className="py-5 border-t-[1px] border-b-[1px] border-gray-500">
+            <h2 className="text-xl font-bold">0 đánh giá</h2>
           </div>
         </div>
       )}
