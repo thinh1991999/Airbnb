@@ -38,6 +38,15 @@ class HttpRequestService {
     const uri = "/api/rooms/" + id;
     return AxiosServ.getMethod(uri, true);
   };
+  layDanhGiaPhong = (id) => {
+    const uri = "/api/reviews/byRoom?roomId=" + id;
+    return AxiosServ.getMethod(uri, false);
+  };
+  datPhong = (data, token) => {
+    const uri = "/api/rooms/booking";
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, data, false);
+  };
 }
 
 const httpServ = new HttpRequestService();

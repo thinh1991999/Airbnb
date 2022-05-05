@@ -15,18 +15,18 @@ export default function InfoShow({ detailData }) {
 
   return (
     <div className="w-full" id="RoomDetailInfo">
-      <div className="py-5 border-b-[1px] border-gray-500">
+      <div className="py-5  border-gray-500">
         <h3 className="text-xl font-bold">{name}</h3>
         <p>
           {guests || 0} khách ,{bedRoom || 0} phòng ngủ, {bath || 0} phòng tắm
         </p>
       </div>
-      <div className="py-5 border-b-[1px] border-gray-500">
+      <div className="py-5 border-t-[1px] border-gray-500">
         <p>
           <span className="font-bold">Description:</span> {description}
         </p>
       </div>
-      <div className="py-5 border-b-[1px] border-gray-500">
+      <div className="py-5 border-t-[1px] border-gray-500">
         <h3 className="text-xl font-bold">Nơi này có gì cho bạn</h3>
         <div className="flex flex-wrap">
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
@@ -56,7 +56,7 @@ export default function InfoShow({ detailData }) {
           Hiển thị tất cả 22 tiện ích
         </button>
       </div>
-      <div className="py-5 border-b-[1px] border-gray-500">
+      <div className="py-5 border-t-[1px] border-gray-500">
         <h3 className="text-xl font-bold">Chọn ngày nhận phòng</h3>
         <span className="font-light">Thêm ngày đi để biết giá chính xác</span>
         <Calendar

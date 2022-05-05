@@ -4,6 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setHoverActive } from "../../../Store/RoomListSlice/RoomListSlice";
 import { Link } from "react-router-dom";
+import { getVNDMoney } from "../../../Untils";
 
 function Items({ currentItems }) {
   const dispatch = useDispatch();
@@ -59,12 +60,7 @@ function Items({ currentItems }) {
             cableTV,
           } = item;
           console.log(item);
-          const newPrice = price
-            ? price?.toLocaleString("it-IT", {
-                style: "currency",
-                currency: "VND",
-              })
-            : 0;
+          const newPrice = getVNDMoney(price);
           return (
             <div
               ref={itemRef}
