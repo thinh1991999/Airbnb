@@ -23,6 +23,7 @@ function Header() {
   const language = useSelector((state) => state.root.language);
   const mode = useSelector((state) => state.root.mode);
   const searchActive = useSelector((state) => state.header.searchActive);
+  const scrollActive = useSelector((state) => state.header.scrollActive);
   const showSearch = useSelector((state) => state.header.showSearch);
   const showLanguageSetting = useSelector(
     (state) => state.header.showLanguageSetting
@@ -33,26 +34,34 @@ function Header() {
   const headerRef = useRef(null);
 
   const scrollEvent = (e) => {
-    const currentScroll = e.target.scrollingElement.scrollTop;
-    if (currentScroll >= lastScroll) {
-      dispatch(setSearchActive(false));
-      setLastScroll(currentScroll);
-    } else {
-      dispatch(setSearchActive(true));
-      setLastScroll(currentScroll);
+    if (showSearch) {
+      const currentScroll = e.target.scrollingElement.scrollTop;
+      if (currentScroll >= lastScroll) {
+        dispatch(setSearchActive(false));
+        setLastScroll(currentScroll);
+      } else {
+        dispatch(setSearchActive(true));
+        setLastScroll(currentScroll);
+      }
     }
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", scrollEvent);
+    scrollActive && window.addEventListener("scroll", scrollEvent);
     return () => {
       window.removeEventListener("scroll", scrollEvent);
     };
-  }, [lastScroll]);
+  }, [lastScroll, scrollActive]);
 
   const clickEvent = (e) => {
-    if (!headerRef.current.contains(e.target) && window.pageYOffset !== 0) {
-      dispatch(setSearchActive(false));
+    if (scrollActive) {
+      if (!headerRef.current.contains(e.target) && window.pageYOffset !== 0) {
+        dispatch(setSearchActive(false));
+      }
+    } else {
+      if (!headerRef.current.contains(e.target)) {
+        dispatch(setSearchActive(false));
+      }
     }
   };
 
@@ -69,7 +78,7 @@ function Header() {
       ref={headerRef}
       id="header"
       className={`fixed ${
-        searchActive && showSearch ? " h-[300px]" : ""
+        searchActive && showSearch ? " h-[200px]" : "h-[92px]"
       }   top-0 left-0 right-0 z-10 bg-white text-black dark:bg-black dark:text-white`}
     >
       <div className="relative">

@@ -1,6 +1,5 @@
 import AxiosServ from "./axios.service";
 
-/* eslint-disable no-useless-constructor */
 class HttpRequestService {
   constructor() {}
 
@@ -42,10 +41,23 @@ class HttpRequestService {
     const uri = "/api/reviews/byRoom?roomId=" + id;
     return AxiosServ.getMethod(uri, false);
   };
+  layThongTinChiTietVe = (id) => {
+    const uri = "/api/tickets/" + id;
+    return AxiosServ.getMethod(uri, false);
+  };
   datPhong = (data, token) => {
     const uri = "/api/rooms/booking";
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.postMethod(uri, data, false);
+  };
+  taoDanhGia = (id, data, token) => {
+    const uri = "/api/reviews/byRoom?roomId=" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, data, false);
+  };
+  layDanhSachNguoiDung = () => {
+    const uri = "/api/users/pagination";
+    return AxiosServ.getMethod(uri, false);
   };
 }
 

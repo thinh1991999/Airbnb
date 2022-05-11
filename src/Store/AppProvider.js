@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import headerSlice from "./HeaderSlice/HeaderSlice";
 import loadingSlice from "./LoadingSlice/LoadingSlice";
+import loginSlice from "./LoginSlice/LoginSlice";
 import roomsSlice from "./RoomListSlice/RoomListSlice";
 import rootSlice from "./RootSlice/RootSlice";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     root: rootSlice,
     rooms: roomsSlice,
     loading: loadingSlice,
+    login: loginSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,11 +4,13 @@ import Validator from "../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../../../Store/RootSlice/RootSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useSelector((state) => state.login.location);
+
   const [errors, setErrors] = useState({});
   const [signInValue, setSignInValue] = useState({
     email: "",
@@ -49,7 +51,7 @@ function SignIn() {
           dispatch(setToken(res.data.token));
           dispatch(setUser(res.data.user));
           setLoading(false);
-          navigate("/");
+          navigate(location);
         })
         .catch((error) => {
           setLoading(false);

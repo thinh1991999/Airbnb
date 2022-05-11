@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { httpServ } from "../../ServiceWorkers";
 import { setShowSearch } from "../../Store/HeaderSlice/HeaderSlice";
@@ -8,9 +8,12 @@ import { BsColumnsGap } from "react-icons/bs";
 import ImagesShow from "../../Components/PageRoomDetail/ImagesShow/ImagesShow";
 import InfoShow from "../../Components/PageRoomDetail/InfoShow/InfoShow";
 import BookTicket from "../../Components/PageRoomDetail/BookTicket/BookTicket";
+import { AiFillStar } from "react-icons/ai";
 
 export default function RoomDetail() {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.root.token);
+
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
   const [rateData, setRateData] = useState(null);
@@ -24,6 +27,20 @@ export default function RoomDetail() {
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img6.webp?alt=media&token=c3afea08-c868-4d2c-be09-c4d1e13f4ab4",
   ]);
   const [showImages, setShowImages] = useState(false);
+
+  const createFeedback = () => {
+    httpServ
+      .taoDanhGia(
+        id,
+        {
+          content: "abc",
+        },
+        token
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   useEffect(() => {
     httpServ.layThongTinChiTietPhong(id).then((res) => {
@@ -93,11 +110,37 @@ export default function RoomDetail() {
               <InfoShow detailData={detailData} />
             </div>
             <div className="lg:w-2/6">
-              <BookTicket price={price} />
+              <BookTicket price={price} id={id} />
             </div>
           </div>
           <div className="py-5 border-t-[1px] border-b-[1px] border-gray-500">
             <h2 className="text-xl font-bold">0 đánh giá</h2>
+            <div className="flex items-center mb-2 text-2xl my-4">
+              <span>Rating</span>
+              <p className="h-full">
+                <button
+                  onClick={createFeedback}
+                  className="text-3xl text-yellow-300"
+                >
+                  <AiFillStar className="" />
+                </button>
+              </p>
+            </div>
+            <div className="w-full border-[1px] border-gray-500 px-10 py-5 rounded-full mt-5">
+              {/* <p className="">
+                Bạn cần đăng nhập để đánh giá{" "}
+                <button
+                  // onClick={handleForwardLogin}
+                  className="font-bold text-blue-300 hover:opacity-70"
+                >
+                  Đăng nhập
+                </button>
+              </p> */}
+
+              <div className="">
+                <input type="text" className="w-full" />
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -24,4 +24,10 @@ export const ELLanguage = {
   Search2To12: "Age 2 - 12",
   SearchLow2: "Under 2 years old",
   SearchLow2Pet: "Less than 2",
+  RoomListTitle: "accommodations in the area on the map",
+  RoomListInside: "among",
+  RoomListHouse: "accommodations",
+  RoomListShow: "Show list",
+  Rating: "rating",
+  Night: "night",
 };
