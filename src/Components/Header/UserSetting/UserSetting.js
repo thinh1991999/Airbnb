@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { unknowImg } from "../../../Shared/Constant";
 import { setShowUserSetting } from "../../../Store/HeaderSlice/HeaderSlice";
-import { setUser } from "../../../Store/RootSlice/RootSlice";
+import { setToken, setUser } from "../../../Store/RootSlice/RootSlice";
 
 export default function UserSetting() {
   const dispatch = useDispatch();
@@ -12,6 +12,7 @@ export default function UserSetting() {
 
   const handleLogOut = () => {
     dispatch(setUser(null));
+    dispatch(setToken(null));
   };
 
   const eventClick = (e) => {

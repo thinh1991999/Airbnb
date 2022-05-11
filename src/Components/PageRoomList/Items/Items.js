@@ -8,6 +8,8 @@ import { getVNDMoney } from "../../../Untils";
 
 function Items({ currentItems }) {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.root.language);
+
   const [mounted, setMounted] = useState(false);
 
   const itemRef = useRef(null);
@@ -59,7 +61,6 @@ function Items({ currentItems }) {
             dryer,
             cableTV,
           } = item;
-          console.log(item);
           const newPrice = getVNDMoney(price);
           return (
             <div
@@ -86,7 +87,7 @@ function Items({ currentItems }) {
                 </div>
                 <div className="ml-4 flex flex-1 flex-col justify-between">
                   <div className="">
-                    <h5 className="text-base font-thin mb-2 capitalize">
+                    <h5 className="text-xl font-bold mb-2 capitalize">
                       {name}
                     </h5>
                     <p className="one__line__text capitalize">{description}</p>
@@ -115,13 +116,13 @@ function Items({ currentItems }) {
                         <AiFillStar />
                       </span>{" "}
                       {item?.locationId?.valueate / 2 || 4}{" "}
-                      <span className="font-thin ">(169 đánh giá)</span>
+                      <span className="font-thin ">
+                        (169 {language.Rating})
+                      </span>
                     </div>
                     <p>
-                      <span className="font-medium text-lg text-black">
-                        {newPrice}
-                      </span>
-                      / đêm
+                      <span className="font-medium text-lg ">{newPrice}</span>/
+                      {language.Night}
                     </p>
                   </div>
                 </div>

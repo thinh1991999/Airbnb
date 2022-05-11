@@ -1,0 +1,17 @@
+#table__admin table{
+    border-spacing: 0;
+    border: 1px solid white;
+    width: 100%;
+}
+
+#table__admin th,
+#table__admin  td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid white;
+      border-right: 1px solid white;
+}
+
+#table__admin td{
+    text-align: center;
+}

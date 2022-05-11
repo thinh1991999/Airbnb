@@ -9,6 +9,7 @@ import {
   UserPage,
   RoomDetailPage,
   ErrorPage,
+  AdminPage,
 } from "./Pages";
 
 function App() {
@@ -64,6 +65,14 @@ function App() {
             element={
               <Layout>
                 <UserPage />
+              </Layout>
+            }
+          ></Route>
+          <Route
+            path="/admin"
+            element={
+              <Layout>
+                <AdminPage />
               </Layout>
             }
           ></Route>

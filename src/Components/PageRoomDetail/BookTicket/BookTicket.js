@@ -1,17 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { AiOutlineDown } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { httpServ, localStorageServ } from "../../../ServiceWorkers";
-import { getVNDMoney } from "../../../Untils";
+import { getInforSearchValue, getVNDMoney } from "../../../Untils";
 import Button from "../../Button/Button";
 import MemberBox from "../../Header/Search/MemberBox/MemberBox";
 import { TailSpin } from "react-loading-icons";
 import "./BookTicket.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { setLocation } from "../../../Store/LoginSlice/LoginSlice";
 
-export default function BookTicket({ price }) {
+export default function BookTicket({ price, id }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state.header.searchValue);
+
   const token = useSelector((state) => state.root.token);
-
+  const user = useSelector((state) => state.root.user);
   const [showDateBox, setShowDateBox] = useState(false);
   const [showMemberBox, setShowMemberBox] = useState(false);
   const [loadingBtn, setLoadingBtn] = useState(false);
@@ -26,16 +33,30 @@ export default function BookTicket({ price }) {
   const handleBookTicket = () => {
     if (!loadingBtn) {
       setLoadingBtn(true);
-      httpServ.datPhong({}, token).then((res) => {
-        setMess({
-          type: "SUCCESS",
-          mess: res.data.message,
+      httpServ
+        .datPhong(
+          {
+            roomId: id,
+            checkIn: "2021-05-11T17:00:00.000+00:00",
+            checkOut: "2021-05-15T17:00:00.000+00:00",
+          },
+          token
+        )
+        .then((res) => {
+          setMess({
+            type: "SUCCESS",
+            mess: res.data.message,
+          });
+          setLoadingBtn(false);
         });
-        setLoadingBtn(false);
-      });
     }
   };
-  console.log(mess);
+
+  const handleForwardLogin = () => {
+    dispatch(setLocation(location.pathname));
+    navigate("/account/signIn");
+  };
+
   const clickEvent = (e) => {
     setMess({
       type: "SUCCESS",
@@ -64,7 +85,6 @@ export default function BookTicket({ price }) {
       window.removeEventListener("click", clickEvent);
     };
   }, [showDateBox, showMemberBox]);
-
   return (
     <div className="h-full relative w-full mt-5 pb-5">
       <div className="sticky top-[200px] ">
@@ -82,12 +102,17 @@ export default function BookTicket({ price }) {
                 <span className="font-medium uppercase text-xs">
                   Nhận phòng
                 </span>
-                <p className="text-base font-thin">Thêm ngày</p>
+                <p className="text-base font-thin">
+                  {" "}
+                  {getInforSearchValue("inDate", searchValue) || "Thêm ngày"}
+                </p>
               </div>
               <div className="w-[1px] bg-gray-500"></div>
               <div className="flex-1 px-3 py-2 cursor-pointer">
                 <span className="font-medium uppercase text-xs">Trả phòng</span>
-                <p className="text-base font-thin">Thêm ngày</p>
+                <p className="text-base font-thin">
+                  {getInforSearchValue("outDate", searchValue) || "Thêm ngày"}
+                </p>
               </div>
               {showDateBox && (
                 <div
@@ -109,7 +134,8 @@ export default function BookTicket({ price }) {
                             Nhận phòng
                           </label>
                           <span className="text-gray-600 dark:text-gray-200">
-                            Thêm ngày
+                            {getInforSearchValue("inDate", searchValue) ||
+                              "Thêm ngày"}
                           </span>
                         </div>
                         <div className="w-[1px] bg-white"></div>
@@ -118,7 +144,8 @@ export default function BookTicket({ price }) {
                             Nhận phòng
                           </label>
                           <span className="text-gray-600 dark:text-gray-200">
-                            Thêm ngày
+                            {getInforSearchValue("outDate", searchValue) ||
+                              "Thêm ngày"}
                           </span>
                         </div>
                       </div>
@@ -136,15 +163,21 @@ export default function BookTicket({ price }) {
                 </div>
               )}
             </div>
-            <div
-              onClick={() => setShowMemberBox(!showMemberBox)}
-              className="relative px-3 py-2 items-center flex justify-between cursor-pointer border-t-[1px] border-gray-500"
-            >
-              <div className="">
-                <span className="font-medium uppercase text-xs">Khách</span>
-                <p className="text-base font-thin">Thêm ngày</p>
+            <div className="relative ">
+              <div className="px-3 py-2 items-center flex justify-between cursor-pointer border-t-[1px] border-gray-500">
+                <div
+                  className=""
+                  onClick={() => setShowMemberBox(!showMemberBox)}
+                >
+                  <span className="font-medium uppercase text-xs">Khách</span>
+                  <p className="text-base font-thin one__line__text">
+                    {getInforSearchValue("members", searchValue) ||
+                      "Thêm khách"}
+                  </p>
+                </div>
+                <AiOutlineDown />
               </div>
-              <AiOutlineDown />
+
               {showMemberBox && (
                 <div
                   ref={memberBoxRef}
@@ -165,18 +198,32 @@ export default function BookTicket({ price }) {
               {mess.mess}
             </p>
           )}
-          <button
-            onClick={handleBookTicket}
-            className={`mt-5 w-full ${loadingBtn ? "cursor-not-allowed" : ""}`}
-          >
-            <Button>
-              {loadingBtn ? (
-                <TailSpin width={"2em"} height={"2em"} />
-              ) : (
-                <span>Đặt phòng</span>
-              )}
-            </Button>
-          </button>
+          {user ? (
+            <button
+              onClick={handleBookTicket}
+              className={`mt-5 w-full ${
+                loadingBtn ? "cursor-not-allowed" : ""
+              }`}
+            >
+              <Button>
+                {loadingBtn ? (
+                  <TailSpin width={"2em"} height={"2em"} />
+                ) : (
+                  <span>Đặt phòng</span>
+                )}
+              </Button>
+            </button>
+          ) : (
+            <p className="mt-5">
+              Bạn cần đăng nhập để đặt phòng{" "}
+              <button
+                onClick={handleForwardLogin}
+                className="font-bold text-blue-300 hover:opacity-70"
+              >
+                Đăng nhập
+              </button>
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   searchActive: false,
+  scrollActive: true,
   showSearch: true,
   searchValue: {},
   searchParams: {},
@@ -17,6 +18,9 @@ export const headerSlice = createSlice({
   reducers: {
     setSearchActive: (state, action) => {
       state.searchActive = action.payload;
+    },
+    setScrollActive: (state, action) => {
+      state.scrollActive = action.payload;
     },
     setShowSearch: (state, action) => {
       state.showSearch = action.payload;
@@ -44,6 +48,7 @@ export const headerSlice = createSlice({
 
 export const {
   setSearchActive,
+  setScrollActive,
   setShowSearch,
   setSearchValue,
   setElementSearch,

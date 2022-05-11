@@ -6,6 +6,7 @@ import {
   setElementSearch,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
 import { useNavigate } from "react-router-dom";
+import { getInforSearchValue } from "../../../../Untils";
 
 function SearchNav({ navData, currentNav }) {
   const navigate = useNavigate();
@@ -36,23 +37,7 @@ function SearchNav({ navData, currentNav }) {
     <>
       {navData[currentNav]?.buttons?.map((item, index) => {
         const { name, value, element, hint } = item;
-        let newValue = value;
-        if (hint === "inDate" || hint === "outDate") {
-          newValue = searchValue[hint]
-            ? moment(searchValue[hint]).format("MM/DD/YYYY").toString()
-            : value;
-        } else if (hint === "members") {
-          const countNL = searchValue[hint]?.NL ? searchValue[hint]?.NL : 0;
-          const countTE = searchValue[hint]?.TE ? searchValue[hint]?.TE : 0;
-          const countEB = searchValue[hint]?.EB ? searchValue[hint]?.EB : 0;
-          const countTC = searchValue[hint]?.TC ? searchValue[hint]?.TC : 0;
-          newValue =
-            countNL || countTE || countEB || countTC
-              ? `${countNL + countTE > 0 ? `${countNL + countTE} khách` : ``}${
-                  countEB > 0 ? `,${countEB} em bé` : ""
-                }${countTC > 0 ? `,${countTC} thú cưng` : ""} `
-              : value;
-        }
+        let newValue = getInforSearchValue(hint, searchValue);
 
         if (index === navData[currentNav]?.buttons.length - 1) {
           return (
@@ -73,7 +58,7 @@ function SearchNav({ navData, currentNav }) {
                   className="flex flex-col items-start justify-center"
                 >
                   <span className="text-sm font-semibold">{name}</span>
-                  <span className="text-sm">{newValue}</span>
+                  <span className="text-sm one__line__text">{newValue}</span>
                 </div>
                 <div className="flex items-center ml-10">
                   <button

@@ -9,7 +9,6 @@ import {
 } from "../../../Store/HeaderSlice/HeaderSlice";
 import PlaceBox from "./PlaceBox/PlaceBox";
 import DateBox from "./DateBox/DateBox";
-import moment from "moment";
 import MemberBox from "./MemberBox/MemberBox";
 import SearchNav from "./SearchNav/SearchNav";
 
@@ -153,7 +152,9 @@ function Search() {
               <div className="flex min-w-[50%]">
                 <SearchNav navData={navData} currentNav={currentNav} />
               </div>
-              {elementSearch && <SearchBox>{elementSearch?.element}</SearchBox>}
+              {elementSearch && activeSearchForm !== null && (
+                <SearchBox>{elementSearch?.element}</SearchBox>
+              )}
             </form>
           </div>
         </div>

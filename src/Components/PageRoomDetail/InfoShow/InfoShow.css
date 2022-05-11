@@ -9,6 +9,7 @@
 #RoomDetailInfo .react-calendar__navigation button:enabled:hover{
     background: unset;
     opacity: 0.5;
+   
 }
 
 #RoomDetailInfo .react-calendar--doubleView{

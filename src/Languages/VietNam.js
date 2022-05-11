@@ -24,4 +24,10 @@ export const VNLanguage = {
   Search2To12: "Độ tuổi 2 - 12",
   SearchLow2: "Dưới 2 tuổi",
   SearchLow2Pet: "Dưới 2",
+  RoomListTitle: "chỗ ở tại khu vực trên bản đồ",
+  RoomListInside: "trong số",
+  RoomListHouse: "chỗ ở",
+  RoomListShow: "Hiển thị danh sách",
+  Rating: "đánh giá",
+  Night: "đêm",
 };
