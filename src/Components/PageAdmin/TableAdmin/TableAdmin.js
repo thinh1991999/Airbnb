@@ -1,70 +1,35 @@
 import { useMemo, useState } from "react";
-import { useTable } from "react-table";
+import { usePagination, useTable } from "react-table";
+import { IoCaretBackOutline, IoCaretForwardOutline } from "react-icons/io5";
+import { ImBackward2, ImForward3 } from "react-icons/im";
 import "./TableAdmin.css";
+import { getVNDMoney } from "../../../Untils";
 
 function TableAdmin({ data, currentColumns }) {
-  // const data = [
-  //   {
-  //     name: "Leanne Graham",
-  //     email: "Sincere@april.biz",
-  //     age: 28,
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "Ervin Howell",
-  //     email: "Shanna@melissa.tv",
-  //     age: 35,
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "Clementine Bauch",
-  //     email: "Nathan@yesenia.net",
-  //     age: 33,
-  //     status: "Inactive",
-  //   },
-  //   {
-  //     name: "Patricia Lebsack",
-  //     email: "Julianne@kory.org",
-  //     age: 25,
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "Kamren",
-  //     email: "Hettinger@annie.ca",
-  //     age: 42,
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "Dennis Schulist",
-  //     email: "Dach@jasper.info",
-  //     age: 34,
-  //     status: "Inactive",
-  //   },
-  //   {
-  //     name: "Kurtis Weissnat",
-  //     email: "Hoeger@billy.biz",
-  //     age: 44,
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "Maxime_Nienow",
-  //     email: "Sherwood@rosamond.me",
-  //     age: 26,
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "Glenna Reichert",
-  //     email: "McDermott@dana.io",
-  //     age: 30,
-  //     status: "Inactive",
-  //   },
-  // ];
-  const columns = useMemo(() => currentColumns, []);
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
+  const columns = useMemo(() => currentColumns, [currentColumns]);
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    state: { pageIndex },
+  } = useTable(
+    {
       columns,
       data,
-    });
+      initialState: { pageIndex: 0 },
+    },
+    usePagination
+  );
+
   return (
     <div className="mt-10" id="table__admin">
       <table {...getTableProps()}>
@@ -78,12 +43,19 @@ function TableAdmin({ data, currentColumns }) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  let valueCell = cell.value || "null";
+                  let valueCell = cell.value;
+                  if (!valueCell && cell.column.Header !== "Actions") {
+                    return (
+                      <td {...cell.getCellProps()}>
+                        <p>null</p>
+                      </td>
+                    );
+                  }
                   if (cell.column.Header === "Gender") {
                     if (cell.value) {
                       valueCell = "male";
@@ -96,13 +68,83 @@ function TableAdmin({ data, currentColumns }) {
                       ? cell?.value.substring(0, 10)
                       : "null";
                   }
-                  return <td {...cell.getCellProps()}>{valueCell}</td>;
+                  if (cell.column.Header === "Price") {
+                    valueCell = getVNDMoney(valueCell);
+                  }
+                  if (
+                    cell.column.Header === "Avatar" ||
+                    cell.column.Header === "Image"
+                  ) {
+                    return (
+                      <td {...cell.getCellProps()}>
+                        <div
+                          className={`${
+                            cell.column.Header === "Image"
+                              ? "w-[100px]"
+                              : " w-[50px]"
+                          } rounded-md overflow-hidden avatar__td`}
+                        >
+                          <img src={valueCell} className="w-full" alt="" />
+                        </div>
+                      </td>
+                    );
+                  }
+                  if (cell.column.Header === "Actions") {
+                    return (
+                      <td {...cell.getCellProps()}>
+                        <div className="text-white">
+                          <button className="mx-2 px-2 py-1 bg-green-500 rounded-md">
+                            Xem chi tiet
+                          </button>
+                          <button className="mx-2 px-2 py-1 bg-blue-500 rounded-md">
+                            Sua
+                          </button>
+                          <button className="mx-2 px-2 py-1 bg-red-500 rounded-md">
+                            Xoa
+                          </button>
+                        </div>
+                      </td>
+                    );
+                  }
+                  return (
+                    <td {...cell.getCellProps()}>
+                      <p>
+                        {valueCell.length > 200
+                          ? `${valueCell.substring(0, 200)}...`
+                          : valueCell}
+                      </p>
+                    </td>
+                  );
                 })}
               </tr>
             );
           })}
         </tbody>
       </table>
+      <div className="pagination">
+        <div className="btnWrap flex justify-center items-center py-5 ">
+          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            <ImBackward2 />
+          </button>
+          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            <IoCaretBackOutline />
+          </button>
+          <div className="flex items-center">
+            <p>
+              {pageIndex + 1} of {pageOptions.length}
+            </p>
+          </div>
+          <button onClick={() => nextPage()} disabled={!canNextPage}>
+            <IoCaretForwardOutline />
+          </button>
+          <button
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            <ImForward3 />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
