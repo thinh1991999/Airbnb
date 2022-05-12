@@ -1,17 +1,48 @@
 #table__admin table{
     border-spacing: 0;
-    border: 1px solid white;
+    border: 1px solid black;
     width: 100%;
 }
 
 #table__admin th,
 #table__admin  td {
+    
       margin: 0;
       padding: 0.5rem;
-      border-bottom: 1px solid white;
-      border-right: 1px solid white;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+}
+
+#table__admin  .avatar__td {
+    display: inline-block;
+    
+}
+
+.dark #table__admin table{
+    border-color: white;
+}
+
+.dark #table__admin th,
+.dark #table__admin  td {
+     border-color: white;
 }
 
 #table__admin td{
     text-align: center;
+}
+
+/* #table__admin .pagination .btnWrap{
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+#table__admin .pagination .btnWrap button{
+    font-size: 24px;
+    margin: 0 2px;
+}
+
+#table__admin .pagination .btnWrap button:disabled{
+    display: none;
 }
