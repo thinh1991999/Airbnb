@@ -1,22 +1,23 @@
-import { useState } from "react";
-import httpServ from "../../../ServiceWorkers/http.service";
-import Validator from "../../../Shared/Validator";
+import { useEffect, useState } from "react";
+import httpServ from "../../../../ServiceWorkers/http.service";
+import Validator from "../../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
-import { Link } from "react-router-dom";
 import "react-calendar/dist/Calendar.css";
+import BtnClose from "../BtnClose/BtnClose";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setReloadData,
+  setUserAddValue,
+} from "../../../../Store/AdminSlice/AdminSlice";
 
-function SignUp() {
+function UserAdd() {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.root.token);
+  const userAddValue = useSelector((state) => state.admin.userAddValue);
+
   const [errors, setErrors] = useState({});
-  const [signUpValue, setSignUpValue] = useState({
-    email: "",
-    password: "",
-    cfPassword: "",
-    name: "",
-    phone: "",
-    birthday: "",
-    gender: true,
-    address: "",
-  });
+  const [signUpValue, setSignUpValue] = useState({ ...userAddValue });
+
   const [rules, setRules] = useState([
     {
       field: "birthday",
@@ -84,9 +85,21 @@ function SignUp() {
     e.preventDefault();
     setErrors(validator.validate(signUpValue));
     if (validator.isValid && !loading && handleBlurCfPassword()) {
+      const { email, password, name, phone, birthday, gender, address, type } =
+        signUpValue;
+      const currentValue = {
+        email,
+        password,
+        name,
+        phone,
+        birthday,
+        gender,
+        address,
+        type,
+      };
       setLoading(true);
       httpServ
-        .dangKy(signUpValue)
+        .taoQuanTriVien(currentValue, token)
         .then((res) => {
           setSignUpValue({
             email: "",
@@ -100,9 +113,10 @@ function SignUp() {
           });
           setMessSignUp({
             type: "Success",
-            msg: "Đăng ký thành công",
+            msg: "Thêm quản trị viên thành công",
           });
           setLoading(false);
+          dispatch(setReloadData(true));
         })
         .catch((errors) => {
           setLoading(false);
@@ -113,7 +127,6 @@ function SignUp() {
         });
     }
   };
-
   const handleBlurCfPassword = () => {
     if (signUpValue.cfPassword !== signUpValue.password) {
       setErrors({
@@ -143,9 +156,18 @@ function SignUp() {
     });
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(setUserAddValue({ ...signUpValue }));
+    };
+  }, [signUpValue]);
+
   return (
-    <div className="bg-black px-10 py-5 rounded-md text-white lg:w-[800px]">
-      <h2 className="capitalize text-3xl font-semibold mb-5">Sign Up</h2>
+    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md text-white lg:w-[800px]">
+      <BtnClose />
+      <h2 className="capitalize text-3xl font-semibold mb-5">
+        Thêm quản trị viên
+      </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="lg:w-1/2 lg:pr-1">
           <label htmlFor="email">Email</label>
@@ -316,19 +338,13 @@ function SignUp() {
                 strokeWidth={3}
               />
             ) : (
-              <span>sign up</span>
+              <span>Thêm</span>
             )}
           </button>
-          <p className="mt-4 text-gray-200">
-            Bạn đã có tài khoản{" "}
-            <Link to={"/account/signIn"} className="font-semibold text-red-600">
-              Sign In Now
-            </Link>
-          </p>
         </div>
       </form>
     </div>
   );
 }
 
-export default SignUp;
+export default UserAdd;

@@ -1,22 +1,35 @@
-import { useState } from "react";
-import httpServ from "../../../ServiceWorkers/http.service";
-import Validator from "../../../Shared/Validator";
+import React, { useEffect, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Circles } from "react-loading-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { httpServ } from "../../../../ServiceWorkers";
+import { unknowImg } from "../../../../Shared/Constant";
+import {
+  setReloadData,
+  setShowOptionBox,
+} from "../../../../Store/AdminSlice/AdminSlice";
+import Validator from "../../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
-import { Link } from "react-router-dom";
-import "react-calendar/dist/Calendar.css";
+import { toast } from "react-toastify";
+import BtnClose from "../BtnClose/BtnClose";
 
-function SignUp() {
+export default function UserRepair() {
+  const dispatch = useDispatch();
+  const idOption = useSelector((state) => state.admin.idOption);
+  const token = useSelector((state) => state.root.token);
+
+  const [loading, setLoading] = useState(true);
+  const [btnLoading, setBtnLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const [signUpValue, setSignUpValue] = useState({
+  const [userData, setUserData] = useState({
     email: "",
-    password: "",
-    cfPassword: "",
     name: "",
     phone: "",
     birthday: "",
     gender: true,
     address: "",
   });
+  const [activeEmail, setActiveEmail] = useState(true);
   const [rules, setRules] = useState([
     {
       field: "birthday",
@@ -61,103 +74,80 @@ function SignUp() {
       validWhen: true,
       message: "The field is phone number.",
     },
-    {
-      field: "password",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The password field is required.",
-    },
-    {
-      field: "cfPassword",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The comfirm password field is required.",
-    },
   ]);
   const [validator, setValidator] = useState(new Validator(rules));
   const [messSignUp, setMessSignUp] = useState({
     type: "Success",
     msg: "",
   });
-  const [loading, setLoading] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors(validator.validate(signUpValue));
-    if (validator.isValid && !loading && handleBlurCfPassword()) {
-      setLoading(true);
-      httpServ
-        .dangKy(signUpValue)
-        .then((res) => {
-          setSignUpValue({
-            email: "",
-            password: "",
-            cfPassword: "",
-            name: "",
-            phone: "",
-            birthday: "",
-            gender: true,
-            address: "",
-          });
-          setMessSignUp({
-            type: "Success",
-            msg: "Đăng ký thành công",
-          });
-          setLoading(false);
-        })
-        .catch((errors) => {
-          setLoading(false);
-          setMessSignUp({
-            type: "Fail",
-            msg: "Có lỗi xảy ra,vui lòng thử lại",
-          });
-        });
-    }
-  };
-
-  const handleBlurCfPassword = () => {
-    if (signUpValue.cfPassword !== signUpValue.password) {
-      setErrors({
-        ...errors,
-        cfPassword: "Comfirm password isn't corrected!",
+    setErrors(validator.validate(userData));
+    if (validator.isValid && !btnLoading) {
+      setBtnLoading(true);
+      httpServ.capNhatNguoiDung(userData, idOption, token).then((res) => {
+        dispatch(setShowOptionBox(false));
+        dispatch(setReloadData(true));
+        toast.success("Chinh sua ho so thanh cong");
+        setBtnLoading(false);
       });
-      return false;
-    } else {
-      return true;
     }
   };
-
-  const handleFocus = (e) => {
-    setErrors({
-      ...errors,
-      [e.target.name]: "",
-    });
-    setMessSignUp({
-      type: "Success",
-      msg: "",
-    });
-  };
+  const handleFocus = (e) => {};
   const handleChange = (e) => {
-    setSignUpValue({
-      ...signUpValue,
+    setUserData({
+      ...userData,
       [e.target.name]: e.target.value,
     });
   };
 
+  useEffect(() => {
+    setLoading(true);
+    httpServ.layThongTinChiTietUser(idOption, false).then((res) => {
+      res.data.email && setActiveEmail(false);
+      setUserData(res.data);
+      setLoading(false);
+    });
+  }, [idOption]);
+
+  if (loading) {
+    return (
+      <div className="w-[300px] h-[200px] py-5 px-7 rounded-xl flex justify-center items-center dark:bg-gray-900 bg-gray-100">
+        <Circles fill="white" />
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-black px-10 py-5 rounded-md text-white lg:w-[800px]">
-      <h2 className="capitalize text-3xl font-semibold mb-5">Sign Up</h2>
+    <div className=" min-w-[320px] max-w-[600px]  py-5 px-10 rounded-xl dark:bg-gray-900 bg-gray-100">
+      <BtnClose />
+      <h2 className="capitalize text-3xl font-semibold mb-5">
+        Sửa thông tin người dùng
+      </h2>
+      <div className="flex justify-center mb-5">
+        <LazyLoadImage
+          src={userData?.avatar || unknowImg}
+          alt=""
+          width={`${userData?.avatar ? "w-[200px]" : "w-[100px] h-[100px]"}`}
+          className={`${
+            userData?.avatar ? "w-[200px]" : "w-[100px] h-[100px] bg-gray-300"
+          } rounded-md`}
+          effect="opacity"
+        />
+      </div>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="lg:w-1/2 lg:pr-1">
           <label htmlFor="email">Email</label>
           <input
+            disabled={!activeEmail}
             id="email"
             type="text"
             placeholder="Email"
             name="email"
-            value={signUpValue.email}
+            value={userData.email}
             onFocus={handleFocus}
             onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
+            className={`my-2 w-full bg-gray-700 disabled:opacity-50 px-3 py-2 border-2  outline-none rounded-md ${
               errors.email ? `border-red-600` : `border-gray-400`
             }`}
           />
@@ -170,7 +160,7 @@ function SignUp() {
             type="text"
             placeholder="Ho Ten"
             name="name"
-            value={signUpValue.name}
+            value={userData.name}
             onFocus={handleFocus}
             onChange={handleChange}
             className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
@@ -180,47 +170,13 @@ function SignUp() {
           {errors.name && <p className="text-red-600">{errors.name}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={signUpValue.password}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md 
-          ${errors.password ? `border-red-600` : `border-gray-400`}
-          `}
-          />
-          {errors.password && <p className="text-red-600">{errors.password}</p>}
-        </div>
-        <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="cfPw">Comfirm Password</label>
-          <input
-            id="cfPw"
-            type="password"
-            placeholder="Comfirm Password"
-            name="cfPassword"
-            value={signUpValue.cfPassword}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md 
-          ${errors.cfPassword ? `border-red-600` : `border-gray-400`}
-          `}
-          />
-          {errors.cfPassword && (
-            <p className="text-red-600">{errors.cfPassword}</p>
-          )}
-        </div>
-        <div className="lg:w-1/2 lg:pr-1">
           <label htmlFor="phone">Phone Number</label>
           <input
             id="phone"
             type="text"
             placeholder="Phone"
             name="phone"
-            value={signUpValue.phone}
+            value={userData.phone}
             onFocus={handleFocus}
             onChange={handleChange}
             className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
@@ -230,13 +186,13 @@ function SignUp() {
           {errors.phone && <p className="text-red-600">{errors.phone}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="address">Your Address</label>
+          <label htmlFor="address">Address</label>
           <input
             id="address"
             type="text"
             placeholder="Address"
             name="address"
-            value={signUpValue.address}
+            value={userData.address}
             onFocus={handleFocus}
             onChange={handleChange}
             className={`my-2 w-full flex-1 bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
@@ -250,9 +206,8 @@ function SignUp() {
           <input
             id="date"
             type="date"
-            placeholder="Birth Day"
             name="birthday"
-            value={signUpValue.birthday}
+            value={userData.birthday?.substring(0, 10)}
             onFocus={handleFocus}
             onChange={handleChange}
             className={`my-2 w-full flex-1 bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
@@ -271,8 +226,8 @@ function SignUp() {
               name="gender"
               id="male"
               className="cursor-pointer"
-              checked={signUpValue.gender}
-              onChange={() => setSignUpValue({ ...signUpValue, gender: true })}
+              checked={userData.gender}
+              onChange={() => setUserData({ ...userData, gender: true })}
             />
             <label htmlFor="male" className="ml-1 cursor-pointer">
               Male
@@ -282,8 +237,8 @@ function SignUp() {
               className="ml-4 cursor-pointer"
               name="gender"
               id="Female"
-              checked={!signUpValue.gender}
-              onChange={() => setSignUpValue({ ...signUpValue, gender: false })}
+              checked={!userData.gender}
+              onChange={() => setUserData({ ...userData, gender: false })}
             />
             <label htmlFor="Female" className="ml-1 cursor-pointer">
               Female
@@ -308,7 +263,7 @@ function SignUp() {
               loading && "cursor-not-allowed"
             } w-full capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
           >
-            {loading ? (
+            {btnLoading ? (
               <TailSpin
                 height={"30px"}
                 width={"30px"}
@@ -316,19 +271,11 @@ function SignUp() {
                 strokeWidth={3}
               />
             ) : (
-              <span>sign up</span>
+              <span>save</span>
             )}
           </button>
-          <p className="mt-4 text-gray-200">
-            Bạn đã có tài khoản{" "}
-            <Link to={"/account/signIn"} className="font-semibold text-red-600">
-              Sign In Now
-            </Link>
-          </p>
         </div>
       </form>
     </div>
   );
 }
-
-export default SignUp;

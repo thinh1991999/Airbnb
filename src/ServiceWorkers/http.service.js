@@ -24,11 +24,11 @@ class HttpRequestService {
 
   dangNhap = (data) => {
     const uri = "/api/auth/login";
-    return AxiosServ.postMethod(uri, data);
+    return AxiosServ.postMethod(uri, data, false);
   };
   dangKy = (data) => {
     const uri = "/api/auth/register";
-    return AxiosServ.postMethod(uri, data);
+    return AxiosServ.postMethod(uri, data, false);
   };
   capNhatAnhDaiDien = (data, token) => {
     const uri = "/api/users/upload-avatar";
@@ -65,9 +65,38 @@ class HttpRequestService {
     const uri = "/api/locations";
     return AxiosServ.getMethod(uri, false);
   };
+  layChiTietViTri = (id) => {
+    const uri = "/api/locations/" + id;
+    return AxiosServ.getMethod(uri, false);
+  };
+  taoViTri = (data, token) => {
+    const uri = "/api/locations";
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, data, false);
+  };
+  capNhatViTri = (data, id, token) => {
+    const uri = "/api/locations/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.putMethod(uri, data, false);
+  };
   layDanhSachPhongAll = () => {
     const uri = "/api/rooms";
     return AxiosServ.getMethod(uri, false);
+  };
+  xoaNguoiDung = (id, token) => {
+    const uri = "/api/users/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.deleteMothod(uri, false);
+  };
+  capNhatNguoiDung = (data, id, token) => {
+    const uri = "/api/users/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.putMethod(uri, data, false);
+  };
+  taoQuanTriVien = (data, token) => {
+    const uri = "/api/users";
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, data, false);
   };
 }
 
