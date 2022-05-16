@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import adminSlice from "./AdminSlice/AdminSlice";
 import headerSlice from "./HeaderSlice/HeaderSlice";
 import loadingSlice from "./LoadingSlice/LoadingSlice";
 import loginSlice from "./LoginSlice/LoginSlice";
@@ -13,6 +14,7 @@ export const store = configureStore({
     rooms: roomsSlice,
     loading: loadingSlice,
     login: loginSlice,
+    admin: adminSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

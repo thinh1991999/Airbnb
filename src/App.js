@@ -11,6 +11,8 @@ import {
   ErrorPage,
   AdminPage,
 } from "./Pages";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const mode = useSelector((state) => state.root.mode);
@@ -79,6 +81,7 @@ function App() {
           <Route path="/error" element={<ErrorPage />}></Route>
         </Routes>
       </div>
+      <ToastContainer />
     </div>
   );
 }

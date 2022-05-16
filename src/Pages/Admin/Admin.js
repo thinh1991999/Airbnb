@@ -4,10 +4,23 @@ import { setShowSearch } from "../../Store/HeaderSlice/HeaderSlice";
 import { httpServ } from "../../ServiceWorkers";
 import TableAdmin from "../../Components/PageAdmin/TableAdmin/TableAdmin";
 import { Circles } from "react-loading-icons";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { MdOutlineAddLocationAlt, MdAddBusiness } from "react-icons/md";
+import { setData, setLoading } from "../../Store/AdminSlice/AdminSlice";
+import OptionBox from "../../Components/PageAdmin/OptionBox/OptionBox";
+import UserAdd from "../../Components/PageAdmin/OptionBox/UserAdd/UserAdd";
+import PositionAdd from "../../Components/PageAdmin/OptionBox/PositionAdd/PositionAdd";
+import UserDetail from "../../Components/PageAdmin/OptionBox/UserDetail/UserDetail";
+import UserRepair from "../../Components/PageAdmin/OptionBox/UserRepair/UserRepair";
+import PositionDetail from "../../Components/PageAdmin/OptionBox/PositionDetail/PositionDetail";
+import PositionRepair from "../../Components/PageAdmin/OptionBox/PositionRepair/PositionRepair";
+import RoomAdd from "../../Components/PageAdmin/OptionBox/RoomAdd/RoomAdd";
 
 export default function Admin() {
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.root.mode);
+  const showOptionBox = useSelector((state) => state.admin.showOptionBox);
+  const loading = useSelector((state) => state.admin.loading);
 
   const [navData, setNavData] = useState([
     {
@@ -45,7 +58,13 @@ export default function Admin() {
           Header: "Actions",
         },
       ],
-      getDataFunc: httpServ.layDanhSachNguoiDung,
+      getDataFunc: "layDanhSachNguoiDung",
+      delete: "xoaNguoiDung",
+      btnAddMess: "Thêm quản trị viên",
+      btnAddIcon: <AiOutlineUserAdd className="text-2xl" />,
+      detailComponent: <UserDetail />,
+      repairComponent: <UserRepair />,
+      addComponent: <UserAdd />,
     },
     {
       name: "Quản lý vị trí",
@@ -74,7 +93,13 @@ export default function Admin() {
           Header: "Actions",
         },
       ],
-      getDataFunc: httpServ.layDanhSachViTri,
+      getDataFunc: "layDanhSachViTri",
+      delete: "xoaNguoiDung",
+      btnAddMess: "Thêm vị trí",
+      btnAddIcon: <MdOutlineAddLocationAlt className="text-2xl" />,
+      detailComponent: <PositionDetail />,
+      repairComponent: <PositionRepair />,
+      addComponent: <PositionAdd />,
     },
     {
       name: "Quản lý thông tin phòng",
@@ -99,20 +124,25 @@ export default function Admin() {
           Header: "Actions",
         },
       ],
-      getDataFunc: httpServ.layDanhSachPhongAll,
+      getDataFunc: "layDanhSachPhongAll",
+      delete: "xoaNguoiDung",
+      btnAddMess: "Thêm phòng",
+      btnAddIcon: <MdAddBusiness className="text-2xl" />,
+      detailComponent: <PositionDetail />,
+      repairComponent: <PositionRepair />,
+      addComponent: <RoomAdd />,
     },
   ]);
   const [currentNav, setCurrentNav] = useState(0);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    navData[currentNav].getDataFunc(null, false).then((res) => {
-      setData(res.data);
-      setLoading(false);
+    dispatch(setLoading(true));
+    httpServ[navData[currentNav].getDataFunc](null, false).then((res) => {
+      dispatch(setData(res.data));
+      dispatch(setLoading(false));
     });
   }, [currentNav]);
+
   useEffect(() => {
     dispatch(setShowSearch(false));
   }, []);
@@ -146,11 +176,9 @@ export default function Admin() {
           />
         </div>
       ) : (
-        <TableAdmin
-          data={data}
-          currentColumns={navData[currentNav].tableColumns}
-        />
+        <TableAdmin currentNavData={navData[currentNav]} />
       )}
+      {showOptionBox && <OptionBox />}
     </div>
   );
 }
