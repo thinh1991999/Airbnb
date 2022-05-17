@@ -11,72 +11,19 @@ import {
 } from "../../../../Store/AdminSlice/AdminSlice";
 import CheckBoxItem from "../CheckBoxItem/CheckBoxItem";
 import InputTextForm from "../../../InputTextForm/InputTextForm";
+import PosList from "./PosList/PosList";
+import Rules from "./Rules";
 
 function RoomAdd() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
-  const userAddValue = useSelector((state) => state.admin.userAddValue);
+  const roomAddValue = useSelector((state) => state.admin.roomAddValue);
 
   const [errors, setErrors] = useState({});
-  const [signUpValue, setSignUpValue] = useState({ ...userAddValue });
+  const [roomValue, setRoomValue] = useState({ ...roomAddValue });
+  const [posData, setPosData] = useState([]);
 
-  const [rules, setRules] = useState([
-    {
-      field: "birthday",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The birthday field is required.",
-    },
-    {
-      field: "address",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The address field is required.",
-    },
-    {
-      field: "name",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The name field is required.",
-    },
-    {
-      field: "email",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The email field is required.",
-    },
-    {
-      field: "email",
-      method: "isEmail",
-      validWhen: true,
-      message: "This field is email.",
-    },
-    {
-      field: "phone",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The phone field is required.",
-    },
-    {
-      field: "phone",
-      method: "isMobilePhone",
-      args: [""],
-      validWhen: true,
-      message: "The field is phone number.",
-    },
-    {
-      field: "password",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The password field is required.",
-    },
-    {
-      field: "cfPassword",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The comfirm password field is required.",
-    },
-  ]);
+  const [rules, setRules] = useState(Rules());
   const [validator, setValidator] = useState(new Validator(rules));
   const [messSignUp, setMessSignUp] = useState({
     type: "Success",
@@ -85,60 +32,7 @@ function RoomAdd() {
   const [loading, setLoading] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors(validator.validate(signUpValue));
-    if (validator.isValid && !loading && handleBlurCfPassword()) {
-      const { email, password, name, phone, birthday, gender, address, type } =
-        signUpValue;
-      const currentValue = {
-        email,
-        password,
-        name,
-        phone,
-        birthday,
-        gender,
-        address,
-        type,
-      };
-      setLoading(true);
-      httpServ
-        .taoQuanTriVien(currentValue, token)
-        .then((res) => {
-          setSignUpValue({
-            email: "",
-            password: "",
-            cfPassword: "",
-            name: "",
-            phone: "",
-            birthday: "",
-            gender: true,
-            address: "",
-          });
-          setMessSignUp({
-            type: "Success",
-            msg: "Thêm quản trị viên thành công",
-          });
-          setLoading(false);
-          dispatch(setReloadData(true));
-        })
-        .catch((errors) => {
-          setLoading(false);
-          setMessSignUp({
-            type: "Fail",
-            msg: "Có lỗi xảy ra,vui lòng thử lại",
-          });
-        });
-    }
-  };
-  const handleBlurCfPassword = () => {
-    if (signUpValue.cfPassword !== signUpValue.password) {
-      setErrors({
-        ...errors,
-        cfPassword: "Comfirm password isn't corrected!",
-      });
-      return false;
-    } else {
-      return true;
-    }
+    setErrors(validator.validate(roomValue));
   };
 
   const handleFocus = (e) => {
@@ -152,41 +46,53 @@ function RoomAdd() {
     });
   };
   const handleChange = (e) => {
-    setSignUpValue({
-      ...signUpValue,
+    setRoomValue({
+      ...roomValue,
       [e.target.name]: e.target.value,
+    });
+  };
+  const handleChangePos = (id) => {
+    setRoomValue({
+      ...roomValue,
+      locationId: id,
     });
   };
 
   useEffect(() => {
     return () => {
-      dispatch(setUserAddValue({ ...signUpValue }));
+      dispatch(setUserAddValue({ ...roomValue }));
     };
-  }, [signUpValue]);
+  }, [roomValue]);
 
+  useEffect(() => {
+    httpServ.layDanhSachViTri().then((res) => {
+      setPosData(res.data);
+    });
+  }, []);
+  console.log(roomValue);
   return (
     <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md text-white lg:w-[800px]">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">Thêm phòng</h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="lg:w-1/2 lg:pr-1">
+        {/* <div className="lg:w-1/2 lg:pr-1">
           <InputTextForm
             name={"name"}
             hint={"Name"}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
-            values={signUpValue}
+            values={roomValue}
           />
         </div>
         <div className="lg:w-1/2 lg:pl-1">
           <InputTextForm
-            name={"Price"}
+            name={"price"}
             hint={"Price (VND)"}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
-            values={signUpValue}
+            values={roomValue}
           />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
@@ -196,7 +102,7 @@ function RoomAdd() {
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
-            values={signUpValue}
+            values={roomValue}
           />
         </div>
         <div className="lg:w-1/2 lg:pl-1">
@@ -206,7 +112,7 @@ function RoomAdd() {
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
-            values={signUpValue}
+            values={roomValue}
           />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
@@ -216,11 +122,17 @@ function RoomAdd() {
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
-            values={signUpValue}
+            values={roomValue}
           />
-        </div>
+        </div> */}
         <div className="lg:w-1/2 lg:pl-1">
           <label className="capitalize">Vị trí</label>
+          <PosList
+            posData={posData}
+            values={roomValue}
+            handleChangePos={handleChangePos}
+            name="locationId"
+          />
         </div>
         <div className="lg:w-full">
           <label htmlFor="description">Description</label>
@@ -229,7 +141,7 @@ function RoomAdd() {
             type="text"
             placeholder="Description"
             name="description"
-            value={signUpValue.description}
+            value={roomValue.description}
             onFocus={handleFocus}
             onChange={handleChange}
             className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
@@ -241,34 +153,38 @@ function RoomAdd() {
           )}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="elevator" name="elevator" />
+          <CheckBoxItem hint="elevator" name="elevator" values={roomValue} />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="hotTub" name="hotTub" />
+          <CheckBoxItem hint="hotTub" name="hotTub" values={roomValue} />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="pool" name="pool" />
+          <CheckBoxItem hint="pool" name="pool" values={roomValue} />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="indoorFireplace" name="indoorFireplace" />
+          <CheckBoxItem
+            hint="indoorFireplace"
+            name="indoorFireplace"
+            values={roomValue}
+          />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="dryer" name="dryer" />
+          <CheckBoxItem hint="dryer" name="dryer" values={roomValue} />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="gym" name="gym" />
+          <CheckBoxItem hint="gym" name="gym" values={roomValue} />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="kitchen" name="kitchen" />
+          <CheckBoxItem hint="kitchen" name="kitchen" values={roomValue} />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="wifi" name="wifi" />
+          <CheckBoxItem hint="wifi" name="wifi" values={roomValue} />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="heating" name="heating" />
+          <CheckBoxItem hint="heating" name="heating" values={roomValue} />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="cableTV" name="cableTV" />
+          <CheckBoxItem hint="cableTV" name="cableTV" values={roomValue} />
         </div>
         {messSignUp.msg && (
           <p

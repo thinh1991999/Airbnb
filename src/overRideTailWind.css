@@ -1,43 +1,51 @@
 .container {
-    width: 100%;
+  width: 100%;
 }
 @media (min-width: 640px) {
-    .container {
-        max-width: 640px;
-    }
+  .container {
+    max-width: 640px;
+  }
 }
 @media (min-width: 768px) {
-    .container {
-        max-width: 768px;
-    }
+  .container {
+    max-width: 768px;
+  }
 }
 @media (min-width: 1024px) {
-    .container {
-        max-width: 1024px;
-    }
+  .container {
+    max-width: 1024px;
+  }
 }
 @media (min-width: 1280px) {
-    .container {
-        max-width: 1280px;
-    }
+  .container {
+    max-width: 1280px;
+  }
 }
 @media (min-width: 1536px) {
-    .container {
-        max-width: 1536px;
-    }
+  .container {
+    max-width: 1536px;
+  }
 }
 
-.primary--color{
-    color: rgb(255, 56, 92)
+.primary--color {
+  color: rgb(255, 56, 92);
 }
 
-.primary--BGcolor{
-    background-color: rgb(255, 56, 92)
+.primary--BGcolor {
+  background-color: rgb(255, 56, 92);
 }
 
-.one__line__text{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
+.one__line__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.scroll__custom::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll__custom::-webkit-scrollbar-thumb {
+  background-color: gray;
 }
