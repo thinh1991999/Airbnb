@@ -26,6 +26,25 @@ const initialState = {
     country: "",
     valueate: "",
   },
+  roomAddValue: {
+    name: "",
+    guests: 0,
+    bedRoom: 0,
+    bath: 0,
+    description: "",
+    price: 0,
+    elevator: false,
+    hotTub: true,
+    pool: true,
+    indoorFireplace: false,
+    dryer: true,
+    gym: false,
+    kitchen: true,
+    wifi: true,
+    heating: true,
+    cableTV: true,
+    locationId: "",
+  },
 };
 
 export const adminSlice = createSlice({
@@ -60,6 +79,9 @@ export const adminSlice = createSlice({
     setPosAddValue: (state, action) => {
       state.posAddValue = action.payload;
     },
+    setRoomAddValue: (state, action) => {
+      state.roomAddValue = action.payload;
+    },
   },
 });
 
@@ -72,6 +94,7 @@ export const {
   setLoading,
   setUserAddValue,
   setPosAddValue,
+  setRoomAddValue,
   setIdOption,
 } = adminSlice.actions;
 

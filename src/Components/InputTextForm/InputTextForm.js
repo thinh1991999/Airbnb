@@ -22,10 +22,10 @@ export default function InputTextForm({
         onFocus={handleFocus}
         onChange={handleChange}
         className={`my-2 w-full placeholder:capitalize bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-          errors.guests ? `border-red-600` : `border-gray-400`
+          errors[name] ? `border-red-600` : `border-gray-400`
         }`}
       />
-      {errors.guests && <p className="text-red-600">{errors.guests}</p>}
+      {errors[name] && <p className="text-red-600">{errors[name]}</p>}
     </>
   );
 }

@@ -16,7 +16,7 @@ class Validator {
     if (all) {
       this.rules.forEach((rule) => {
         if (this.errors[rule.field]) return;
-        const fieldValue = state[rule.field].toString() || "";
+        const fieldValue = state[rule.field]?.toString() || "";
         const args = rule.args || [];
         const validationMethod =
           typeof rule.method === "string" ? methods[rule.method] : rule.method;
@@ -32,7 +32,7 @@ class Validator {
       if (this.errors[type]) return;
       filterRulles.forEach((rule) => {
         if (this.errors[rule.field]) return;
-        const fieldValue = state[rule.field].toString() || "";
+        const fieldValue = state[rule.field]?.toString() || "";
         const args = rule.args || [];
         const validationMethod =
           typeof rule.method === "string" ? methods[rule.method] : rule.method;
