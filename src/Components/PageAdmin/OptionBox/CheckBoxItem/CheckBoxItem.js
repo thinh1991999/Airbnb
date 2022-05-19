@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CheckBoxItem({ hint, name, values }) {
+export default function CheckBoxItem({ hint, name, values, handleChange }) {
   return (
     <div className="flex items-center ">
       <label className="capitalize mr-2 w-1/3" htmlFor={hint}>
@@ -12,6 +12,7 @@ export default function CheckBoxItem({ hint, name, values }) {
         name={name}
         type="checkbox"
         checked={values[name]}
+        onChange={(e) => handleChange(e)}
       />
     </div>
   );

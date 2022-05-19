@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Circles } from "react-loading-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { httpServ } from "../../../../ServiceWorkers";
-import { unknowImg } from "../../../../Shared/Constant";
-import BtnClose from "../BtnClose/BtnClose";
-import ItemDetail from "../ItemDetail/ItemDetail";
+import { httpServ } from "../../../../../ServiceWorkers";
+import { unknowImg } from "../../../../../Shared/Constant";
+import BtnClose from "../../BtnClose/BtnClose";
+import ItemDetail from "../../ItemDetail/ItemDetail";
 
 export default function UserDetail() {
   const dispatch = useDispatch();

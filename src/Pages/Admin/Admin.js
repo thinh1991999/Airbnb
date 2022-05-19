@@ -8,13 +8,15 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { MdOutlineAddLocationAlt, MdAddBusiness } from "react-icons/md";
 import { setData, setLoading } from "../../Store/AdminSlice/AdminSlice";
 import OptionBox from "../../Components/PageAdmin/OptionBox/OptionBox";
-import UserAdd from "../../Components/PageAdmin/OptionBox/UserAdd/UserAdd";
-import PositionAdd from "../../Components/PageAdmin/OptionBox/PositionAdd/PositionAdd";
-import UserDetail from "../../Components/PageAdmin/OptionBox/UserDetail/UserDetail";
-import UserRepair from "../../Components/PageAdmin/OptionBox/UserRepair/UserRepair";
-import PositionDetail from "../../Components/PageAdmin/OptionBox/PositionDetail/PositionDetail";
-import PositionRepair from "../../Components/PageAdmin/OptionBox/PositionRepair/PositionRepair";
-import RoomAdd from "../../Components/PageAdmin/OptionBox/RoomAdd/RoomAdd";
+import UserAdd from "../../Components/PageAdmin/OptionBox/User/UserAdd/UserAdd";
+import UserRepair from "../../Components/PageAdmin/OptionBox/User/UserRepair/UserRepair";
+import UserDetail from "../../Components/PageAdmin/OptionBox/User/UserDetail/UserDetail";
+import RoomAdd from "../../Components/PageAdmin/OptionBox/Room/RoomAdd/RoomAdd";
+import RoomDetail from "../../Components/PageAdmin/OptionBox/Room/RoomDetail/RoomDetail";
+import RoomRepair from "../../Components/PageAdmin/OptionBox/Room/RoomRepair/RoomRepair";
+import PositionAdd from "../../Components/PageAdmin/OptionBox/Position/PositionAdd/PositionAdd";
+import PositionDetail from "../../Components/PageAdmin/OptionBox/Position/PositionDetail/PositionDetail";
+import PositionRepair from "../../Components/PageAdmin/OptionBox/Position/PositionRepair/PositionRepair";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -128,8 +130,8 @@ export default function Admin() {
       delete: "xoaNguoiDung",
       btnAddMess: "Thêm phòng",
       btnAddIcon: <MdAddBusiness className="text-2xl" />,
-      detailComponent: <PositionDetail />,
-      repairComponent: <PositionRepair />,
+      detailComponent: <RoomDetail />,
+      repairComponent: <RoomRepair />,
       addComponent: <RoomAdd />,
     },
   ]);

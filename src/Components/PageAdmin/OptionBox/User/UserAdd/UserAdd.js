@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
-import httpServ from "../../../../ServiceWorkers/http.service";
-import Validator from "../../../../Shared/Validator";
-import { TailSpin } from "react-loading-icons";
-import "react-calendar/dist/Calendar.css";
-import BtnClose from "../BtnClose/BtnClose";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setReloadData,
-  setUserAddValue,
-} from "../../../../Store/AdminSlice/AdminSlice";
+import { httpServ } from "../../../../../ServiceWorkers";
+import { setReloadData } from "../../../../../Store/AdminSlice/AdminSlice";
+import Validator from "../../../../../Shared/Validator";
+import { TailSpin } from "react-loading-icons";
+import BtnClose from "../../BtnClose/BtnClose";
+import { setUserAddValue } from "../../../../../Store/AdminSlice/AdminSlice";
 
 function UserAdd() {
   const dispatch = useDispatch();

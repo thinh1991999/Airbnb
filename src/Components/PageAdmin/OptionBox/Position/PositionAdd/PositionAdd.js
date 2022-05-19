@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { httpServ } from "../../../../ServiceWorkers";
-import Validator from "../../../../Shared/Validator";
+import { httpServ } from "../../../../../ServiceWorkers";
+import BtnClose from "../../BtnClose/BtnClose";
 import {
   setPosAddValue,
   setReloadData,
-} from "../../../../Store/AdminSlice/AdminSlice";
-import BtnClose from "../BtnClose/BtnClose";
+} from "../../../../../Store/AdminSlice/AdminSlice";
+import Validator from "../../../../../Shared/Validator";
 
 export default function PositionAdd() {
   const dispatch = useDispatch();

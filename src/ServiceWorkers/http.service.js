@@ -83,6 +83,16 @@ class HttpRequestService {
     const uri = "/api/rooms";
     return AxiosServ.getMethod(uri, false);
   };
+  taoPhong = (data, token) => {
+    const uri = "/api/rooms";
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, data, false);
+  };
+  capNhatPhong = (data, id, token) => {
+    const uri = "/api/rooms/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.putMethod(uri, data, false);
+  };
   xoaNguoiDung = (id, token) => {
     const uri = "/api/users/" + id;
     AxiosServ.axiosConfig.headers.token = token;

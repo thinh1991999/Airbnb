@@ -7,6 +7,7 @@ import { httpServ } from "../../ServiceWorkers";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { AiFillStar } from "react-icons/ai";
 import { getVNDMoney } from "../../Untils";
+import TailSpin from "react-loading-icons/dist/components/tail-spin";
 
 export default function User() {
   const navigate = useNavigate();
@@ -14,31 +15,32 @@ export default function User() {
   const user = useSelector((state) => state.root.user);
   const token = useSelector((state) => state.root.token);
 
-  const loading = useSelector((state) => state.loading.loading);
-
   const [currentImage, setCurrentImage] = useState(user?.avatar || unknowImg);
   const [dataUser, setDataUser] = useState(null);
   const [ticketsData, setTicketsData] = useState([]);
-  const errors = {};
+  const [ticketsLoading, setTicketsLoading] = useState(true);
 
   const handleChangeImage = (e) => {
     // var fReader = new FileReader();
-    // fReader.readAsDataURL(e.target.files[0]);
+    // fReader.readAsDataURL();
     // fReader.onloadend = function (event) {
-
+    //   console.log(event);
     // };
+    console.log(e.target.files[0]);
     httpServ
       .capNhatAnhDaiDien(
         {
-          avatar: "C:\\Users\\MSI\\Desktop\\loginBg.jpg",
+          avatar: e.target.files[0],
         },
         token
       )
       .then((res) => {
         console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
       });
   };
-  const handleSubmit = () => {};
 
   useEffect(() => {
     dispatch(setShowSearch(false));
@@ -62,10 +64,11 @@ export default function User() {
     }
     return newTicketsData;
   };
-
   useEffect(() => {
+    setTicketsLoading(true);
     getTicketsData().then((res) => {
       setTicketsData(res);
+      setTicketsLoading(false);
     });
   }, [dataUser]);
   return (
@@ -152,35 +155,44 @@ export default function User() {
           <div className="py-5 border-b-[1px] border-gray-500">
             <h5 className="text-3xl font-bold mb-5">
               My tickets:{" "}
-              <span className="text-xl font-normal">
-                {ticketsData.length} tickets
-              </span>
+              {!ticketsLoading && (
+                <span className="text-xl font-normal">
+                  {ticketsData.length} tickets
+                </span>
+              )}
             </h5>
-            <div className="px-5">
-              {ticketsData.map((ticket, index) => {
-                if (ticket.roomId) {
-                  const {
-                    roomId: { image, price, name },
-                  } = ticket;
-                  return (
-                    <div className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center ">
-                      <div className="mr-5">
-                        <img
-                          src={image}
-                          className="w-[100px] rounded-md"
-                          alt=""
-                        />
+
+            {ticketsLoading ? (
+              <div className="flex justify-center">
+                <TailSpin />
+              </div>
+            ) : (
+              <div className="px-5">
+                {ticketsData.map((ticket, index) => {
+                  if (ticket.roomId) {
+                    const {
+                      roomId: { image, price, name },
+                    } = ticket;
+                    return (
+                      <div className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center ">
+                        <div className="mr-5">
+                          <img
+                            src={image}
+                            className="w-[100px] rounded-md"
+                            alt=""
+                          />
+                        </div>
+                        <div className="">
+                          <h5 className="text-xl font-bold">{name}</h5>
+                          <span>{getVNDMoney(price)}/đêm</span>
+                        </div>
                       </div>
-                      <div className="">
-                        <h5 className="text-xl font-bold">{name}</h5>
-                        <span>{getVNDMoney(price)}/đêm</span>
-                      </div>
-                    </div>
-                  );
-                }
-                return;
-              })}
-            </div>
+                    );
+                  }
+                  return;
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

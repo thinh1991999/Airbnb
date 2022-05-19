@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowOptionBox } from "../../../Store/AdminSlice/AdminSlice";
-import UserDetail from "./UserDetail/UserDetail";
 
 export default function OptionBox() {
   const dispatch = useDispatch();

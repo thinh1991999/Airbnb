@@ -1,38 +1,51 @@
 import { useEffect, useState } from "react";
-import httpServ from "../../../../ServiceWorkers/http.service";
-import Validator from "../../../../Shared/Validator";
+import httpServ from "../../../../../ServiceWorkers/http.service";
+import Validator from "../../../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
 import "react-calendar/dist/Calendar.css";
-import BtnClose from "../BtnClose/BtnClose";
+import BtnClose from "../../BtnClose/BtnClose";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setReloadData,
-  setUserAddValue,
-} from "../../../../Store/AdminSlice/AdminSlice";
-import CheckBoxItem from "../CheckBoxItem/CheckBoxItem";
-import InputTextForm from "../../../InputTextForm/InputTextForm";
-import PosList from "./PosList/PosList";
-import Rules from "./Rules";
+  setShowOptionBox,
+} from "../../../../../Store/AdminSlice/AdminSlice";
+import CheckBoxItem from "../../CheckBoxItem/CheckBoxItem";
+import InputTextForm from "../../../../InputTextForm/InputTextForm";
+import PosList from "../PosList/PosList";
+import Rules from "../Rules";
+import OptionLoading from "../../OptionLoading/OptionLoading";
+import { toast } from "react-toastify";
 
-function RoomAdd() {
+export default function RoomRepair() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
   const roomAddValue = useSelector((state) => state.admin.roomAddValue);
-
+  const idOption = useSelector((state) => state.admin.idOption);
   const [errors, setErrors] = useState({});
-  const [roomValue, setRoomValue] = useState({ ...roomAddValue });
+  const [roomValue, setRoomValue] = useState(null);
   const [posData, setPosData] = useState([]);
 
   const [rules, setRules] = useState(Rules());
   const [validator, setValidator] = useState(new Validator(rules));
-  const [messSignUp, setMessSignUp] = useState({
+  const [messAdd, setMessAdd] = useState({
     type: "Success",
     msg: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [loading, setloading] = useState(true);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors(validator.validate(roomValue));
+    if (validator.isValid) {
+      setBtnLoading(true);
+      httpServ.capNhatPhong(roomValue, idOption, token).then((res) => {
+        dispatch(setShowOptionBox(false));
+        dispatch(setReloadData(true));
+        toast.success("Chinh sua phòng thanh cong");
+        setBtnLoading(false);
+      });
+    }
   };
 
   const handleFocus = (e) => {
@@ -40,12 +53,27 @@ function RoomAdd() {
       ...errors,
       [e.target.name]: "",
     });
-    setMessSignUp({
+    setMessAdd({
       type: "Success",
       msg: "",
     });
   };
+  const handleFocusPos = (name) => {
+    setErrors({ ...errors, [name]: "" });
+    setMessAdd({
+      type: "Success",
+      msg: "",
+    });
+  };
+
   const handleChange = (e) => {
+    if (e.target.type === "checkbox") {
+      setRoomValue({
+        ...roomValue,
+        [e.target.name]: e.target.checked,
+      });
+      return;
+    }
     setRoomValue({
       ...roomValue,
       [e.target.name]: e.target.value,
@@ -57,25 +85,33 @@ function RoomAdd() {
       locationId: id,
     });
   };
-
   useEffect(() => {
-    return () => {
-      dispatch(setUserAddValue({ ...roomValue }));
-    };
-  }, [roomValue]);
+    setloading(true);
+    httpServ
+      .layThongTinChiTietPhong(idOption)
+      .then((res) => {
+        setRoomValue(res.data);
+      })
+      .then(() => {
+        httpServ.layDanhSachViTri().then((res) => {
+          setPosData(res.data);
+          setloading(false);
+        });
+      });
+  }, [idOption]);
 
-  useEffect(() => {
-    httpServ.layDanhSachViTri().then((res) => {
-      setPosData(res.data);
-    });
-  }, []);
-  console.log(roomValue);
+  if (loading) {
+    return <OptionLoading />;
+  }
+
   return (
     <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md text-white lg:w-[800px]">
       <BtnClose />
-      <h2 className="capitalize text-3xl font-semibold mb-5">Thêm phòng</h2>
+      <h2 className="capitalize text-3xl font-semibold mb-5">
+        Sửa thông tin phòng
+      </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        {/* <div className="lg:w-1/2 lg:pr-1">
+        <div className="lg:w-1/2 lg:pr-1">
           <InputTextForm
             name={"name"}
             hint={"Name"}
@@ -124,7 +160,7 @@ function RoomAdd() {
             errors={errors}
             values={roomValue}
           />
-        </div> */}
+        </div>
         <div className="lg:w-1/2 lg:pl-1">
           <label className="capitalize">Vị trí</label>
           <PosList
@@ -132,67 +168,110 @@ function RoomAdd() {
             values={roomValue}
             handleChangePos={handleChangePos}
             name="locationId"
+            errors={errors}
+            handleFocusPos={handleFocusPos}
           />
-        </div>
-        <div className="lg:w-full">
-          <label htmlFor="description">Description</label>
-          <input
-            id="description"
-            type="text"
-            placeholder="Description"
-            name="description"
-            value={roomValue.description}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.description ? `border-red-600` : `border-gray-400`
-            }`}
-          />
-          {errors.description && (
-            <p className="text-red-600">{errors.description}</p>
+          {errors.locationId && (
+            <p className="text-red-600">{errors.locationId}</p>
           )}
         </div>
+        <div className="lg:w-full">
+          <InputTextForm
+            name={"description"}
+            hint={"description"}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={roomValue}
+          />
+        </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="elevator" name="elevator" values={roomValue} />
+          <CheckBoxItem
+            hint="elevator"
+            name="elevator"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="hotTub" name="hotTub" values={roomValue} />
+          <CheckBoxItem
+            hint="hotTub"
+            name="hotTub"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="pool" name="pool" values={roomValue} />
+          <CheckBoxItem
+            hint="pool"
+            name="pool"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 ">
           <CheckBoxItem
             hint="indoorFireplace"
             name="indoorFireplace"
             values={roomValue}
+            handleChange={handleChange}
           />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="dryer" name="dryer" values={roomValue} />
+          <CheckBoxItem
+            hint="dryer"
+            name="dryer"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="gym" name="gym" values={roomValue} />
+          <CheckBoxItem
+            hint="gym"
+            name="gym"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="kitchen" name="kitchen" values={roomValue} />
+          <CheckBoxItem
+            hint="kitchen"
+            name="kitchen"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="wifi" name="wifi" values={roomValue} />
+          <CheckBoxItem
+            hint="wifi"
+            name="wifi"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <CheckBoxItem hint="heating" name="heating" values={roomValue} />
+          <CheckBoxItem
+            hint="heating"
+            name="heating"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
         <div className="lg:w-1/2 ">
-          <CheckBoxItem hint="cableTV" name="cableTV" values={roomValue} />
+          <CheckBoxItem
+            hint="cableTV"
+            name="cableTV"
+            values={roomValue}
+            handleChange={handleChange}
+          />
         </div>
-        {messSignUp.msg && (
+        {messAdd.msg && (
           <p
             className={`${
-              messSignUp.type === "Success" ? "text-blue-600" : "text-red-600"
+              messAdd.type === "Success" ? "text-blue-600" : "text-red-600"
             }`}
           >
-            {messSignUp.msg}
+            {messAdd.msg}
           </p>
         )}
         <div className="lg:w-full flex flex-col justify-center items-center">
@@ -200,10 +279,10 @@ function RoomAdd() {
             type="submit"
             onSubmit={handleSubmit}
             className={`${
-              loading && "cursor-not-allowed"
+              btnLoading && "cursor-not-allowed"
             } w-full capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
           >
-            {loading ? (
+            {btnLoading ? (
               <TailSpin
                 height={"30px"}
                 width={"30px"}
@@ -211,7 +290,7 @@ function RoomAdd() {
                 strokeWidth={3}
               />
             ) : (
-              <span>Thêm</span>
+              <span>Lưu</span>
             )}
           </button>
         </div>
@@ -219,5 +298,3 @@ function RoomAdd() {
     </div>
   );
 }
-
-export default RoomAdd;
