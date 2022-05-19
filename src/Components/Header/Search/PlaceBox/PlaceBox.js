@@ -91,8 +91,6 @@ function PlaceBox() {
             key={_id}
           >
             <div className=" bg-gray-200 rounded-md overflow-hidden">
-              {/* <GoLocation />
-               */}
               <img
                 src={image}
                 className="w-[50px] h-[40px] object-cover"

@@ -18,8 +18,6 @@ import {
   setReloadData,
   setShowOptionBox,
 } from "../../../Store/AdminSlice/AdminSlice";
-import UserDetail from "../OptionBox/UserDetail/UserDetail";
-import UserRepair from "../OptionBox/UserRepair/UserRepair";
 
 function TableAdmin({ currentNavData }) {
   const dispatch = useDispatch();
@@ -172,13 +170,13 @@ function TableAdmin({ currentNavData }) {
                             cell.column.Header === "Image"
                               ? "w-[100px]"
                               : " w-[50px]"
-                          } rounded-md overflow-hidden avatar__td`}
+                          }  avatar__td`}
                         >
                           <LazyLoadImage
                             src={valueCell}
                             width="100%"
                             effect="opacity"
-                            className="w-full h-auto"
+                            className="w-full h-full rounded-md overflow-hidden"
                             alt=""
                           />
                         </div>

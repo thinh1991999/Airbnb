@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Circles } from "react-loading-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { httpServ } from "../../../../ServiceWorkers";
-import { unknowImg } from "../../../../Shared/Constant";
+import { httpServ } from "../../../../../ServiceWorkers";
+import { unknowImg } from "../../../../../Shared/Constant";
 import {
   setReloadData,
   setShowOptionBox,
-} from "../../../../Store/AdminSlice/AdminSlice";
-import Validator from "../../../../Shared/Validator";
+} from "../../../../../Store/AdminSlice/AdminSlice";
+import Validator from "../../../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
 import { toast } from "react-toastify";
-import BtnClose from "../BtnClose/BtnClose";
+import BtnClose from "../../BtnClose/BtnClose";
 
 export default function UserRepair() {
   const dispatch = useDispatch();

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { httpServ } from "../../../../ServiceWorkers";
-import Validator from "../../../../Shared/Validator";
+import OptionLoading from "../../OptionLoading/OptionLoading";
+import { httpServ } from "../../../../../ServiceWorkers";
+import BtnClose from "../../BtnClose/BtnClose";
 import {
   setPosAddValue,
   setReloadData,
   setShowOptionBox,
-} from "../../../../Store/AdminSlice/AdminSlice";
-import BtnClose from "../BtnClose/BtnClose";
-import OptionLoading from "../OptionLoading/OptionLoading";
+} from "../../../../../Store/AdminSlice/AdminSlice";
+import Validator from "../../../../../Shared/Validator";
 
 export default function PositionRepair() {
   const dispatch = useDispatch();
