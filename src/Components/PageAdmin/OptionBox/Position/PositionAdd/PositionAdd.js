@@ -8,6 +8,7 @@ import {
   setReloadData,
 } from "../../../../../Store/AdminSlice/AdminSlice";
 import Validator from "../../../../../Shared/Validator";
+import Rules from "../Rules";
 
 export default function PositionAdd() {
   const dispatch = useDispatch();
@@ -20,39 +21,7 @@ export default function PositionAdd() {
     type: "Success",
     msg: "",
   });
-  const [rules, setRules] = useState([
-    {
-      field: "name",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The name field is required.",
-    },
-    {
-      field: "province",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The province field is required.",
-    },
-    {
-      field: "country",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The country field is required.",
-    },
-    {
-      field: "valueate",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The valueate field is required.",
-    },
-    {
-      field: "valueate",
-      method: "isInt",
-      validWhen: true,
-      args: [{ min: 0, max: 10 }],
-      message: "The valueate field is number(0-10).",
-    },
-  ]);
+  const [rules, setRules] = useState(Rules());
   const [validator, setValidator] = useState(new Validator(rules));
 
   const handleSubmit = (e) => {

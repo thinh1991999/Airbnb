@@ -52,6 +52,16 @@ export default function UserSetting() {
                 <span className="font-thin">See ur profile</span>
               </div>
             </Link>
+            {user?.type === "ADMIN" && (
+              <Link
+                to={"/admin"}
+                className="px-5 py-2 flex items-center hover:dark:bg-gray-200 hover:bg-gray-500 cursor-pointer"
+              >
+                <div className="">
+                  <span className="font-bold">Admin</span>
+                </div>
+              </Link>
+            )}
             <button
               onClick={handleLogOut}
               className="hover:dark:bg-gray-200 hover:bg-gray-500 px-5 py-2 text-left"
@@ -69,7 +79,7 @@ export default function UserSetting() {
             </Link>
             <Link
               to={"/account/signIn"}
-              className="cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2"
+              className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2"
             >
               Dang Nhap
             </Link>

@@ -36,17 +36,16 @@ function SearchNav({ navData, currentNav }) {
   return (
     <>
       {navData[currentNav]?.buttons?.map((item, index) => {
-        const { name, value, element, hint } = item;
+        const { name, element, hint } = item;
         let newValue = getInforSearchValue(hint, searchValue);
 
         if (index === navData[currentNav]?.buttons.length - 1) {
           return (
-            <>
-              <div className="flex items-center" key={index}>
+            <div key={index} className="flex items-center">
+              <div className="flex items-center">
                 <span className="text-black/[0.2] text-2xl font-thin">|</span>
               </div>
               <div
-                key={index}
                 className={` ${
                   activeSearchForm === index
                     ? "bg-white search__shadow"
@@ -82,29 +81,29 @@ function SearchNav({ navData, currentNav }) {
                   </button>
                 </div>
               </div>
-            </>
+            </div>
+          );
+        } else {
+          return (
+            <div key={index} className="flex items-center">
+              <div className="flex items-center">
+                <span className="text-black/[0.2] text-2xl font-thin">|</span>
+              </div>
+              <button
+                className={` ${
+                  activeSearchForm === index
+                    ? "bg-white search__shadow"
+                    : "hover:bg-stone-300"
+                } px-8 flex flex-col items-center justify-center rounded-full text-black transition-all duration-300 ease-linear `}
+                onClick={() => handleClickSearch(index, element)}
+                type={"button"}
+              >
+                <span className="text-sm font-semibold">{name}</span>
+                <span className="text-sm">{newValue}</span>
+              </button>
+            </div>
           );
         }
-        return (
-          <>
-            <div className="flex items-center" key={index}>
-              <span className="text-black/[0.2] text-2xl font-thin">|</span>
-            </div>
-            <button
-              key={index}
-              className={` ${
-                activeSearchForm === index
-                  ? "bg-white search__shadow"
-                  : "hover:bg-stone-300"
-              } px-8 flex flex-col items-center justify-center rounded-full text-black transition-all duration-300 ease-linear `}
-              onClick={() => handleClickSearch(index, element)}
-              type={"button"}
-            >
-              <span className="text-sm font-semibold">{name}</span>
-              <span className="text-sm">{newValue}</span>
-            </button>
-          </>
-        );
       })}
     </>
   );

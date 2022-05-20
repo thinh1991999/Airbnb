@@ -12,6 +12,7 @@ import Validator from "../../../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
 import { toast } from "react-toastify";
 import BtnClose from "../../BtnClose/BtnClose";
+import Rules from "../Rules";
 
 export default function UserRepair() {
   const dispatch = useDispatch();
@@ -30,51 +31,7 @@ export default function UserRepair() {
     address: "",
   });
   const [activeEmail, setActiveEmail] = useState(true);
-  const [rules, setRules] = useState([
-    {
-      field: "birthday",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The birthday field is required.",
-    },
-    {
-      field: "address",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The address field is required.",
-    },
-    {
-      field: "name",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The name field is required.",
-    },
-    {
-      field: "email",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The email field is required.",
-    },
-    {
-      field: "email",
-      method: "isEmail",
-      validWhen: true,
-      message: "This field is email.",
-    },
-    {
-      field: "phone",
-      method: "isEmpty",
-      validWhen: false,
-      message: "The phone field is required.",
-    },
-    {
-      field: "phone",
-      method: "isMobilePhone",
-      args: [""],
-      validWhen: true,
-      message: "The field is phone number.",
-    },
-  ]);
+  const [rules, setRules] = useState(Rules());
   const [validator, setValidator] = useState(new Validator(rules));
   const [messSignUp, setMessSignUp] = useState({
     type: "Success",
