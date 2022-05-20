@@ -8,6 +8,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { AiFillStar } from "react-icons/ai";
 import { getVNDMoney } from "../../Untils";
 import TailSpin from "react-loading-icons/dist/components/tail-spin";
+import { toast } from "react-toastify";
 
 export default function User() {
   const navigate = useNavigate();
@@ -15,30 +16,21 @@ export default function User() {
   const user = useSelector((state) => state.root.user);
   const token = useSelector((state) => state.root.token);
 
-  const [currentImage, setCurrentImage] = useState(user?.avatar || unknowImg);
   const [dataUser, setDataUser] = useState(null);
   const [ticketsData, setTicketsData] = useState([]);
   const [ticketsLoading, setTicketsLoading] = useState(true);
 
   const handleChangeImage = (e) => {
-    // var fReader = new FileReader();
-    // fReader.readAsDataURL();
-    // fReader.onloadend = function (event) {
-    //   console.log(event);
-    // };
-    console.log(e.target.files[0]);
+    const formData = new FormData();
+    formData.append("avatar", e.target.files[0]);
     httpServ
-      .capNhatAnhDaiDien(
-        {
-          avatar: e.target.files[0],
-        },
-        token
-      )
+      .capNhatAnhDaiDien(formData, token)
       .then((res) => {
-        console.log(res);
+        setDataUser(res.data);
+        toast.success("Thay doi anh dai dien thanh cong");
       })
-      .catch((res) => {
-        console.log(res);
+      .catch((err) => {
+        throw new Error(err);
       });
   };
 
@@ -52,6 +44,7 @@ export default function User() {
       setDataUser(res.data);
     });
   }, [user]);
+
   const getTicketsData = async () => {
     const newTicketsData = [];
     for (const ticket of dataUser?.tickets) {
@@ -64,6 +57,7 @@ export default function User() {
     }
     return newTicketsData;
   };
+
   useEffect(() => {
     setTicketsLoading(true);
     getTicketsData().then((res) => {
@@ -71,13 +65,14 @@ export default function User() {
       setTicketsLoading(false);
     });
   }, [dataUser]);
+
   return (
     <div className="pt-[96px] lg:px-20 bg-slate-300 dark:bg-gray-900 dark:text-white">
       <div className="w-full  flex justify-center py-20">
         <div className="lg:w-1/3 flex justify-center items-start">
           <div className=" flex flex-col items-center px-10 py-5 rounded-xl border-[1px] dark:border-gray-500 min-h-[300px]">
             <LazyLoadImage
-              src={currentImage}
+              src={dataUser?.avatar || unknowImg}
               className="w-[200px] h-[200px] rounded-full"
               alt=""
               effect="opacity"

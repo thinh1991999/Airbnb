@@ -6,7 +6,7 @@ class HttpRequestService {
   layDanhSachViTri = (location) => {
     const uri = "/api/locations";
     AxiosServ.axiosConfig.params = {
-      location,
+      location: location,
     };
     return AxiosServ.getMethod(uri, false);
   };
@@ -79,6 +79,13 @@ class HttpRequestService {
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.putMethod(uri, data, false);
   };
+  capNhatAnhViTri = (file, id, token) => {
+    const formData = new FormData();
+    formData.append("location", file);
+    const uri = "/api/locations/upload-images/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, formData, false);
+  };
   layDanhSachPhongAll = () => {
     const uri = "/api/rooms";
     return AxiosServ.getMethod(uri, false);
@@ -92,6 +99,13 @@ class HttpRequestService {
     const uri = "/api/rooms/" + id;
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.putMethod(uri, data, false);
+  };
+  capNhatAnhPhong = (file, id, token) => {
+    const formData = new FormData();
+    formData.append("room", file);
+    const uri = "/api/rooms/upload-image/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.postMethod(uri, formData, false);
   };
   xoaNguoiDung = (id, token) => {
     const uri = "/api/users/" + id;

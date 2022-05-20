@@ -17,6 +17,7 @@ import RoomRepair from "../../Components/PageAdmin/OptionBox/Room/RoomRepair/Roo
 import PositionAdd from "../../Components/PageAdmin/OptionBox/Position/PositionAdd/PositionAdd";
 import PositionDetail from "../../Components/PageAdmin/OptionBox/Position/PositionDetail/PositionDetail";
 import PositionRepair from "../../Components/PageAdmin/OptionBox/Position/PositionRepair/PositionRepair";
+import AdminLoading from "../../Components/PageAdmin/AdminLoading/AdminLoading";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ export default function Admin() {
       ],
       getDataFunc: "layDanhSachNguoiDung",
       delete: "xoaNguoiDung",
+      upLoadImg: "thayAnhNguoiDung",
       btnAddMess: "Thêm quản trị viên",
       btnAddIcon: <AiOutlineUserAdd className="text-2xl" />,
       detailComponent: <UserDetail />,
@@ -98,6 +100,7 @@ export default function Admin() {
       getDataFunc: "layDanhSachViTri",
       delete: "xoaNguoiDung",
       btnAddMess: "Thêm vị trí",
+      upLoadImg: "capNhatAnhViTri",
       btnAddIcon: <MdOutlineAddLocationAlt className="text-2xl" />,
       detailComponent: <PositionDetail />,
       repairComponent: <PositionRepair />,
@@ -129,6 +132,7 @@ export default function Admin() {
       getDataFunc: "layDanhSachPhongAll",
       delete: "xoaNguoiDung",
       btnAddMess: "Thêm phòng",
+      upLoadImg: "capNhatAnhPhong",
       btnAddIcon: <MdAddBusiness className="text-2xl" />,
       detailComponent: <RoomDetail />,
       repairComponent: <RoomRepair />,
@@ -170,13 +174,7 @@ export default function Admin() {
       </div>
 
       {loading ? (
-        <div className="min-h-[500px] flex justify-center items-center">
-          <Circles
-            height={"10rem"}
-            width="10rem"
-            fill={mode === "DARK" ? "white" : "black"}
-          />
-        </div>
+        <AdminLoading />
       ) : (
         <TableAdmin currentNavData={navData[currentNav]} />
       )}

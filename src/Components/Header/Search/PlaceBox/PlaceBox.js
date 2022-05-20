@@ -29,8 +29,8 @@ function PlaceBox() {
   };
 
   useEffect(() => {
+    setLoading(true);
     const timeOut = setTimeout(() => {
-      setLoading(true);
       httpServ.layDanhSachViTri(searchValue.place).then((res) => {
         setSuggestArr(res.data);
         if (res.data.length > 0) {
@@ -43,7 +43,7 @@ function PlaceBox() {
         }
         setLoading(false);
       });
-    }, 100);
+    }, 1000);
     return () => {
       clearTimeout(timeOut);
     };
@@ -88,7 +88,7 @@ function PlaceBox() {
           <div
             onClick={() => handleChoosePlace(name, _id)}
             className="flex items-center my-2 cursor-pointer py-2 px-10 hover:bg-gray-400"
-            key={_id}
+            key={`${index}${_id}`}
           >
             <div className=" bg-gray-200 rounded-md overflow-hidden">
               <img
