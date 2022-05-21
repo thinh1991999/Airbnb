@@ -2,21 +2,20 @@ import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { BsColumnsGap } from "react-icons/bs";
 import { httpServ } from "../../ServiceWorkers";
 import { setShowSearch } from "../../Store/HeaderSlice/HeaderSlice";
-import { BsColumnsGap } from "react-icons/bs";
 import ImagesShow from "../../Components/PageRoomDetail/ImagesShow/ImagesShow";
 import InfoShow from "../../Components/PageRoomDetail/InfoShow/InfoShow";
 import BookTicket from "../../Components/PageRoomDetail/BookTicket/BookTicket";
-import { AiFillStar } from "react-icons/ai";
+import RatingShow from "../../Components/PageRoomDetail/RatingShow/RatingShow";
+import WarningLayout from "../../Components/PageRoomDetail/WarningLayout/WarningLayout";
 
 export default function RoomDetail() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.root.token);
-
+  const showWarning = useSelector((state) => state.roomDetail.showWarning);
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
-  const [rateData, setRateData] = useState(null);
   const [subImgs, setSubImgs] = useState([
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img1.webp?alt=media&token=b22c6a2f-f439-46ee-a361-1c13254698a1",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img2.webp?alt=media&token=150c93a8-ba6a-4a82-910f-ea5f194d7c1e",
@@ -28,26 +27,9 @@ export default function RoomDetail() {
   ]);
   const [showImages, setShowImages] = useState(false);
 
-  const createFeedback = () => {
-    httpServ
-      .taoDanhGia(
-        id,
-        {
-          content: "abc",
-        },
-        token
-      )
-      .then((res) => {
-        console.log(res);
-      });
-  };
-
   useEffect(() => {
     httpServ.layThongTinChiTietPhong(id).then((res) => {
       setDetailData(res.data);
-    });
-    httpServ.layDanhGiaPhong(id).then((res) => {
-      setRateData(res.data);
     });
   }, [id]);
 
@@ -113,35 +95,7 @@ export default function RoomDetail() {
               <BookTicket price={price} id={id} />
             </div>
           </div>
-          <div className="py-5 border-t-[1px] border-b-[1px] border-gray-500">
-            <h2 className="text-xl font-bold">0 đánh giá</h2>
-            <div className="flex items-center mb-2 text-2xl my-4">
-              <span>Rating</span>
-              <p className="h-full">
-                <button
-                  onClick={createFeedback}
-                  className="text-3xl text-yellow-300"
-                >
-                  <AiFillStar className="" />
-                </button>
-              </p>
-            </div>
-            <div className="w-full border-[1px] border-gray-500 px-10 py-5 rounded-full mt-5">
-              {/* <p className="">
-                Bạn cần đăng nhập để đánh giá{" "}
-                <button
-                  // onClick={handleForwardLogin}
-                  className="font-bold text-blue-300 hover:opacity-70"
-                >
-                  Đăng nhập
-                </button>
-              </p> */}
-
-              <div className="">
-                <input type="text" className="w-full" />
-              </div>
-            </div>
-          </div>
+          <RatingShow id={id} />
         </div>
       )}
 
@@ -151,6 +105,7 @@ export default function RoomDetail() {
         setShowImages={setShowImages}
         detailImage={detailData?.image}
       />
+      {showWarning && <WarningLayout />}
     </div>
   );
 }

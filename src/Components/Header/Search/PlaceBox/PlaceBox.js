@@ -43,7 +43,7 @@ function PlaceBox() {
         }
         setLoading(false);
       });
-    }, 1000);
+    }, 100);
     return () => {
       clearTimeout(timeOut);
     };

@@ -9,6 +9,7 @@ import { AiFillStar } from "react-icons/ai";
 import { getVNDMoney } from "../../Untils";
 import TailSpin from "react-loading-icons/dist/components/tail-spin";
 import { toast } from "react-toastify";
+import { setUser } from "../../Store/RootSlice/RootSlice";
 
 export default function User() {
   const navigate = useNavigate();
@@ -21,17 +22,24 @@ export default function User() {
   const [ticketsLoading, setTicketsLoading] = useState(true);
 
   const handleChangeImage = (e) => {
-    const formData = new FormData();
-    formData.append("avatar", e.target.files[0]);
-    httpServ
-      .capNhatAnhDaiDien(formData, token)
-      .then((res) => {
-        setDataUser(res.data);
-        toast.success("Thay doi anh dai dien thanh cong");
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    const file = e.target.files[0];
+    if (file.type.includes("image")) {
+      const formData = new FormData();
+      formData.append("avatar", file);
+      httpServ
+        .capNhatAnhDaiDien(formData, token)
+        .then((res) => {
+          dispatch(setUser(res.data));
+          setDataUser(res.data);
+          toast.success("Thay doi anh dai dien thanh cong");
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    } else {
+      e.target.value = null;
+      toast.error("File được chọn phải là ảnh!");
+    }
   };
 
   useEffect(() => {

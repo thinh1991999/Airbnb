@@ -93,11 +93,10 @@ class AxiosService {
   handleError = (err) => {
     const status = err.response?.status;
     switch (status) {
-      // case 400:
       case 401:
       case 403:
-      // window.location.assign("/login");
-      //   break;
+        // window.location.assign("/error");
+        break;
       default:
         // window.location.assign("/error");
         break;

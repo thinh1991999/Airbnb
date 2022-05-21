@@ -109,7 +109,13 @@ export default function TableBody({
               ) {
                 return (
                   <td {...cell.getCellProps()}>
-                    <div className="flex justify-between">
+                    <div
+                      className={`flex ${
+                        cell.column.Header === "Image"
+                          ? `justify-around`
+                          : `justify-center items-center`
+                      }`}
+                    >
                       {!valueCell ? (
                         <span className="text-center flex-1">null</span>
                       ) : (
@@ -129,27 +135,28 @@ export default function TableBody({
                           />
                         </div>
                       )}
-
-                      <div className="flex items-center">
-                        {currentIdTargetImg[id] ? (
-                          <Circles height="3em" width="3em" />
-                        ) : (
-                          <>
-                            <label
-                              htmlFor={id}
-                              className="px-2 py-1 bg-blue-500 rounded-md cursor-pointer"
-                            >
-                              Chinh sua
-                            </label>
-                            <input
-                              type="file"
-                              className="hidden"
-                              id={id}
-                              onChange={(e) => handleUpLoadImg(e, id)}
-                            />
-                          </>
-                        )}
-                      </div>
+                      {cell.column.Header === "Image" && (
+                        <div className="flex items-center">
+                          {currentIdTargetImg[id] ? (
+                            <Circles height="3em" width="3em" />
+                          ) : (
+                            <>
+                              <label
+                                htmlFor={id}
+                                className="px-2 py-1 bg-blue-500 rounded-md cursor-pointer"
+                              >
+                                Chinh sua
+                              </label>
+                              <input
+                                type="file"
+                                className="hidden"
+                                id={id}
+                                onChange={(e) => handleUpLoadImg(e, id)}
+                              />
+                            </>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </td>
                 );
