@@ -21,7 +21,6 @@ import AdminLoading from "../../Components/PageAdmin/AdminLoading/AdminLoading";
 
 export default function Admin() {
   const dispatch = useDispatch();
-  const mode = useSelector((state) => state.root.mode);
   const showOptionBox = useSelector((state) => state.admin.showOptionBox);
   const loading = useSelector((state) => state.admin.loading);
 
@@ -97,7 +96,7 @@ export default function Admin() {
           Header: "Actions",
         },
       ],
-      getDataFunc: "layDanhSachViTri",
+      getDataFunc: "layDanhSachViTriAll",
       delete: "xoaNguoiDung",
       btnAddMess: "Thêm vị trí",
       upLoadImg: "capNhatAnhViTri",

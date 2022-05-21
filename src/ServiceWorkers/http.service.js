@@ -2,11 +2,10 @@ import AxiosServ from "./axios.service";
 
 class HttpRequestService {
   constructor() {}
-
   layDanhSachViTri = (location) => {
     const uri = "/api/locations";
     AxiosServ.axiosConfig.params = {
-      location: location,
+      location,
     };
     return AxiosServ.getMethod(uri, false);
   };
@@ -53,15 +52,23 @@ class HttpRequestService {
     return AxiosServ.postMethod(uri, data, false);
   };
   taoDanhGia = (id, data, token) => {
-    const uri = "/api/reviews/byRoom?roomId=" + id;
+    const uri = "/api/reviews";
+    AxiosServ.axiosConfig.params = {
+      roomId: id,
+    };
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.postMethod(uri, data, false);
+  };
+  xoaDanhGia = (id, token) => {
+    const uri = "/api/reviews/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.deleteMothod(uri, false);
   };
   layDanhSachNguoiDung = () => {
     const uri = "/api/users/pagination";
     return AxiosServ.getMethod(uri, false);
   };
-  layDanhSachViTri = () => {
+  layDanhSachViTriAll = () => {
     const uri = "/api/locations";
     return AxiosServ.getMethod(uri, false);
   };

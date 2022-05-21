@@ -4,6 +4,7 @@ import adminSlice from "./AdminSlice/AdminSlice";
 import headerSlice from "./HeaderSlice/HeaderSlice";
 import loadingSlice from "./LoadingSlice/LoadingSlice";
 import loginSlice from "./LoginSlice/LoginSlice";
+import roomDetailSlice from "./RoomDetailSlice/RoomDetailSlice";
 import roomsSlice from "./RoomListSlice/RoomListSlice";
 import rootSlice from "./RootSlice/RootSlice";
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     loading: loadingSlice,
     login: loginSlice,
     admin: adminSlice,
+    roomDetail: roomDetailSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
