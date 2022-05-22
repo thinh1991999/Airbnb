@@ -64,6 +64,12 @@ class HttpRequestService {
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.deleteMothod(uri, false);
   };
+  capNhatDanhGia = (params, id, data, token) => {
+    const uri = "/api/reviews/" + id;
+    AxiosServ.axiosConfig.params = params;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.putMethod(uri, data, false);
+  };
   layDanhSachNguoiDung = () => {
     const uri = "/api/users/pagination";
     return AxiosServ.getMethod(uri, false);

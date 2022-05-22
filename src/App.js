@@ -20,7 +20,7 @@ function App() {
   return (
     <div className={`${mode === "DARK" && `dark`}`}>
       <Loading />
-      <div className="bg-white dark:bg-gray-900 dark:text-white min-h-screen">
+      <div className="bg-white dark:bg-gray-900 dark:text-white min-h-screen flex flex-col">
         <Routes>
           <Route
             path="/"
