@@ -80,9 +80,9 @@ export default function TableBody({
               if (
                 !valueCell &&
                 valueCell !== 0 &&
-                cell.column.Header !== "Actions" &&
-                cell.column.Header !== "Avatar" &&
-                cell.column.Header !== "Image"
+                cell.column.Hint !== "Actions" &&
+                cell.column.Hint !== "Avatar" &&
+                cell.column.Hint !== "Image"
               ) {
                 return (
                   <td {...cell.getCellProps()}>
@@ -90,28 +90,28 @@ export default function TableBody({
                   </td>
                 );
               }
-              if (cell.column.Header === "Gender") {
+              if (cell.column.Hint === "Gender") {
                 if (cell.value) {
                   valueCell = "male";
                 } else {
                   valueCell = "female";
                 }
               }
-              if (cell.column.Header === "BirthDay") {
+              if (cell.column.Hint === "BirthDay") {
                 valueCell = cell.value ? cell?.value.substring(0, 10) : "null";
               }
-              if (cell.column.Header === "Price") {
+              if (cell.column.Hint === "Price") {
                 valueCell = getVNDMoney(valueCell);
               }
               if (
-                cell.column.Header === "Avatar" ||
-                cell.column.Header === "Image"
+                cell.column.Hint === "Avatar" ||
+                cell.column.Hint === "Image"
               ) {
                 return (
                   <td {...cell.getCellProps()}>
                     <div
                       className={`flex ${
-                        cell.column.Header === "Image"
+                        cell.column.Hint === "Image"
                           ? `justify-around`
                           : `justify-center items-center`
                       }`}
@@ -121,7 +121,7 @@ export default function TableBody({
                       ) : (
                         <div
                           className={`${
-                            cell.column.Header === "Image"
+                            cell.column.Hint === "Image"
                               ? "w-[100px]"
                               : " w-[70px]"
                           }  avatar__td`}
@@ -135,7 +135,7 @@ export default function TableBody({
                           />
                         </div>
                       )}
-                      {cell.column.Header === "Image" && (
+                      {cell.column.Hint === "Image" && (
                         <div className="flex items-center">
                           {currentIdTargetImg[id] ? (
                             <Circles height="3em" width="3em" />
@@ -162,7 +162,7 @@ export default function TableBody({
                 );
               }
 
-              if (cell.column.Header === "Actions") {
+              if (cell.column.Hint === "Actions") {
                 if (user?.type === "ADMIN") {
                   return (
                     <td {...cell.getCellProps()}>

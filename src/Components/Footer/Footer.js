@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function Footer() {
+  const language = useSelector((state) => state.root.language);
+
   const [supports, setSupports] = useState([]);
   const [community, setCommunity] = useState([]);
   const [guest, setGuest] = useState([]);
@@ -9,50 +12,52 @@ function Footer() {
 
   useEffect(() => {
     setSupports({
-      title: "Hỗ trợ",
+      title: language.FooterSupport,
       data: [
-        "Trung tâm trợ giúp",
-        "Thông tin an toàn",
-        "Các tùy chọn hủy",
-        "Biện pháp ứng phó với đại dịch COVID-19 của chúng tôi",
-        "Hỗ trợ người khuyết tật",
-        "Báo cáo lo ngại của hàng xóm",
+        language.FooterHelpCentert,
+        language.FooterSafetyInformation,
+        language.FooterSupportingPeople,
+        language.FooterResponse,
+        language.FooterReport,
       ],
     });
     setCommunity({
-      title: "Cộng đồng",
+      title: language.FooterCommunity,
       data: [
-        "Airbnb.org: nhà ở cứu trợ",
-        "Hỗ trợ dân tị nạn Afghanistan",
-        "Chống phân biệt đối xử",
+        language.FooterDisaster,
+        language.FooterSupportAfghan,
+        language.FooterCombatingt,
       ],
     });
     setGuest({
-      title: "Đón tiếp khách",
+      title: language.FooterHosting,
       data: [
-        "Thử đón tiếp khách",
-        "AirCover: bảo vệ cho Host",
-        "Xem tài nguyên đón tiếp khách",
-        "Truy cập diễn đàn cộng đồng",
-        "Đón tiếp khách có trách nhiệm",
+        language.FooterTryHosting,
+        language.FooterAirCover,
+        language.FooterExplore,
+        language.FooterVisit,
+        language.FooterHostResponsibly,
       ],
     });
     setIntro({
-      title: "Giới thiệu",
+      title: language.FooterAbout,
       data: [
-        "Trang tin tức",
-        "Tìm hiểu các tính năng mới",
-        "Thư ngỏ từ các nhà sáng lập",
-        "Cơ hội nghề nghiệp",
-        "Nhà đầu tư",
-        "Airbnb Luxe",
+        language.FooterNewsroom,
+        language.FooterLearn,
+        language.FooterLetter,
+        language.FooterCareers,
+        language.FooterInvestors,
       ],
     });
-    setPolicy(["Quyền riêng tư", "Điều khoản", "Sơ đồ trang web"]);
-  }, []);
+    setPolicy([
+      language.FooterPrivacy,
+      language.FooterTerms,
+      language.FooterSitemap,
+    ]);
+  }, [language]);
 
   return (
-    <div className="w-full px-20 bg-gray-100 dark:bg-gray-800">
+    <div className="w-full flex-1 px-20 bg-gray-100 dark:bg-gray-800">
       <div className="w-full border-b-[1px] py-10 flex justify-between">
         <div className="lg:w-1/4 px-2">
           <h5 className="font-bold">{supports?.title}</h5>

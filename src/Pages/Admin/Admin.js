@@ -21,141 +21,168 @@ import AdminLoading from "../../Components/PageAdmin/AdminLoading/AdminLoading";
 
 export default function Admin() {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.root.language);
   const showOptionBox = useSelector((state) => state.admin.showOptionBox);
   const loading = useSelector((state) => state.admin.loading);
 
-  const [navData, setNavData] = useState([
-    {
-      name: "Quản lý người dùng",
-      tableColumns: [
-        {
-          Header: "Name",
-          accessor: "name",
-        },
-        {
-          Header: "Avatar",
-          accessor: "avatar",
-        },
-        {
-          Header: "Address",
-          accessor: "address",
-        },
-        {
-          Header: "Email",
-          accessor: "email",
-        },
-        {
-          Header: "Phone",
-          accessor: "phone",
-        },
-        {
-          Header: "BirthDay",
-          accessor: "birthday",
-        },
-        {
-          Header: "Gender",
-          accessor: "gender",
-        },
-        {
-          Header: "Actions",
-        },
-      ],
-      getDataFunc: "layDanhSachNguoiDung",
-      delete: "xoaNguoiDung",
-      upLoadImg: "thayAnhNguoiDung",
-      btnAddMess: "Thêm quản trị viên",
-      btnAddIcon: <AiOutlineUserAdd className="text-2xl" />,
-      detailComponent: <UserDetail />,
-      repairComponent: <UserRepair />,
-      addComponent: <UserAdd />,
-    },
-    {
-      name: "Quản lý vị trí",
-      tableColumns: [
-        {
-          Header: "Name",
-          accessor: "name",
-        },
-        {
-          Header: "Country",
-          accessor: "country",
-        },
-        {
-          Header: "Province",
-          accessor: "province",
-        },
-        {
-          Header: "Image",
-          accessor: "image",
-        },
-        {
-          Header: "Valueate",
-          accessor: "valueate",
-        },
-        {
-          Header: "Actions",
-        },
-      ],
-      getDataFunc: "layDanhSachViTriAll",
-      delete: "xoaNguoiDung",
-      btnAddMess: "Thêm vị trí",
-      upLoadImg: "capNhatAnhViTri",
-      btnAddIcon: <MdOutlineAddLocationAlt className="text-2xl" />,
-      detailComponent: <PositionDetail />,
-      repairComponent: <PositionRepair />,
-      addComponent: <PositionAdd />,
-    },
-    {
-      name: "Quản lý thông tin phòng",
-      tableColumns: [
-        {
-          Header: "Name",
-          accessor: "name",
-        },
-        {
-          Header: "Image",
-          accessor: "image",
-        },
-        {
-          Header: "Description",
-          accessor: "description",
-        },
-        {
-          Header: "Price",
-          accessor: "price",
-        },
-        {
-          Header: "Actions",
-        },
-      ],
-      getDataFunc: "layDanhSachPhongAll",
-      delete: "xoaNguoiDung",
-      btnAddMess: "Thêm phòng",
-      upLoadImg: "capNhatAnhPhong",
-      btnAddIcon: <MdAddBusiness className="text-2xl" />,
-      detailComponent: <RoomDetail />,
-      repairComponent: <RoomRepair />,
-      addComponent: <RoomAdd />,
-    },
-  ]);
+  const [navData, setNavData] = useState(null);
   const [currentNav, setCurrentNav] = useState(0);
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    httpServ[navData[currentNav].getDataFunc](null, false).then((res) => {
-      dispatch(setData(res.data));
-      dispatch(setLoading(false));
-    });
-  }, [currentNav]);
+    if (navData) {
+      dispatch(setLoading(true));
+      httpServ[navData[currentNav].getDataFunc](null, false).then((res) => {
+        dispatch(setData(res.data));
+        dispatch(setLoading(false));
+      });
+    }
+  }, [currentNav, navData]);
 
   useEffect(() => {
     dispatch(setShowSearch(false));
   }, []);
+
+  useEffect(() => {
+    setNavData([
+      {
+        name: language.AdminControlUser,
+        tableColumns: [
+          {
+            Hint: "Name",
+            Header: language.AdminName,
+            accessor: "name",
+          },
+          {
+            Hint: "Avatar",
+            Header: language.AdminAvatar,
+            accessor: "avatar",
+          },
+          {
+            Hint: "Address",
+            Header: language.AdminAddress,
+            accessor: "address",
+          },
+          {
+            Hint: "Email",
+            Header: language.AdminEmail,
+            accessor: "email",
+          },
+          {
+            Hint: "Phone",
+            Header: language.AdminPhone,
+            accessor: "phone",
+          },
+          {
+            Hint: "BirthDay",
+            Header: language.AdminBD,
+            accessor: "birthday",
+          },
+          {
+            Hint: "Gender",
+            Header: language.AdminGender,
+            accessor: "gender",
+          },
+          {
+            Hint: "Actions",
+            Header: language.AdminActions,
+          },
+        ],
+        getDataFunc: "layDanhSachNguoiDung",
+        delete: "xoaNguoiDung",
+        upLoadImg: "thayAnhNguoiDung",
+        btnAddMess: language.AdminAddUser,
+        btnAddIcon: <AiOutlineUserAdd className="text-2xl" />,
+        detailComponent: <UserDetail />,
+        repairComponent: <UserRepair />,
+        addComponent: <UserAdd />,
+      },
+      {
+        name: language.AdminControlPos,
+        tableColumns: [
+          {
+            Hint: "Name",
+            Header: language.AdminName,
+            accessor: "name",
+          },
+          {
+            Hint: "Country",
+            Header: language.AdminCountry,
+            accessor: "country",
+          },
+          {
+            Hint: "Province",
+            Header: language.AdminProvince,
+            accessor: "province",
+          },
+          {
+            Hint: "Image",
+            Header: language.AdminImage,
+            accessor: "image",
+          },
+          {
+            Hint: "Valueate",
+            Header: language.AdminValueate,
+            accessor: "valueate",
+          },
+          {
+            Hint: "Actions",
+            Header: language.AdminActions,
+          },
+        ],
+        getDataFunc: "layDanhSachViTriAll",
+        delete: "xoaNguoiDung",
+        btnAddMess: language.AdminAddLoc,
+        upLoadImg: "capNhatAnhViTri",
+        btnAddIcon: <MdOutlineAddLocationAlt className="text-2xl" />,
+        detailComponent: <PositionDetail />,
+        repairComponent: <PositionRepair />,
+        addComponent: <PositionAdd />,
+      },
+      {
+        name: language.AdminControlRoom,
+        tableColumns: [
+          {
+            Hint: "Name",
+            Header: language.AdminName,
+            accessor: "name",
+          },
+          {
+            Hint: "Image",
+            Header: language.AdminImage,
+            accessor: "image",
+          },
+          {
+            Hint: "Description",
+            Header: language.AdminDescription,
+            accessor: "description",
+          },
+          {
+            Hint: "Price",
+            Header: language.AdminPrice,
+            accessor: "price",
+          },
+          {
+            Hint: "Actions",
+            Header: language.AdminActions,
+          },
+        ],
+        getDataFunc: "layDanhSachPhongAll",
+        delete: "xoaNguoiDung",
+        btnAddMess: language.AdminAddRoom,
+        upLoadImg: "capNhatAnhPhong",
+        btnAddIcon: <MdAddBusiness className="text-2xl" />,
+        detailComponent: <RoomDetail />,
+        repairComponent: <RoomRepair />,
+        addComponent: <RoomAdd />,
+      },
+    ]);
+  }, [language]);
+
   return (
     <div className="lg:pt-[96px] container  mx-auto">
       <div className="flex justify-center">
         <ul className="flex justify-center">
-          {navData.map((item, index) => {
+          {navData?.map((item, index) => {
             const { name } = item;
             return (
               <li
@@ -172,10 +199,9 @@ export default function Admin() {
         </ul>
       </div>
 
-      {loading ? (
-        <AdminLoading />
-      ) : (
-        <TableAdmin currentNavData={navData[currentNav]} />
+      {loading && <AdminLoading />}
+      {!loading && navData && (
+        <TableAdmin currentNavData={navData?.[currentNav]} />
       )}
       {showOptionBox && <OptionBox />}
     </div>

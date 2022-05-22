@@ -15,6 +15,7 @@ import {
 } from "../../../Store/RoomDetailSlice/RoomDetailSlice";
 import WarningDelete from "../WarningDelete/WarningDelete";
 import RatingAdd from "./RatingAdd/RatingAdd";
+import RatingRepair from "./RatingRepair/RatingRepair";
 
 export default function RatingShow({ id }) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function RatingShow({ id }) {
   });
   const [hideRates, setHideRates] = useState([]);
   const [delRates, setDelRates] = useState({});
+  const [repairCurrent, setRepairCurrent] = useState(null);
 
   const handleHideRating = (id) => {
     if (hideRates.includes(id)) {
@@ -78,6 +80,10 @@ export default function RatingShow({ id }) {
     });
   };
 
+  const handleRepairRating = (rateItem) => {
+    setRepairCurrent(rateItem);
+  };
+
   const handleShowOption = (id) => {
     if (showOption.id !== id) {
       setShowOption({
@@ -94,6 +100,7 @@ export default function RatingShow({ id }) {
 
   useEffect(() => {
     httpServ.layDanhGiaPhong(id).then((res) => {
+      console.log(res.data);
       const arr = res.data;
       _.reverse(arr);
       dispatch(setRateData(arr));
@@ -156,6 +163,14 @@ export default function RatingShow({ id }) {
               userId: { name, avatar, _id: userId },
             } = rateItem;
             const timeFromNow = moment(created_at).fromNow();
+            if (_id === repairCurrent?._id) {
+              return (
+                <RatingRepair
+                  repairCurrent={repairCurrent}
+                  setRepairCurrent={setRepairCurrent}
+                />
+              );
+            }
             return (
               <div
                 className={`${
@@ -205,7 +220,10 @@ export default function RatingShow({ id }) {
                                 >
                                   Xóa đánh giá
                                 </li>
-                                <li className="py-2 px-3 cursor-pointer hover:bg-gray-700">
+                                <li
+                                  onClick={() => handleRepairRating(rateItem)}
+                                  className="py-2 px-3 cursor-pointer hover:bg-gray-700"
+                                >
                                   Chỉnh sửa đánh giá
                                 </li>
                               </>
