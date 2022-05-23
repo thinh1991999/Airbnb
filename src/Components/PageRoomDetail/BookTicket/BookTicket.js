@@ -16,7 +16,7 @@ export default function BookTicket({ price, id }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
-
+  const language = useSelector((state) => state.root.language);
   const token = useSelector((state) => state.root.token);
   const user = useSelector((state) => state.root.user);
   const [showDateBox, setShowDateBox] = useState(false);
@@ -45,7 +45,7 @@ export default function BookTicket({ price, id }) {
         .then((res) => {
           setMess({
             type: "SUCCESS",
-            mess: res.data.message,
+            mess: language.RoomSuccessfulBooking,
           });
           setLoadingBtn(false);
         });
@@ -91,7 +91,7 @@ export default function BookTicket({ price, id }) {
         <div className="px-10 py-5  min-w-[200px] rounded-xl border-[1px] ">
           <h5 className="text-2xl font-bold">
             {getVNDMoney(price)}{" "}
-            <span className="text-lg font-normal">/đêm</span>
+            <span className="text-lg font-normal">/{language.Night}</span>
           </h5>
           <div className="mt-5 rounded-lg  border-[1px] border-gray-500">
             <div
@@ -100,18 +100,22 @@ export default function BookTicket({ price, id }) {
             >
               <div className="flex-1 px-3 py-2 cursor-pointer">
                 <span className="font-medium uppercase text-xs">
-                  Nhận phòng
+                  {language.SearchTakeRoom}
                 </span>
                 <p className="text-base font-thin">
                   {" "}
-                  {getInforSearchValue("inDate", searchValue) || "Thêm ngày"}
+                  {getInforSearchValue("inDate", searchValue) ||
+                    language.SearchAddDay}
                 </p>
               </div>
               <div className="w-[1px] bg-gray-500"></div>
               <div className="flex-1 px-3 py-2 cursor-pointer">
-                <span className="font-medium uppercase text-xs">Trả phòng</span>
+                <span className="font-medium uppercase text-xs">
+                  {language.SearchPayRoom}
+                </span>
                 <p className="text-base font-thin">
-                  {getInforSearchValue("outDate", searchValue) || "Thêm ngày"}
+                  {getInforSearchValue("outDate", searchValue) ||
+                    language.SearchAddDay}
                 </p>
               </div>
               {showDateBox && (
@@ -123,29 +127,31 @@ export default function BookTicket({ price, id }) {
                   <div className="h-full w-full  ">
                     <div className="flex w-full">
                       <div className="w-1/2">
-                        <h5 className="text-2xl font-bold">Chọn ngày</h5>
+                        <h5 className="text-2xl font-bold">
+                          {language.RoomChooseDate}
+                        </h5>
                         <span className="text-gray-600 dark:text-gray-200">
-                          Thêm ngày đi để biết giá chính xác
+                          {language.RoomSelectCheckIn}
                         </span>
                       </div>
                       <div className="w-1/2 flex rounded-lg overflow-hidden border-[1px]">
                         <div className="flex-1  py-[7px] px-3 flex flex-col">
                           <label className="font-bold" htmlFor="">
-                            Nhận phòng
+                            {language.SearchTakeRoom}
                           </label>
                           <span className="text-gray-600 dark:text-gray-200">
                             {getInforSearchValue("inDate", searchValue) ||
-                              "Thêm ngày"}
+                              language.SearchAddDay}
                           </span>
                         </div>
                         <div className="w-[1px] bg-white"></div>
                         <div className="flex-1  py-[7px] px-3 flex flex-col">
                           <label className="font-bold" htmlFor="">
-                            Nhận phòng
+                            {language.SearchTakeRoom}
                           </label>
                           <span className="text-gray-600 dark:text-gray-200">
                             {getInforSearchValue("outDate", searchValue) ||
-                              "Thêm ngày"}
+                              language.SearchAddDay}
                           </span>
                         </div>
                       </div>
@@ -169,10 +175,12 @@ export default function BookTicket({ price, id }) {
                   className=""
                   onClick={() => setShowMemberBox(!showMemberBox)}
                 >
-                  <span className="font-medium uppercase text-xs">Khách</span>
+                  <span className="font-medium uppercase text-xs">
+                    {language.SearchGuest}
+                  </span>
                   <p className="text-base font-thin one__line__text">
                     {getInforSearchValue("members", searchValue) ||
-                      "Thêm khách"}
+                      language.SearchAddGuest}
                   </p>
                 </div>
                 <AiOutlineDown />
@@ -209,7 +217,7 @@ export default function BookTicket({ price, id }) {
                 {loadingBtn ? (
                   <TailSpin width={"2em"} height={"2em"} />
                 ) : (
-                  <span>Đặt phòng</span>
+                  <span>{language.RoomBooking}</span>
                 )}
               </Button>
             </button>

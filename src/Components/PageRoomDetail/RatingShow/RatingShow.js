@@ -3,6 +3,8 @@ import { TailSpin } from "react-loading-icons";
 import { toast } from "react-toastify";
 import { BsThreeDots } from "react-icons/bs";
 import moment from "moment";
+import "moment/locale/vi";
+import "moment/locale/en-gb";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { unknowImg } from "../../../Shared/Constant";
@@ -19,6 +21,7 @@ import RatingRepair from "./RatingRepair/RatingRepair";
 
 export default function RatingShow({ id }) {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.root.language);
   const token = useSelector((state) => state.root.token);
   const user = useSelector((state) => state.root.user);
   const rateData = useSelector((state) => state.roomDetail.rateData);
@@ -146,7 +149,7 @@ export default function RatingShow({ id }) {
   return (
     <div className="py-5 border-t-[1px] border-b-[1px] border-gray-500">
       <h2 className="text-xl font-bold capitalize">
-        đánh giá : {rateData?.length}{" "}
+        {language.Rating} : {rateData?.length}{" "}
       </h2>
       <RatingAdd id={id} />
       {ratingLoading ? (
@@ -162,6 +165,7 @@ export default function RatingShow({ id }) {
               _id,
               userId: { name, avatar, _id: userId },
             } = rateItem;
+            moment.locale(language.FromNow);
             const timeFromNow = moment(created_at).fromNow();
             if (_id === repairCurrent?._id) {
               return (
@@ -203,14 +207,14 @@ export default function RatingShow({ id }) {
                           ref={(el) => (optionRef.current[index] = el)}
                           className="z-50 absolute min-w-[200px] bg-gray-800 top-full py-2  rounded-md"
                         >
-                          <ul className="text-lg font-medium">
+                          <ul className="text-lg font-medium capitalize">
                             <li
                               onClick={() => handleHideRating(_id)}
                               className="py-2 px-3 cursor-pointer hover:bg-gray-700"
                             >
                               {hideRates.includes(_id)
-                                ? "Hiện đánh giá"
-                                : "Ẩn đánh giá"}
+                                ? language.ShowReview
+                                : language.HideReview}
                             </li>
                             {user?._id === userId && (
                               <>
@@ -218,13 +222,13 @@ export default function RatingShow({ id }) {
                                   onClick={() => handleShowDeleteRating(_id)}
                                   className="py-2 px-3 cursor-pointer hover:bg-gray-700"
                                 >
-                                  Xóa đánh giá
+                                  {language.DeleteReview}
                                 </li>
                                 <li
                                   onClick={() => handleRepairRating(rateItem)}
                                   className="py-2 px-3 cursor-pointer hover:bg-gray-700"
                                 >
-                                  Chỉnh sửa đánh giá
+                                  {language.ChangeReview}
                                 </li>
                               </>
                             )}

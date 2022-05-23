@@ -11,8 +11,10 @@ import {
 } from "react-icons/md";
 import Calendar from "react-calendar";
 import "./InfoShow.css";
+import { useSelector } from "react-redux";
 
 export default function InfoShow({ detailData }) {
+  const language = useSelector((state) => state.root.language);
   const {
     name,
     guests,
@@ -35,16 +37,16 @@ export default function InfoShow({ detailData }) {
       <div className="py-5  border-gray-500">
         <h3 className="text-xl font-bold">{name}</h3>
         <p>
-          {guests || 0} khách ,{bedRoom || 0} phòng ngủ, {bath || 0} phòng tắm
+          {guests || 0} {language.GuestRoom},{bedRoom || 0} {language.Bedroom},{" "}
+          {bath || 0} {language.Bathroom}
         </p>
       </div>
       <div className="py-5 border-t-[1px] border-gray-500">
-        <p>
-          <span className="font-bold">Description:</span> {description}
-        </p>
+        <h3 className="text-xl font-bold">{language.RoomDes}</h3>
+        <p>{description}</p>
       </div>
       <div className="py-5 border-t-[1px] border-gray-500">
-        <h3 className="text-xl font-bold">Nơi này có gì cho bạn</h3>
+        <h3 className="text-xl font-bold">{language.RoomPlaceForU}</h3>
         <div className="flex flex-wrap">
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize ">
             <div className="relative">
@@ -66,7 +68,9 @@ export default function InfoShow({ detailData }) {
                 </div>
               )}
             </div>{" "}
-            <span className={`ml-2 ${!pool && `line-through`} `}>bể bơi</span>
+            <span className={`ml-2 ${!pool && `line-through`} `}>
+              {language.Pool}
+            </span>
           </div>
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
@@ -88,7 +92,9 @@ export default function InfoShow({ detailData }) {
                 </div>
               )}
             </div>{" "}
-            <span className={`ml-2 ${!kitchen && `line-through`} `}>bếp</span>
+            <span className={`ml-2 ${!kitchen && `line-through`} `}>
+              {language.Oven}
+            </span>
           </div>
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
@@ -99,7 +105,9 @@ export default function InfoShow({ detailData }) {
                 </div>
               )}
             </div>{" "}
-            <span className={`ml-2 ${!dryer && `line-through`} `}>máy xấy</span>
+            <span className={`ml-2 ${!dryer && `line-through`} `}>
+              {language.Dryer}
+            </span>
           </div>
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
@@ -111,7 +119,7 @@ export default function InfoShow({ detailData }) {
               )}
             </div>{" "}
             <span className={`ml-2 ${!elevator && `line-through`} `}>
-              thang máy
+              {language.Elevator}
             </span>
           </div>
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
@@ -136,7 +144,7 @@ export default function InfoShow({ detailData }) {
               )}
             </div>{" "}
             <span className={`ml-2 ${!heating && `line-through`} `}>
-              lò vi sóng
+              {language.Microwave}
             </span>
           </div>
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
@@ -149,7 +157,7 @@ export default function InfoShow({ detailData }) {
               )}
             </div>{" "}
             <span className={`ml-2 ${!hotTub && `line-through`} `}>
-              nước nóng
+              {language.HotWater}
             </span>
           </div>
           <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
@@ -162,17 +170,14 @@ export default function InfoShow({ detailData }) {
               )}
             </div>{" "}
             <span className={`ml-2 ${!indoorFireplace && `line-through`} `}>
-              lò sưởi
+              {language.Heater}
             </span>
           </div>
         </div>
-        {/* <button className="px-4 py-2 border-[1px] border-black dark:border-white rounded-md mt-2 hover:opacity-50 transition-all duration-300 ease-linear">
-          Hiển thị tất cả 22 tiện ích
-        </button> */}
       </div>
       <div className="py-5 border-t-[1px] border-gray-500">
-        <h3 className="text-xl font-bold">Chọn ngày nhận phòng</h3>
-        <span className="font-light">Thêm ngày đi để biết giá chính xác</span>
+        <h3 className="text-xl font-bold">{language.RoomSelectCheckIn}</h3>
+        <span className="font-light">{language.RoomAddTravelDate}</span>
         <Calendar
           // onChange={onChange}
           // tileClassName={handleDisableDay}

@@ -79,7 +79,7 @@ function Header() {
       id="header"
       className={`fixed ${
         searchActive && showSearch ? " h-[200px]" : "h-[92px]"
-      }   top-0 left-0 right-0 z-10 bg-white text-black dark:bg-black dark:text-white`}
+      }   top-0 left-0 right-0 z-10 bg-transparent text-black dark:bg-transparent dark:text-white`}
     >
       <div className="relative">
         <div className=" lg:mx-20 lg:py-5 ">
@@ -106,9 +106,9 @@ function Header() {
               >
                 <button
                   onClick={() => dispatch(setSearchActive(!searchActive))}
-                  className="flex min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
+                  className="flex min-w-[250px] bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
                 >
-                  <span>{language.HeaderSearch}</span>
+                  <span className="font-medium">{language.HeaderSearch}</span>
                   <span className="p-2 text-white rounded-full primary--BGcolor">
                     <AiOutlineSearch />
                   </span>
@@ -125,8 +125,10 @@ function Header() {
             <div className="lg:w-1/4 text-xl flex justify-end relative z-10">
               <button
                 className={`${
-                  mode === "DARK" ? "hover:bg-gray-800" : "hover:bg-gray-200"
-                } px-3 transition-all duration-300 ease-linear text-base py-1 rounded-full `}
+                  mode === "DARK"
+                    ? "bg-gray-800/[40%] hover:bg-gray-800"
+                    : "bg-gray-50/[40%] hover:bg-gray-100"
+                } px-3 font-semibold transition-all duration-300 ease-linear text-base py-1 rounded-full `}
                 onClick={() => dispatch(setSearchActive(!searchActive))}
               >
                 {language.HeaderHouseOwn}
@@ -136,7 +138,9 @@ function Header() {
                   dispatch(setShowLanguageSetting(!showLanguageSetting))
                 }
                 className={`${
-                  mode === "DARK" ? "hover:bg-gray-800" : "hover:bg-gray-200"
+                  mode === "DARK"
+                    ? "bg-gray-800/[40%] hover:bg-gray-800"
+                    : "bg-gray-50/[40%] hover:bg-gray-100"
                 } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear `}
               >
                 <AiOutlineGlobal />
@@ -147,8 +151,10 @@ function Header() {
                   dispatch(setMode(mode === "DARK" ? "LIGHT" : "DARK"))
                 }
                 className={`${
-                  mode === "DARK" ? "hover:bg-gray-800" : "hover:bg-gray-200"
-                } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear `}
+                  mode === "DARK"
+                    ? "bg-gray-800/[40%] hover:bg-gray-800"
+                    : "bg-gray-50/[40%] hover:bg-gray-100"
+                } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear bg-gray-50/[40%]`}
               >
                 {mode === "DARK" ? <BsFillSunFill /> : <BsFillMoonFill />}
               </button>

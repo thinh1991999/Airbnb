@@ -16,6 +16,7 @@ export default function User() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.root.user);
   const token = useSelector((state) => state.root.token);
+  const language = useSelector((state) => state.root.language);
 
   const [dataUser, setDataUser] = useState(null);
   const [ticketsData, setTicketsData] = useState([]);
@@ -86,9 +87,9 @@ export default function User() {
               effect="opacity"
             />
             <div className="mt-4">
-              <button className="px-2 py-1 bg-blue-600 text-white rounded-full cursor-pointer">
+              <button className="px-2 py-1 bg-blue-500 hover:opacity-75 transition-all duration-300 ease-linear text-white rounded-full cursor-pointer">
                 <label htmlFor="image" className="cursor-pointer">
-                  Up load new image
+                  {language.UpLoadNewImage}
                 </label>
               </button>
               <input
@@ -103,64 +104,73 @@ export default function User() {
         <div className="lg:w-2/3 flex flex-col ">
           <div className="border-b-[1px] pb-10 border-gray-500">
             <h3 className="text-5xl font-bold">
-              Xin chào, tôi là {dataUser?.name}
+              {language.HelloIAm} {dataUser?.name}
             </h3>
-            <span className="font-thin">Bắt đầu tham gia vào 2022</span>
+            <span className="font-thin">
+              {language.StartParticipatingIn} 2022
+            </span>
             <span className="flex items-center text-2xl mt-5">
-              <AiFillStar className="mr-2" /> 0 đánh giá
+              <AiFillStar className="mr-2" /> 0 {language.Rating}
             </span>
           </div>
           <div className="py-5 border-b-[1px] border-gray-500">
-            <h5 className="text-3xl font-bold mb-5">My information</h5>
-            <div className="flex  items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                Type
-              </span>
-              <p className="">: {dataUser?.type}</p>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                Name
-              </span>
-              <p className="">: {dataUser?.name}</p>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                Email
-              </span>
-              <p className="">: {dataUser?.email}</p>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                Phone
-              </span>
-              <p className="">: {dataUser?.phone}</p>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                Address
-              </span>
-              <p className="">: {dataUser?.address}</p>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                birthday
-              </span>
-              <p className="">: {dataUser?.birthday.substring(0, 10)}</p>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="mr-2 font-bold block min-w-[80px] capitalize">
-                gender
-              </span>
-              <p className="">: {dataUser?.gender ? "Male" : "Female"}</p>
+            <h5 className="text-3xl font-bold mb-5">
+              {language.MyInformation}
+            </h5>
+            <div className="inline-block">
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.UserType}
+                </span>
+                <p className=""> {dataUser?.type}</p>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.AdminName}
+                </span>
+                <p className=""> {dataUser?.name}</p>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.AdminEmail}
+                </span>
+                <p className=""> {dataUser?.email}</p>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.AdminPhone}
+                </span>
+                <p className=""> {dataUser?.phone}</p>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.AdminAddress}
+                </span>
+                <p className=""> {dataUser?.address}</p>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.AdminBD}
+                </span>
+                <p className=""> {dataUser?.birthday.substring(0, 10)}</p>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="flex-1 mr-2 font-bold block min-w-[80px] capitalize">
+                  {language.AdminGender}
+                </span>
+                <p className="">
+                  {dataUser?.gender ? language.Male : language.Female}
+                </p>
+              </div>
             </div>
           </div>
           <div className="py-5 border-b-[1px] border-gray-500">
             <h5 className="text-3xl font-bold mb-5">
-              My tickets:{" "}
+              {language.MyTickets}:{" "}
               {!ticketsLoading && (
                 <span className="text-xl font-normal">
-                  {ticketsData.length} tickets
+                  {ticketsData.length}{" "}
+                  {ticketsData.length > 1 ? language.Tickets : language.Ticket}
                 </span>
               )}
             </h5>
@@ -187,7 +197,9 @@ export default function User() {
                         </div>
                         <div className="">
                           <h5 className="text-xl font-bold">{name}</h5>
-                          <span>{getVNDMoney(price)}/đêm</span>
+                          <span>
+                            {getVNDMoney(price)}/{language.Night}
+                          </span>
                         </div>
                       </div>
                     );

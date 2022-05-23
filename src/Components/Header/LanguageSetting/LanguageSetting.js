@@ -6,6 +6,8 @@ import { setLanguageHint } from "../../../Store/RootSlice/RootSlice";
 function LanguageSetting() {
   const dispatch = useDispatch();
   const languageHint = useSelector((state) => state.root.languageHint);
+  const language = useSelector((state) => state.root.language);
+
   const [languages, setLanguages] = useState([
     {
       name: "Tiếng Việt",
@@ -48,7 +50,7 @@ function LanguageSetting() {
         ref={contentRef}
         className="bg-white text-black px-10 py-5 rounded-lg"
       >
-        <h5 className="font-bold">Chọn ngôn ngữ và khu vực</h5>
+        <h5 className="font-bold">{language.SelectLanguageAndRegion}</h5>
         <div className="flex -ml-4 -mr-4 mt-5">
           {languages.map((item, index) => {
             const { name, country, hint } = item;

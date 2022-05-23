@@ -8,6 +8,8 @@ import { setToken, setUser } from "../../../Store/RootSlice/RootSlice";
 export default function UserSetting() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.root.user);
+  const language = useSelector((state) => state.root.language);
+
   const wrapRef = useRef(null);
 
   const handleLogOut = () => {
@@ -49,7 +51,7 @@ export default function UserSetting() {
               </div>
               <div className="">
                 <h5 className="font-bold one__line__text">{user?.name}</h5>
-                <span className="font-thin">See ur profile</span>
+                <span className="font-thin">{language.YourProfile}</span>
               </div>
             </Link>
             {user?.type === "ADMIN" && (
@@ -58,7 +60,7 @@ export default function UserSetting() {
                 className="px-5 py-2 flex items-center hover:dark:bg-gray-200 hover:bg-gray-500 cursor-pointer"
               >
                 <div className="">
-                  <span className="font-bold">Admin</span>
+                  <span className="font-bold">{language.AdminPage}</span>
                 </div>
               </Link>
             )}
@@ -66,7 +68,7 @@ export default function UserSetting() {
               onClick={handleLogOut}
               className="hover:dark:bg-gray-200 hover:bg-gray-500 px-5 py-2 text-left"
             >
-              Dang xuat
+              {language.LogOut}
             </button>
           </>
         ) : (
@@ -75,13 +77,13 @@ export default function UserSetting() {
               to={"/account/signUp"}
               className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2"
             >
-              Dang ky
+              {language.SignIn}
             </Link>
             <Link
               to={"/account/signIn"}
               className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2"
             >
-              Dang Nhap
+              {language.LogIn}
             </Link>
           </>
         )}
