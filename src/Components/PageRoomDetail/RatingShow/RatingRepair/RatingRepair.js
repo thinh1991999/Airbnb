@@ -6,6 +6,8 @@ import { httpServ } from "../../../../ServiceWorkers";
 
 export default function RatingRepair({ repairCurrent, setRepairCurrent }) {
   const token = useSelector((state) => state.root.token);
+  const language = useSelector((state) => state.root.language);
+
   const [repairValue, setRepairValue] = useState(repairCurrent?.content);
 
   const handleSubmit = (e) => {
@@ -45,7 +47,7 @@ export default function RatingRepair({ repairCurrent, setRepairCurrent }) {
               value={repairValue}
               onChange={(e) => setRepairValue(e.target.value)}
               type="text"
-              placeholder="Enter new rating"
+              placeholder={language.RoomNewReview}
               className="w-full bg-gray-900 text-xl outline-none"
             />
             <button type="submit" className="text-3xl text-white">
@@ -58,7 +60,7 @@ export default function RatingRepair({ repairCurrent, setRepairCurrent }) {
         onClick={() => setRepairCurrent(null)}
         className="font-bold text-blue-500 ml-[80px]"
       >
-        Hủy
+        {language.Cancer}
       </button>
     </div>
   );

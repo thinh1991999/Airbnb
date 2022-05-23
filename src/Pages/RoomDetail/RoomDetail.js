@@ -13,6 +13,7 @@ import WarningLayout from "../../Components/PageRoomDetail/WarningLayout/Warning
 
 export default function RoomDetail() {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.root.language);
   const showWarning = useSelector((state) => state.roomDetail.showWarning);
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
@@ -83,7 +84,9 @@ export default function RoomDetail() {
                 className="flex items-center rounded-lg border border-black hover:bg-gray-200 bg-white text-black px-2 py-1"
               >
                 <BsColumnsGap />
-                <span className="ml-1">Hien thi tat ca anh</span>
+                <span className="ml-1 first-letter:capitalize">
+                  {language.RoomShowAllImg}
+                </span>
               </button>
             </div>
           </div>

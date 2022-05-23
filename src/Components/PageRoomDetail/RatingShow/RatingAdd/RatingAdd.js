@@ -7,6 +7,7 @@ import { setReloadRating } from "../../../../Store/RoomDetailSlice/RoomDetailSli
 
 export default function RatingAdd({ id }) {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.root.language);
   const token = useSelector((state) => state.root.token);
   const user = useSelector((state) => state.root.user);
   const [ratingValue, setRatingValue] = useState("");
@@ -45,7 +46,7 @@ export default function RatingAdd({ id }) {
               value={ratingValue}
               onChange={(e) => setRatingValue(e.target.value)}
               type="text"
-              placeholder="Enter your rating"
+              placeholder={language.RoomEnterRating}
               className="w-full bg-gray-900 text-xl outline-none"
             />
             <button type="submit" className="text-3xl">
