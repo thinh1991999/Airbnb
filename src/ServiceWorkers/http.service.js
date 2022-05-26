@@ -87,6 +87,11 @@ class HttpRequestService {
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.postMethod(uri, data, false);
   };
+  xoaViTri = (id, token) => {
+    const uri = "/api/locations/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.deleteMothod(uri, false);
+  };
   capNhatViTri = (data, id, token) => {
     const uri = "/api/locations/" + id;
     AxiosServ.axiosConfig.headers.token = token;
@@ -107,6 +112,11 @@ class HttpRequestService {
     const uri = "/api/rooms";
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.postMethod(uri, data, false);
+  };
+  xoaPhong = (id, token) => {
+    const uri = "/api/rooms/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.deleteMothod(uri, false);
   };
   capNhatPhong = (data, id, token) => {
     const uri = "/api/rooms/" + id;

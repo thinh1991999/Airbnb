@@ -35,7 +35,7 @@ export default function RatingRepair({ repairCurrent, setRepairCurrent }) {
 
   return (
     <div className="">
-      <div className="w-full border-[1px] border-gray-500 px-5 py-5 rounded-full mt-5">
+      <div className="w-full border-[1px] border-gray-500 px-5 py-3 rounded-full mt-5">
         <div className="flex items-center justify-between">
           <img
             src={repairCurrent?.userId?.avatar}

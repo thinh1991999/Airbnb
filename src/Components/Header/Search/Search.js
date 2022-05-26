@@ -85,7 +85,7 @@ function Search() {
   }, []);
 
   return (
-    <div className={`absolute  top-0 mt-5 left-0 right-0  `}>
+    <div className={`absolute top-0 mt-5 left-0 right-0  `}>
       <div className="">
         <div className="flex justify-center">
           <ul
@@ -118,7 +118,7 @@ function Search() {
               id="search"
               action=""
               onSubmit={(e) => e.preventDefault()}
-              className="mt-5 lg:min-w-[850px]  flex justify-between bg-stone-200 rounded-full relative"
+              className="mt-5 lg:min-w-[850px]  flex justify-between bg-gray-100 rounded-full relative"
               ref={formRef}
             >
               <div

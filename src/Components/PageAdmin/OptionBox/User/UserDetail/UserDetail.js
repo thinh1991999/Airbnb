@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Circles } from "react-loading-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { httpServ } from "../../../../../ServiceWorkers";
 import { unknowImg } from "../../../../../Shared/Constant";
 import BtnClose from "../../BtnClose/BtnClose";
 import ItemDetail from "../../ItemDetail/ItemDetail";
 
 export default function UserDetail() {
-  const dispatch = useDispatch();
   const idOption = useSelector((state) => state.admin.idOption);
+  const language = useSelector((state) => state.root.language);
+
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,7 +44,9 @@ export default function UserDetail() {
   return (
     <div className=" min-w-[320px] max-w-[600px]  py-5 px-7 rounded-xl dark:bg-gray-900 bg-gray-100">
       <BtnClose />
-      <h2 className="capitalize text-3xl font-semibold mb-5">Chi tiết</h2>
+      <h2 className="capitalize text-3xl font-semibold mb-5">
+        {language.AdminDetailUser}
+      </h2>
       <div className="flex justify-center mb-5">
         <LazyLoadImage
           src={avatar || unknowImg}
@@ -55,21 +58,27 @@ export default function UserDetail() {
           effect="opacity"
         />
       </div>
-      <ItemDetail name={"name"} value={name} />
-      <ItemDetail name={"type"} value={type} />
-      <ItemDetail name={"address"} value={address} />
+      <ItemDetail name={language.AdminName} value={name} />
+      <ItemDetail name={language.UserType} value={type} />
+      <ItemDetail name={language.HeaderAddress} value={address} />
 
       <ItemDetail name={"Email"} value={email} />
-      <ItemDetail name={"phone"} value={phone} />
+      <ItemDetail name={language.AdminPhone} value={phone} />
       <ItemDetail
-        name={"birthday"}
-        value={birthday?.substring(0, 10) || "null"}
+        name={language.AdminBD}
+        value={birthday?.substring(0, 10) || language.Null}
       />
       <ItemDetail
-        name={"gender"}
-        value={gender !== undefined ? (gender ? "male" : "female") : "null"}
+        name={language.AdminGender}
+        value={
+          gender !== undefined
+            ? gender
+              ? language.Male
+              : language.Female
+            : language.Null
+        }
       />
-      <ItemDetail name={"tickets"} value={tickets.length} />
+      <ItemDetail name={language.Tickets} value={tickets.length} />
     </div>
   );
 }

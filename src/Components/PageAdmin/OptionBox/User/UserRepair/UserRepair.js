@@ -13,11 +13,13 @@ import { TailSpin } from "react-loading-icons";
 import { toast } from "react-toastify";
 import BtnClose from "../../BtnClose/BtnClose";
 import Rules from "../Rules";
+import InputTextForm from "../../../../InputTextForm/InputTextForm";
 
 export default function UserRepair() {
   const dispatch = useDispatch();
   const idOption = useSelector((state) => state.admin.idOption);
   const token = useSelector((state) => state.root.token);
+  const language = useSelector((state) => state.root.language);
 
   const [loading, setLoading] = useState(true);
   const [btnLoading, setBtnLoading] = useState(false);
@@ -79,7 +81,7 @@ export default function UserRepair() {
     <div className=" min-w-[320px] max-w-[600px]  py-5 px-10 rounded-xl dark:bg-gray-900 bg-gray-100">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
-        Sửa thông tin người dùng
+        {language.AdminRepairUser}
       </h2>
       <div className="flex justify-center mb-5">
         <LazyLoadImage
@@ -94,88 +96,60 @@ export default function UserRepair() {
       </div>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="email">Email</label>
-          <input
+          <InputTextForm
             disabled={!activeEmail}
-            id="email"
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={userData.email}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 disabled:opacity-50 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.email ? `border-red-600` : `border-gray-400`
-            }`}
+            name={"email"}
+            hint={userData.email}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={userData}
           />
-          {errors.email && <p className="text-red-600">{errors.email}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="name">Full Name</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Ho Ten"
-            name="name"
-            value={userData.name}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.name ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"name"}
+            hint={language.AdminName}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={userData}
           />
-          {errors.name && <p className="text-red-600">{errors.name}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="phone">Phone Number</label>
-          <input
-            id="phone"
-            type="text"
-            placeholder="Phone"
-            name="phone"
-            value={userData.phone}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.phone ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"phone"}
+            hint={language.AdminPhone}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={userData}
           />
-          {errors.phone && <p className="text-red-600">{errors.phone}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="address">Address</label>
-          <input
-            id="address"
-            type="text"
-            placeholder="Address"
-            name="address"
-            value={userData.address}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full flex-1 bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.address ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"address"}
+            hint={language.AdminAddress}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={userData}
           />
-          {errors.address && <p className="text-red-600">{errors.address}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="date">Birth day</label>
-          <input
-            id="date"
-            type="date"
-            name="birthday"
-            value={userData.birthday?.substring(0, 10)}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full flex-1 bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.birthday ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"birthday"}
+            hint={language.AdminBD}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={userData.birthday?.substring(0, 10)}
+            type={"date"}
           />
-          {errors.birthday && <p className="text-red-600">{errors.birthday}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1 flex flex-col">
-          <label className="capitalize" htmlFor="">
-            gender
+          <label className="capitalize font-bold" htmlFor="">
+            {language.AdminGender}
           </label>
           <div className="w-full flex items-center h-full">
             <input
@@ -187,7 +161,7 @@ export default function UserRepair() {
               onChange={() => setUserData({ ...userData, gender: true })}
             />
             <label htmlFor="male" className="ml-1 cursor-pointer">
-              Male
+              {language.Male}
             </label>
             <input
               type="radio"
@@ -198,7 +172,7 @@ export default function UserRepair() {
               onChange={() => setUserData({ ...userData, gender: false })}
             />
             <label htmlFor="Female" className="ml-1 cursor-pointer">
-              Female
+              {language.Female}
             </label>
           </div>
         </div>
@@ -218,7 +192,7 @@ export default function UserRepair() {
             onSubmit={handleSubmit}
             className={`${
               loading && "cursor-not-allowed"
-            } w-full capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
+            } w-full text-white font-bold capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
           >
             {btnLoading ? (
               <TailSpin
@@ -228,7 +202,7 @@ export default function UserRepair() {
                 strokeWidth={3}
               />
             ) : (
-              <span>save</span>
+              <span>{language.Save}</span>
             )}
           </button>
         </div>

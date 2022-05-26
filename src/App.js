@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./Components";
 import Loading from "./Components/Loading/Loading";
 import {
@@ -79,6 +79,7 @@ function App() {
             }
           ></Route>
           <Route path="/error" element={<ErrorPage />}></Route>
+          <Route path="/*" element={<Navigate to="/error" />}></Route>
         </Routes>
       </div>
       <ToastContainer />

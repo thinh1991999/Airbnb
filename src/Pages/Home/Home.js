@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setHeaderTrans,
   setScrollActive,
   setSearchActive,
   setShowSearch,
@@ -14,6 +15,10 @@ function Home() {
     dispatch(setShowSearch(true));
     dispatch(setSearchActive(true));
     dispatch(setScrollActive(true));
+    dispatch(setHeaderTrans(true));
+    return () => {
+      dispatch(setHeaderTrans(false));
+    };
   }, []);
   return (
     <div className="">

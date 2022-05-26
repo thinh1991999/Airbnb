@@ -79,7 +79,7 @@ function TableAdmin({ currentNavData }) {
           <div className="flex justify-end mb-5">
             <button
               onClick={handleShowAdd}
-              className="px-4 py-3 rounded-md primary--BGcolor flex items-center capitalize text-xl"
+              className="px-4 py-3 rounded-md primary--BGcolor flex items-center capitalize text-xl text-white"
             >
               <span className="mr-2">{currentNavData?.btnAddMess}</span>
               {currentNavData?.btnAddIcon}

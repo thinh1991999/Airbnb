@@ -189,7 +189,7 @@ export default function RatingShow({ id }) {
                   />
                 </div>
                 <div className="">
-                  <h5 className="text-2xl font-bold flex items-center">
+                  <h5 className="text-lg font-bold flex items-center">
                     <span>{name || "..."}</span>
                     <span className="text-sm font-thin ml-2">
                       {timeFromNow}
@@ -237,7 +237,7 @@ export default function RatingShow({ id }) {
                       )}
                     </div>
                   </h5>
-                  <p className="text-lg">{content}</p>
+                  <p className="text-base">{content}</p>
                 </div>
               </div>
             );

@@ -11,10 +11,13 @@ import {
 } from "../../../../../Store/AdminSlice/AdminSlice";
 import Validator from "../../../../../Shared/Validator";
 import Rules from "../Rules";
+import InputTextForm from "../../../../InputTextForm/InputTextForm";
 
 export default function PositionRepair() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
+  const language = useSelector((state) => state.root.language);
+
   const idOption = useSelector((state) => state.admin.idOption);
   const [errors, setErrors] = useState({});
   const [positionValue, setPositionValue] = useState(null);
@@ -42,7 +45,7 @@ export default function PositionRepair() {
       httpServ.capNhatViTri(currentValue, idOption, token).then((res) => {
         dispatch(setShowOptionBox(false));
         dispatch(setReloadData(true));
-        toast.success("Chinh sua vị trí thanh cong");
+        toast.success(language.AdminRepairLocMess);
         setBtnLoading(false);
       });
     }
@@ -76,83 +79,51 @@ export default function PositionRepair() {
   }
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md text-white lg:w-[800px]">
+    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md lg:w-[800px]">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
-        Sửa thông tin vị trí
+        {language.AdminRepairLoc}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="lg:w-1/2 lg:pr-1">
-          <label className="capitalize" htmlFor="name">
-            Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={positionValue.name}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700  px-3 py-2 border-2  outline-none rounded-md ${
-              errors.name ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"name"}
+            hint={language.AdminName}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={positionValue}
           />
-          {errors.name && <p className="text-red-600">{errors.name}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label className="capitalize" htmlFor="province">
-            Province
-          </label>
-          <input
-            id="province"
-            type="text"
-            placeholder="Province"
-            name="province"
-            value={positionValue.province}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.province ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"province"}
+            hint={language.AdminProvince}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={positionValue}
           />
-          {errors.province && <p className="text-red-600">{errors.province}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label className="capitalize" htmlFor="province">
-            country
-          </label>
-          <input
-            id="country"
-            type="text"
-            placeholder="Country"
-            name="country"
-            value={positionValue.country}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700  px-3 py-2 border-2  outline-none rounded-md ${
-              errors.country ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"country"}
+            hint={language.AdminCountry}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={positionValue}
           />
-          {errors.country && <p className="text-red-600">{errors.country}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label className="capitalize" htmlFor="province">
-            valueate
-          </label>
-          <input
-            id="valueate"
-            type="text"
-            placeholder="Valueate"
-            name="valueate"
-            value={positionValue.valueate}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.valueate ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"valueate"}
+            hint={language.AdminValueate}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={positionValue}
           />
-          {errors.valueate && <p className="text-red-600">{errors.valueate}</p>}
         </div>
         {messAdd.msg && (
           <p
@@ -169,7 +140,7 @@ export default function PositionRepair() {
             onSubmit={handleSubmit}
             className={`${
               btnLoading && "cursor-not-allowed"
-            } w-full capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
+            } w-full font-bold text-white capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
           >
             {btnLoading ? (
               <TailSpin
@@ -179,7 +150,7 @@ export default function PositionRepair() {
                 strokeWidth={3}
               />
             ) : (
-              <span>save</span>
+              <span>{language.Save}</span>
             )}
           </button>
         </div>

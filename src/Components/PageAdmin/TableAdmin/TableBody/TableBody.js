@@ -21,6 +21,7 @@ export default function TableBody({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
   const user = useSelector((state) => state.root.user);
+  const language = useSelector((state) => state.root.language);
 
   const [currentIdTarget, setCurrentIdTarget] = useState({});
   const [currentIdTargetImg, setCurrentIdTargetImg] = useState({});
@@ -28,8 +29,8 @@ export default function TableBody({
   const handleDelete = (id) => {
     setCurrentIdTarget({ ...currentIdTarget, [id]: id });
     const funcName = currentNavData.delete;
-    httpServ[funcName](id, token).then((res) => {
-      toast.success("Xoa user thanh cong!");
+    httpServ[funcName](id, token).then(() => {
+      toast.success(currentNavData.btnDelMess);
       dispatch(setReloadData(true));
       setCurrentIdTarget((prev) => {
         delete prev[id];
@@ -86,7 +87,7 @@ export default function TableBody({
               ) {
                 return (
                   <td {...cell.getCellProps()}>
-                    <p>null</p>
+                    <p>{language.Null}</p>
                   </td>
                 );
               }
@@ -117,7 +118,15 @@ export default function TableBody({
                       }`}
                     >
                       {!valueCell ? (
-                        <span className="text-center flex-1">null</span>
+                        <span
+                          className={`text-center ${
+                            cell.column.Hint === "Image"
+                              ? "w-[100px]"
+                              : " w-[70px]"
+                          } `}
+                        >
+                          {language.Null}
+                        </span>
                       ) : (
                         <div
                           className={`${
@@ -143,9 +152,9 @@ export default function TableBody({
                             <>
                               <label
                                 htmlFor={id}
-                                className="px-2 py-1 bg-blue-500 rounded-md cursor-pointer"
+                                className="lg:ml-2 px-2 py-1 text-white bg-blue-500 rounded-md cursor-pointer"
                               >
-                                Chinh sua
+                                {language.Change}
                               </label>
                               <input
                                 type="file"
@@ -176,19 +185,19 @@ export default function TableBody({
                             onClick={() => handleShowDetail(id)}
                             className="mx-2 px-2 py-1 bg-green-500 rounded-md"
                           >
-                            Xem chi tiet
+                            {language.Detail}
                           </button>
                           <button
                             onClick={() => handleShowRepair(id)}
                             className="mx-2 px-2 py-1 bg-blue-500 rounded-md"
                           >
-                            Sua
+                            {language.Repair}
                           </button>
                           <button
                             onClick={() => handleDelete(id)}
                             className="mx-2 px-2 py-1 bg-red-500 rounded-md"
                           >
-                            Xoa
+                            {language.Delete}
                           </button>
                         </div>
                       )}
