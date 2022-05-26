@@ -9,12 +9,10 @@ import BtnClose from "../../BtnClose/BtnClose";
 import ItemDetail from "../../ItemDetail/ItemDetail";
 
 export default function RoomDetail() {
-  const dispatch = useDispatch();
   const idOption = useSelector((state) => state.admin.idOption);
+  const language = useSelector((state) => state.root.language);
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [supportValue, setSupportValue] = useState("");
-  const [notSupportValue, setNotSupportValue] = useState("");
 
   const getSupports = (typeCheck) => {
     if (roomData) {
@@ -90,14 +88,14 @@ export default function RoomDetail() {
           effect="opacity"
         />
       </div>
-      <ItemDetail name={"name"} value={name} />
-      <ItemDetail name={"description"} value={description} />
-      <ItemDetail name={"supports"} value={getSupports(true)} />
-      <ItemDetail name={"not supports"} value={getSupports(false)} />
-      <ItemDetail name={"price"} value={getVNDMoney(price)} />
-      <ItemDetail name={"bath"} value={bath} />
-      <ItemDetail name={"bedRoom"} value={bedRoom} />
-      <ItemDetail name={"guests"} value={guests} />
+      <ItemDetail name={language.AdminName} value={name} />
+      <ItemDetail name={language.AdminDescription} value={description} />
+      <ItemDetail name={language.Support} value={getSupports(true)} />
+      <ItemDetail name={language.NotSupport} value={getSupports(false)} />
+      <ItemDetail name={language.AdminPrice} value={getVNDMoney(price)} />
+      <ItemDetail name={language.Bathroom} value={bath} />
+      <ItemDetail name={language.Bedroom} value={bedRoom} />
+      <ItemDetail name={language.GuestRoom} value={guests} />
     </div>
   );
 }

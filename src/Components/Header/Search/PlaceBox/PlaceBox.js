@@ -8,6 +8,7 @@ import {
   setSearchParams,
   setSearchValue,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
+import { Link } from "react-router-dom";
 
 function PlaceBox() {
   const searchValue = useSelector((state) => state.header.searchValue);
@@ -53,12 +54,15 @@ function PlaceBox() {
     return (
       <div className="px-10">
         <h2>{language.SearchEveryWhere}</h2>
-        <button className="flex mt-5 min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn">
+        <Link
+          to={"/rooms/"}
+          className="flex mt-5 min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
+        >
           <span>{language.FlexSearh}</span>
           <span className="p-2">
             <AiOutlineRight />
           </span>
-        </button>
+        </Link>
       </div>
     );
   }

@@ -14,7 +14,7 @@ export default function ImagesShow({
       }  top-0 right-0 left-0 bottom-0  dark:bg-gray-800 bg-white z-30 transition-all duration-300 ease-linear`}
     >
       <div className=" flex flex-col items-stretch  pt-[40px] h-full overflow-hidden">
-        <div className="justify-between container m-auto mb-10">
+        <div className="justify-between container lg:px-[80px] m-auto mb-10">
           <button
             onClick={() => setShowImages(false)}
             className="text-2xl p-2 border rounded-full hover:opacity-75 transition-all duration-300 ease-linear"

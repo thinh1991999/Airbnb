@@ -25,6 +25,8 @@ function Header() {
   const searchActive = useSelector((state) => state.header.searchActive);
   const scrollActive = useSelector((state) => state.header.scrollActive);
   const showSearch = useSelector((state) => state.header.showSearch);
+  const headerTrans = useSelector((state) => state.header.headerTrans);
+
   const showLanguageSetting = useSelector(
     (state) => state.header.showLanguageSetting
   );
@@ -77,9 +79,11 @@ function Header() {
     <div
       ref={headerRef}
       id="header"
-      className={`fixed ${
-        searchActive && showSearch ? " h-[200px]" : "h-[92px]"
-      }   top-0 left-0 right-0 z-10 bg-transparent text-black dark:bg-transparent dark:text-white`}
+      className={`${searchActive && showSearch ? " h-[200px]" : "h-[92px]"} ${
+        headerTrans
+          ? "bg-transparent dark:bg-transparent"
+          : "bg-white header__shadow dark:bg-black"
+      }  fixed top-0 left-0 right-0 z-10  text-black  dark:text-white`}
     >
       <div className="relative">
         <div className=" lg:mx-20 lg:py-5 ">
@@ -123,7 +127,7 @@ function Header() {
               </div>
             </div>
             <div className="lg:w-1/4 text-xl flex justify-end relative z-10">
-              <button
+              {/* <button
                 className={`${
                   mode === "DARK"
                     ? "bg-gray-800/[40%] hover:bg-gray-800"
@@ -132,7 +136,7 @@ function Header() {
                 onClick={() => dispatch(setSearchActive(!searchActive))}
               >
                 {language.HeaderHouseOwn}
-              </button>
+              </button> */}
               <button
                 onClick={() =>
                   dispatch(setShowLanguageSetting(!showLanguageSetting))
@@ -154,7 +158,7 @@ function Header() {
                   mode === "DARK"
                     ? "bg-gray-800/[40%] hover:bg-gray-800"
                     : "bg-gray-50/[40%] hover:bg-gray-100"
-                } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear bg-gray-50/[40%]`}
+                } ml-4 px-3 py-1 rounded-full transition-all duration-300 ease-linear `}
               >
                 {mode === "DARK" ? <BsFillSunFill /> : <BsFillMoonFill />}
               </button>

@@ -40,7 +40,7 @@ export default function RoomDetail() {
 
   const { name, price } = detailData;
   return (
-    <div className="pt-[96px] container mx-auto relative">
+    <div className="pt-[96px] container lg:px-[80px] mx-auto relative">
       {!showImages && (
         <div className="py-5">
           <div className="">

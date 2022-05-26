@@ -10,6 +10,7 @@ const initialState = {
   activeSearchForm: null,
   showLanguageSetting: false,
   showUserSetting: false,
+  headerTrans: false,
 };
 
 export const headerSlice = createSlice({
@@ -43,6 +44,9 @@ export const headerSlice = createSlice({
     setShowUserSetting: (state, action) => {
       state.showUserSetting = action.payload;
     },
+    setHeaderTrans: (state, action) => {
+      state.headerTrans = action.payload;
+    },
   },
 });
 
@@ -56,6 +60,7 @@ export const {
   setSearchParams,
   setShowLanguageSetting,
   setShowUserSetting,
+  setHeaderTrans,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;

@@ -7,10 +7,13 @@ import { TailSpin } from "react-loading-icons";
 import BtnClose from "../../BtnClose/BtnClose";
 import { setUserAddValue } from "../../../../../Store/AdminSlice/AdminSlice";
 import Rules from "../Rules";
+import InputTextForm from "../../../../InputTextForm/InputTextForm";
 
 function UserAdd() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
+  const language = useSelector((state) => state.root.language);
+
   const userAddValue = useSelector((state) => state.admin.userAddValue);
 
   const [errors, setErrors] = useState({});
@@ -105,129 +108,89 @@ function UserAdd() {
   }, [signUpValue]);
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md text-white lg:w-[800px]">
+    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md lg:w-[800px]">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
-        Thêm quản trị viên
+        {language.AdminAddUser}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={signUpValue.email}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.email ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"email"}
+            hint={"Email"}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
           />
-          {errors.email && <p className="text-red-600">{errors.email}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="name">Full Name</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Ho Ten"
-            name="name"
-            value={signUpValue.name}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.name ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"name"}
+            hint={language.AdminName}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
           />
-          {errors.name && <p className="text-red-600">{errors.name}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
+          <InputTextForm
+            name={"password"}
+            hint={language.Password}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
             type="password"
-            placeholder="Password"
-            name="password"
-            value={signUpValue.password}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md 
-          ${errors.password ? `border-red-600` : `border-gray-400`}
-          `}
           />
-          {errors.password && <p className="text-red-600">{errors.password}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="cfPw">Comfirm Password</label>
-          <input
-            id="cfPw"
+          <InputTextForm
+            name={"cfPassword"}
+            hint={language.CfPassword}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
             type="password"
-            placeholder="Comfirm Password"
-            name="cfPassword"
-            value={signUpValue.cfPassword}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md 
-          ${errors.cfPassword ? `border-red-600` : `border-gray-400`}
-          `}
           />
-          {errors.cfPassword && (
-            <p className="text-red-600">{errors.cfPassword}</p>
-          )}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="phone">Phone Number</label>
-          <input
-            id="phone"
-            type="text"
-            placeholder="Phone"
-            name="phone"
-            value={signUpValue.phone}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.phone ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"phone"}
+            hint={language.AdminPhone}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
           />
-          {errors.phone && <p className="text-red-600">{errors.phone}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label htmlFor="address">Your Address</label>
-          <input
-            id="address"
-            type="text"
-            placeholder="Address"
-            name="address"
-            value={signUpValue.address}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full flex-1 bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.address ? `border-red-600` : `border-gray-400`
-            }`}
+          <InputTextForm
+            name={"address"}
+            hint={language.AdminAddress}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
           />
-          {errors.address && <p className="text-red-600">{errors.address}</p>}
         </div>
         <div className="lg:w-1/2 lg:pr-1">
-          <label htmlFor="date">Birth day</label>
-          <input
-            id="date"
+          <InputTextForm
+            name={"birthday"}
+            hint={language.AdminBD}
+            handleFocus={handleFocus}
+            handleChange={handleChange}
+            errors={errors}
+            values={signUpValue}
             type="date"
-            placeholder="Birth Day"
-            name="birthday"
-            value={signUpValue.birthday}
-            onFocus={handleFocus}
-            onChange={handleChange}
-            className={`my-2 w-full flex-1 bg-gray-700 px-3 py-2 border-2  outline-none rounded-md ${
-              errors.birthday ? `border-red-600` : `border-gray-400`
-            }`}
+            addMode={true}
           />
-          {errors.birthday && <p className="text-red-600">{errors.birthday}</p>}
         </div>
         <div className="lg:w-1/2 lg:pl-1 flex flex-col">
-          <label className="capitalize" htmlFor="">
-            gender
+          <label className="capitalize font-bold" htmlFor="">
+            {language.AdminGender}
           </label>
           <div className="w-full flex items-center h-full">
             <input
@@ -239,7 +202,7 @@ function UserAdd() {
               onChange={() => setSignUpValue({ ...signUpValue, gender: true })}
             />
             <label htmlFor="male" className="ml-1 cursor-pointer">
-              Male
+              {language.Male}
             </label>
             <input
               type="radio"
@@ -250,7 +213,7 @@ function UserAdd() {
               onChange={() => setSignUpValue({ ...signUpValue, gender: false })}
             />
             <label htmlFor="Female" className="ml-1 cursor-pointer">
-              Female
+              {language.Female}
             </label>
           </div>
         </div>
@@ -270,7 +233,7 @@ function UserAdd() {
             onSubmit={handleSubmit}
             className={`${
               loading && "cursor-not-allowed"
-            } w-full capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
+            } w-full text-white font-bold capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
           >
             {loading ? (
               <TailSpin
@@ -280,7 +243,7 @@ function UserAdd() {
                 strokeWidth={3}
               />
             ) : (
-              <span>Thêm</span>
+              <span>{language.Add}</span>
             )}
           </button>
         </div>

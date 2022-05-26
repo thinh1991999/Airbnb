@@ -23,7 +23,6 @@ export default function PosList({
     if (values.locationId) {
       let posValue;
       if (typeof values.locationId === "object") {
-        console.log("abc");
         posValue = posData.filter((item) => {
           const { name, country, province } = item;
           const {
@@ -57,7 +56,7 @@ export default function PosList({
     <div
       className={`${
         errors[name] ? `border-red-600` : `border-gray-400`
-      } relative px-3 py-2 h-[44px] my-2 bg-gray-700 rounded-md border-[2px] `}
+      } relative px-3 py-2 h-[44px] my-2 bg-gray-300 dark:bg-gray-700 rounded-md border-[2px] `}
     >
       <button
         type="button"
@@ -69,7 +68,7 @@ export default function PosList({
       </button>
 
       {showPosList && (
-        <ul className="scroll__custom bg-gray-700 border-[2px] border-gray-400 py-2 rounded-md absolute top-[calc(100%_+_10px)] right-0 left-0 max-h-[300px] overflow-y-auto">
+        <ul className="scroll__custom bg-gray-300 dark:bg-gray-700 border-[2px] border-gray-400 py-2 rounded-md absolute top-[calc(100%_+_10px)] right-0 left-0 max-h-[300px] overflow-y-auto">
           {posData?.map((item) => {
             const { _id, name, province, country } = item;
             const value = `${name},${province},${country}`;
@@ -80,7 +79,7 @@ export default function PosList({
                 onClick={() => handleChoosePos(_id)}
                 className={`${
                   _id === pos?._id && `bg-gray-600`
-                } one__line__text px-3 py-2 cursor-pointer hover:bg-gray-600 transition-all duration-300 ease-linear`}
+                } one__line__text px-3 py-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 ease-linear`}
               >
                 {value}
               </li>

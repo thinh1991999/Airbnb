@@ -33,7 +33,7 @@ export default function RatingAdd({ id }) {
   };
 
   return (
-    <div className="w-full border-[1px] border-gray-500 px-5 py-5 rounded-full mt-5">
+    <div className="w-full border-[1px] border-gray-500 px-5 py-3 rounded-full mt-5">
       {user ? (
         <div className="flex items-center justify-between">
           <img
@@ -47,7 +47,7 @@ export default function RatingAdd({ id }) {
               onChange={(e) => setRatingValue(e.target.value)}
               type="text"
               placeholder={language.RoomEnterRating}
-              className="w-full bg-gray-900 text-xl outline-none"
+              className="w-full bg-gray-900 text-lg outline-none"
             />
             <button type="submit" className="text-3xl">
               <AiOutlineSend />

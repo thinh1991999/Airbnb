@@ -76,7 +76,7 @@ export default function User() {
   }, [dataUser]);
 
   return (
-    <div className="pt-[96px] lg:px-20 bg-slate-300 dark:bg-gray-900 dark:text-white">
+    <div className="pt-[96px] container lg:px-20 bg-white dark:bg-gray-900 dark:text-white">
       <div className="w-full  flex justify-center py-20">
         <div className="lg:w-1/3 flex justify-center items-start">
           <div className=" flex flex-col items-center px-10 py-5 rounded-xl border-[1px] dark:border-gray-500 min-h-[300px]">

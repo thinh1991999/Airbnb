@@ -1,4 +1,7 @@
+import { store } from "../../../../Store/AppProvider";
+
 function Rules() {
+  // const language = store.getState().root.language;
   return [
     {
       field: "name",

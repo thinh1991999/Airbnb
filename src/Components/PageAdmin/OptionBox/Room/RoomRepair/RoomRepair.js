@@ -19,7 +19,8 @@ import { toast } from "react-toastify";
 export default function RoomRepair() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
-  const roomAddValue = useSelector((state) => state.admin.roomAddValue);
+  const language = useSelector((state) => state.root.language);
+
   const idOption = useSelector((state) => state.admin.idOption);
   const [errors, setErrors] = useState({});
   const [roomValue, setRoomValue] = useState(null);
@@ -42,7 +43,7 @@ export default function RoomRepair() {
       httpServ.capNhatPhong(roomValue, idOption, token).then((res) => {
         dispatch(setShowOptionBox(false));
         dispatch(setReloadData(true));
-        toast.success("Chinh sua phòng thanh cong");
+        toast.success(language.AdminRepairRoomMess);
         setBtnLoading(false);
       });
     }
@@ -105,16 +106,16 @@ export default function RoomRepair() {
   }
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md text-white lg:w-[800px]">
+    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md lg:w-[800px]">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
-        Sửa thông tin phòng
+        {language.AdminRepairRoom}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="lg:w-1/2 lg:pr-1">
           <InputTextForm
             name={"name"}
-            hint={"Name"}
+            hint={language.AdminName}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
@@ -124,7 +125,7 @@ export default function RoomRepair() {
         <div className="lg:w-1/2 lg:pl-1">
           <InputTextForm
             name={"price"}
-            hint={"Price (VND)"}
+            hint={language.AdminPrice + "(VND)"}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
@@ -134,7 +135,7 @@ export default function RoomRepair() {
         <div className="lg:w-1/2 lg:pr-1">
           <InputTextForm
             name={"guests"}
-            hint={"guests"}
+            hint={language.GuestRoom}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
@@ -144,7 +145,7 @@ export default function RoomRepair() {
         <div className="lg:w-1/2 lg:pl-1">
           <InputTextForm
             name={"bedRoom"}
-            hint={"bedRoom"}
+            hint={language.Bedroom}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
@@ -154,7 +155,7 @@ export default function RoomRepair() {
         <div className="lg:w-1/2 lg:pr-1">
           <InputTextForm
             name={"bath"}
-            hint={"bath"}
+            hint={language.Bathroom}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
@@ -162,7 +163,7 @@ export default function RoomRepair() {
           />
         </div>
         <div className="lg:w-1/2 lg:pl-1">
-          <label className="capitalize">Vị trí</label>
+          <label className="capitalize font-bold">{language.Location}</label>
           <PosList
             posData={posData}
             values={roomValue}
@@ -178,7 +179,7 @@ export default function RoomRepair() {
         <div className="lg:w-full">
           <InputTextForm
             name={"description"}
-            hint={"description"}
+            hint={language.AdminDescription}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
@@ -187,7 +188,7 @@ export default function RoomRepair() {
         </div>
         <div className="lg:w-1/2 lg:pr-1">
           <CheckBoxItem
-            hint="elevator"
+            hint={language.Elevator}
             name="elevator"
             values={roomValue}
             handleChange={handleChange}
@@ -203,7 +204,7 @@ export default function RoomRepair() {
         </div>
         <div className="lg:w-1/2 lg:pr-1">
           <CheckBoxItem
-            hint="pool"
+            hint={language.Pool}
             name="pool"
             values={roomValue}
             handleChange={handleChange}
@@ -219,7 +220,7 @@ export default function RoomRepair() {
         </div>
         <div className="lg:w-1/2 lg:pr-1">
           <CheckBoxItem
-            hint="dryer"
+            hint={language.Dryer}
             name="dryer"
             values={roomValue}
             handleChange={handleChange}
@@ -280,7 +281,7 @@ export default function RoomRepair() {
             onSubmit={handleSubmit}
             className={`${
               btnLoading && "cursor-not-allowed"
-            } w-full capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
+            } w-full font-bold text-white capitalize mt-5 min-h-[45px] flex justify-center items-center hover:opacity-70 transition-all duration-300 ease-linear bg-red-600 py-2 rounded-md`}
           >
             {btnLoading ? (
               <TailSpin
@@ -290,7 +291,7 @@ export default function RoomRepair() {
                 strokeWidth={3}
               />
             ) : (
-              <span>Lưu</span>
+              <span>{language.Save}</span>
             )}
           </button>
         </div>

@@ -95,10 +95,10 @@ class AxiosService {
     switch (status) {
       case 401:
       case 403:
-        // window.location.assign("/error");
+        window.location.assign("/error");
         break;
       default:
-        // window.location.assign("/error");
+        window.location.assign("/error");
         break;
     }
   };

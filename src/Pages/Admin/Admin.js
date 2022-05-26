@@ -91,6 +91,7 @@ export default function Admin() {
         delete: "xoaNguoiDung",
         upLoadImg: "thayAnhNguoiDung",
         btnAddMess: language.AdminAddUser,
+        btnDelMess: language.AdminDelUser,
         btnAddIcon: <AiOutlineUserAdd className="text-2xl" />,
         detailComponent: <UserDetail />,
         repairComponent: <UserRepair />,
@@ -130,8 +131,9 @@ export default function Admin() {
           },
         ],
         getDataFunc: "layDanhSachViTriAll",
-        delete: "xoaNguoiDung",
+        delete: "xoaViTri",
         btnAddMess: language.AdminAddLoc,
+        btnDelMess: language.AdminDelLoc,
         upLoadImg: "capNhatAnhViTri",
         btnAddIcon: <MdOutlineAddLocationAlt className="text-2xl" />,
         detailComponent: <PositionDetail />,
@@ -167,8 +169,9 @@ export default function Admin() {
           },
         ],
         getDataFunc: "layDanhSachPhongAll",
-        delete: "xoaNguoiDung",
+        delete: "xoaPhong",
         btnAddMess: language.AdminAddRoom,
+        btnDelMess: language.AdminDelRoom,
         upLoadImg: "capNhatAnhPhong",
         btnAddIcon: <MdAddBusiness className="text-2xl" />,
         detailComponent: <RoomDetail />,
@@ -179,7 +182,7 @@ export default function Admin() {
   }, [language]);
 
   return (
-    <div className="lg:pt-[96px] container  mx-auto">
+    <div className="lg:pt-[96px] container lg:px-[80px]  mx-auto">
       <div className="flex justify-center">
         <ul className="flex justify-center">
           {navData?.map((item, index) => {
@@ -198,7 +201,6 @@ export default function Admin() {
           })}
         </ul>
       </div>
-
       {loading && <AdminLoading />}
       {!loading && navData && (
         <TableAdmin currentNavData={navData?.[currentNav]} />
