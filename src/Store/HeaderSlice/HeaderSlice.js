@@ -11,6 +11,7 @@ const initialState = {
   showLanguageSetting: false,
   showUserSetting: false,
   headerTrans: false,
+  showNavMobile: false,
 };
 
 export const headerSlice = createSlice({
@@ -47,6 +48,9 @@ export const headerSlice = createSlice({
     setHeaderTrans: (state, action) => {
       state.headerTrans = action.payload;
     },
+    setShowNavMobile: (state, action) => {
+      state.showNavMobile = action.payload;
+    },
   },
 });
 
@@ -61,6 +65,7 @@ export const {
   setShowLanguageSetting,
   setShowUserSetting,
   setHeaderTrans,
+  setShowNavMobile,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;

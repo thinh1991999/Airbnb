@@ -85,7 +85,7 @@ function Search() {
   }, []);
 
   return (
-    <div className={`absolute top-0 mt-5 left-0 right-0  `}>
+    <div className={`absolute top-0 left-0 right-0  `}>
       <div className="">
         <div className="flex justify-center">
           <ul

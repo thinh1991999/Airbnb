@@ -51,11 +51,11 @@ function LanguageSetting() {
         className="bg-white text-black px-10 py-5 rounded-lg"
       >
         <h5 className="font-bold">{language.SelectLanguageAndRegion}</h5>
-        <div className="flex -ml-4 -mr-4 mt-5">
+        <div className="flex flex-wrap -ml-4 -mr-4 mt-5">
           {languages.map((item, index) => {
             const { name, country, hint } = item;
             return (
-              <div className="px-4">
+              <div className="md:w-1/2 w-full px-4">
                 <div
                   onClick={() => handleChangeLanguage(hint)}
                   key={index}

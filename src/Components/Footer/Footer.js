@@ -57,9 +57,9 @@ function Footer() {
   }, [language]);
 
   return (
-    <div className="w-full flex flex-col justify-end flex-1 px-20 bg-gray-100 dark:bg-gray-800">
-      <div className="w-full border-b-[1px] py-10 flex justify-between">
-        <div className="lg:w-1/4 px-2">
+    <div className=" w-full flex flex-col justify-end flex-1 px-20 bg-gray-100 dark:bg-gray-800">
+      <div className="container mx-auto border-b-[1px] py-10 flex flex-wrap justify-between">
+        <div className="lg:w-1/4 w-1/2 p-2  px-2">
           <h5 className="font-bold">{supports?.title}</h5>
           <ul className="mt-2">
             {supports?.data?.map((item, index) => {
@@ -74,7 +74,7 @@ function Footer() {
             })}
           </ul>
         </div>
-        <div className="lg:w-1/4 px-2">
+        <div className="lg:w-1/4 w-1/2 p-2  px-2">
           <h5 className="font-bold">{community?.title}</h5>
           <ul className="mt-2">
             {community?.data?.map((item, index) => {
@@ -89,7 +89,7 @@ function Footer() {
             })}
           </ul>
         </div>
-        <div className="lg:w-1/4 px-2">
+        <div className="lg:w-1/4 w-1/2 p-2  px-2">
           <h5 className="font-bold">{guest?.title}</h5>
           <ul className="mt-2">
             {guest?.data?.map((item, index) => {
@@ -104,7 +104,7 @@ function Footer() {
             })}
           </ul>
         </div>
-        <div className="lg:w-1/4 px-2">
+        <div className="lg:w-1/4 w-1/2 p-2  px-2">
           <h5 className="font-bold">{intro?.title}</h5>
           <ul className="mt-2">
             {intro?.data?.map((item, index) => {
@@ -120,7 +120,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="flex py-5 justify-between ">
+      <div className="container mx-auto flex py-5 justify-between ">
         <div className="flex items-center px-2">
           <div className="">
             <span>© 2022 Duy Thinh.</span>
