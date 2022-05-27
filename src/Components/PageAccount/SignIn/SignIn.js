@@ -1,15 +1,16 @@
 import { useState } from "react";
-import httpServ from "../../../ServiceWorkers/http.service";
-import Validator from "../../../Shared/Validator";
+import { useDispatch, useSelector } from "react-redux";
 import { TailSpin } from "react-loading-icons";
 import { Link, useNavigate } from "react-router-dom";
+import httpServ from "../../../ServiceWorkers/http.service";
+import Validator from "../../../Shared/Validator";
 import { setToken, setUser } from "../../../Store/RootSlice/RootSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useSelector((state) => state.login.location);
+  const language = useSelector((state) => state.root.language);
 
   const [errors, setErrors] = useState({});
   const [signInValue, setSignInValue] = useState({
@@ -21,19 +22,19 @@ function SignIn() {
       field: "email",
       method: "isEmpty",
       validWhen: false,
-      message: "The email field is required.",
+      message: language.emailRequired,
     },
     {
       field: "email",
       method: "isEmail",
       validWhen: true,
-      message: "This field is email.",
+      message: language.emailChecked,
     },
     {
       field: "password",
       method: "isEmpty",
       validWhen: false,
-      message: "The password field is required.",
+      message: language.passwordRequired,
     },
   ]);
   const [validator, setValidator] = useState(new Validator(rules));

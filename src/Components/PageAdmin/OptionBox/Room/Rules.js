@@ -1,71 +1,74 @@
+import { store } from "../../../../Store/AppProvider";
+
 function Rules() {
+  const language = store.getState().root.language;
   return [
     {
       field: "name",
       method: "isEmpty",
       validWhen: false,
-      message: "The name field is required.",
+      message: language.nameRequired,
     },
     {
       field: "price",
       method: "isEmpty",
       validWhen: false,
-      message: "The price field is required.",
+      message: language.priceRequired,
     },
     {
       field: "price",
       method: "isInt",
       validWhen: true,
       args: [{ min: 0 }],
-      message: "The price field is a number >= 0.",
+      message: language.priceRange,
     },
     {
       field: "guests",
       method: "isEmpty",
       validWhen: false,
-      message: "This guests field is required.",
+      message: language.guestsRequired,
     },
     {
       field: "guests",
       method: "isInt",
       validWhen: true,
-      message: "The guests field is a number.",
+      message: language.guestsNumber,
     },
     {
       field: "bedRoom",
       method: "isEmpty",
       validWhen: false,
-      message: "This bedRoom field is required.",
+      message: language.bedRoomRequired,
     },
     {
       field: "bedRoom",
       method: "isInt",
       validWhen: true,
-      message: "The bedRoom field is a number.",
+      message: language.bedRoomNumber,
     },
     {
       field: "bath",
       method: "isEmpty",
       validWhen: false,
-      message: "This bath field is required.",
+      message: language.bathRequired,
     },
     {
       field: "bath",
       method: "isInt",
       validWhen: true,
-      message: "The bath field is a number.",
+      message: language.bathNumber,
     },
     {
       field: "description",
       method: "isEmpty",
       validWhen: false,
-      message: "The description field is required.",
+      message: language.descriptionRequired,
     },
     {
       field: "locationId",
       method: "isEmpty",
       validWhen: false,
-      message: "The location field is required.",
+      message: language.locationRequired,
     },
   ];
 }

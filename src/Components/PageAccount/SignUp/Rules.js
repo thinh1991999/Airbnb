@@ -1,4 +1,4 @@
-import { store } from "../../../../Store/AppProvider";
+import { store } from "../../../Store/AppProvider";
 
 function Rules() {
   const language = store.getState().root.language;

@@ -12,12 +12,14 @@ import { useEffect, useRef, useState } from "react";
 import {
   setSearchActive,
   setShowLanguageSetting,
+  setShowNavMobile,
   setShowUserSetting,
 } from "../../Store/HeaderSlice/HeaderSlice";
 import LanguageSetting from "./LanguageSetting/LanguageSetting";
 import { setMode } from "../../Store/RootSlice/RootSlice";
 import { Link } from "react-router-dom";
 import UserSetting from "./UserSetting/UserSetting";
+import NavMobile from "./NavMobile/NavMobile";
 
 function Header() {
   const language = useSelector((state) => state.root.language);
@@ -83,12 +85,12 @@ function Header() {
         headerTrans
           ? "bg-transparent dark:bg-transparent"
           : "bg-white header__shadow dark:bg-black"
-      }  fixed top-0 left-0 right-0 z-10  text-black  dark:text-white`}
+      }  fixed top-0 left-0 right-0 z-10  text-black  dark:text-white md:container m-auto`}
     >
       <div className="relative">
-        <div className=" lg:mx-20 lg:py-5 ">
-          <div className="flex  items-start ">
-            <div className="lg:w-1/4 relative z-10">
+        <div className=" lg:px-20 lg:py-5 md:px-10 px-5 py-5">
+          <div className=" flex items-center md:justify-between justify-between">
+            <div className="sm:block hidden md:w-1/4 relative z-10">
               <Link to={"/"}>
                 <svg
                   width="102"
@@ -102,11 +104,11 @@ function Header() {
                 </svg>
               </Link>
             </div>
-            <div className="flex-1">
+            <div className="md:block marker: hidden flex-1">
               <div
                 className={`${
                   !searchActive && showSearch ? "flex" : "hidden"
-                }  justify-center`}
+                }  lg:justify-center`}
               >
                 <button
                   onClick={() => dispatch(setSearchActive(!searchActive))}
@@ -118,15 +120,8 @@ function Header() {
                   </span>
                 </button>
               </div>
-              <div
-                className={`${
-                  searchActive && showSearch ? "scale-100" : "scale-0"
-                } transition duration-300 ease-linear`}
-              >
-                <Search />
-              </div>
             </div>
-            <div className="lg:w-1/4 text-xl flex justify-end relative z-10">
+            <div className="md:flex hidden md:w-1/4 text-xl  justify-end relative z-10">
               {/* <button
                 className={`${
                   mode === "DARK"
@@ -149,7 +144,7 @@ function Header() {
               >
                 <AiOutlineGlobal />
               </button>
-              {showLanguageSetting && <LanguageSetting />}
+
               <button
                 onClick={() =>
                   dispatch(setMode(mode === "DARK" ? "LIGHT" : "DARK"))
@@ -177,9 +172,28 @@ function Header() {
                 {showUserSetting && <UserSetting />}
               </div>
             </div>
+            <div className="md:hidden flex items-center dark:bg-gray-800 px-4 py-2 rounded-full sm:flex-none sm:w-[300px] sm:mr-0 flex-1 mr-2 dark:border-gray-500 border-[1px]">
+              <AiOutlineSearch className="text-2xl" />
+              <span className="ml-4">Ban se di dau</span>
+            </div>
+            <button
+              onClick={() => dispatch(setShowNavMobile(true))}
+              className="md:hidden block text-3xl font-bold"
+            >
+              <AiOutlineMenu className="" />
+            </button>
           </div>
         </div>
+        <div
+          className={`${
+            searchActive && showSearch ? "scale-100" : "scale-0"
+          } transition duration-300 ease-linear absolute lg:top-5 md:top-[80px] md:block hidden left-0 right-0`}
+        >
+          <Search />
+        </div>
       </div>
+      <NavMobile />
+      {showLanguageSetting && <LanguageSetting />}
     </div>
   );
 }
