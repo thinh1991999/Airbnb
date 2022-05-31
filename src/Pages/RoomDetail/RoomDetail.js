@@ -11,6 +11,8 @@ import BookTicket from "../../Components/PageRoomDetail/BookTicket/BookTicket";
 import RatingShow from "../../Components/PageRoomDetail/RatingShow/RatingShow";
 import WarningLayout from "../../Components/PageRoomDetail/WarningLayout/WarningLayout";
 
+import BookTicketMobile from "../../Components/PageRoomDetail/BookTicketMobile/BookTicketMobile";
+
 export default function RoomDetail() {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
@@ -40,20 +42,21 @@ export default function RoomDetail() {
 
   const { name, price } = detailData;
   return (
-    <div className="pt-[96px] container lg:px-[80px] mx-auto relative">
+    <div className="pt-[96px] md:container lg:px-[80px] md:px-[20px] px-5 mx-auto relative">
       {!showImages && (
         <div className="py-5">
           <div className="">
             <h2 className="capitalize font-bold text-3xl">{name}</h2>
           </div>
-          <div className="mt-5 relative flex lg:max-h-[500px] items-stretch rounded-[40px] overflow-hidden -ml-1 -mr-1">
-            <div className="w-1/2">
+          <div className="w-full mt-5 relative items-stretch  flex flex-wrap md:max-h-[500px] rounded-[40px] overflow-hidden md:-ml-1 md:-mr-1">
+            <div className="sm:w-1/2 w-full">
               <div className="h-full p-1">
                 <div className="h-full relative group cursor-pointer overflow-hidden">
                   <LazyLoadImage
                     src={detailData.image}
                     width={"100%"}
-                    className="w-full object-cover"
+                    height={"100%"}
+                    className="w-full h-full object-cover"
                     alt=""
                     effect="opacity"
                   />
@@ -61,7 +64,7 @@ export default function RoomDetail() {
                 </div>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="sm:w-1/2 w-full">
               <div className="flex h-full flex-wrap ">
                 {subImgs.slice(0, 4).map((item, index) => {
                   return (
@@ -91,17 +94,16 @@ export default function RoomDetail() {
             </div>
           </div>
           <div className="flex py-10 items-stretch">
-            <div className="lg:w-4/6 lg:pr-20">
+            <div className="md:w-4/6 lg:pr-20 md:pr-5">
               <InfoShow detailData={detailData} />
             </div>
-            <div className="lg:w-2/6">
+            <div className="md:w-2/6 md:block hidden">
               <BookTicket price={price} id={id} />
             </div>
           </div>
           <RatingShow id={id} />
         </div>
       )}
-
       <ImagesShow
         showImages={showImages}
         subImgs={subImgs}
@@ -109,6 +111,7 @@ export default function RoomDetail() {
         detailImage={detailData?.image}
       />
       {showWarning && <WarningLayout />}
+      <BookTicketMobile detailData={detailData} />
     </div>
   );
 }

@@ -13,6 +13,8 @@ import {
   setSearchActive,
   setShowLanguageSetting,
   setShowNavMobile,
+  setShowSearch,
+  setShowSearchMobile,
   setShowUserSetting,
 } from "../../Store/HeaderSlice/HeaderSlice";
 import LanguageSetting from "./LanguageSetting/LanguageSetting";
@@ -85,9 +87,9 @@ function Header() {
         headerTrans
           ? "bg-transparent dark:bg-transparent"
           : "bg-white header__shadow dark:bg-black"
-      }  fixed top-0 left-0 right-0 z-10  text-black  dark:text-white md:container m-auto`}
+      }  fixed top-0 left-0 right-0 z-10  text-black  dark:text-white `}
     >
-      <div className="relative">
+      <div className="relative md:container m-auto">
         <div className=" lg:px-20 lg:py-5 md:px-10 px-5 py-5">
           <div className=" flex items-center md:justify-between justify-between">
             <div className="sm:block hidden md:w-1/4 relative z-10">
@@ -172,10 +174,13 @@ function Header() {
                 {showUserSetting && <UserSetting />}
               </div>
             </div>
-            <div className="md:hidden flex items-center dark:bg-gray-800 px-4 py-2 rounded-full sm:flex-none sm:w-[300px] sm:mr-0 flex-1 mr-2 dark:border-gray-500 border-[1px]">
+            <button
+              onClick={() => dispatch(setShowSearchMobile(true))}
+              className="md:hidden flex items-center dark:bg-gray-800 px-4 py-2 rounded-full sm:flex-none sm:w-[300px] sm:mr-0 flex-1 mr-2 dark:border-gray-500 border-[1px]"
+            >
               <AiOutlineSearch className="text-2xl" />
               <span className="ml-4">Ban se di dau</span>
-            </div>
+            </button>
             <button
               onClick={() => dispatch(setShowNavMobile(true))}
               className="md:hidden block text-3xl font-bold"

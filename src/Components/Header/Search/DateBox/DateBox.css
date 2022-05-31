@@ -6,6 +6,7 @@
 #date_box .react-calendar{
     border: unset;
     width: 100%;
+    background: unset;
 }
 
 #date_box .react-calendar__viewContainer{
@@ -21,7 +22,6 @@
 
 #date_box .enable{
     height: 50.28px;
-    
 }
 #date_box .react-calendar__tile--active,
 #date_box .react-calendar__tile--hasActive{
@@ -29,7 +29,6 @@
     border-radius: 50%;
     color: white;
 }
-
 
 #date_box .react-calendar__tile--active.react-calendar__tile:enabled:hover,
 #date_box .react-calendar__tile--hasActive.react-calendar__tile:enabled:hover,

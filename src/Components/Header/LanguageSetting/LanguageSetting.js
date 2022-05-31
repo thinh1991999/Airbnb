@@ -48,7 +48,7 @@ function LanguageSetting() {
     >
       <div
         ref={contentRef}
-        className="bg-white text-black px-10 py-5 rounded-lg"
+        className="bg-white text-black px-10 py-5 rounded-lg md:min-w-[400px]"
       >
         <h5 className="font-bold">{language.SelectLanguageAndRegion}</h5>
         <div className="flex flex-wrap -ml-4 -mr-4 mt-5">

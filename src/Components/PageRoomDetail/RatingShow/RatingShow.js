@@ -159,12 +159,13 @@ export default function RatingShow({ id }) {
       ) : (
         <>
           {rateData.map((rateItem, index) => {
-            const {
-              content,
-              created_at,
-              _id,
-              userId: { name, avatar, _id: userId },
-            } = rateItem;
+            const { content, created_at, _id, userId = {} } = rateItem;
+            let name, avatar, id;
+            if (userId) {
+              name = userId?.name;
+              avatar = userId?.avatar;
+              id = userId?._id;
+            }
             moment.locale(language.FromNow);
             const timeFromNow = moment(created_at).fromNow();
             if (_id === repairCurrent?._id) {
@@ -216,7 +217,7 @@ export default function RatingShow({ id }) {
                                 ? language.ShowReview
                                 : language.HideReview}
                             </li>
-                            {user?._id === userId && (
+                            {user?._id === id && (
                               <>
                                 <li
                                   onClick={() => handleShowDeleteRating(_id)}

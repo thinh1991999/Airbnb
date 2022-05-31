@@ -88,7 +88,7 @@ function MemberBox() {
   }, [data]);
 
   return (
-    <div className="px-10 min-w-[350px]">
+    <div className=" md:min-w-[350px] md:px-10">
       {options.map((item, index) => {
         const { title, des, type, hint } = item;
         const count = data[hint] ? data[hint] : 0;

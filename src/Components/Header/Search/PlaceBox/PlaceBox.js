@@ -54,15 +54,17 @@ function PlaceBox() {
     return (
       <div className="px-10">
         <h2>{language.SearchEveryWhere}</h2>
-        <Link
-          to={"/rooms/"}
-          className="flex mt-5 min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
-        >
-          <span>{language.FlexSearh}</span>
-          <span className="p-2">
-            <AiOutlineRight />
-          </span>
-        </Link>
+        <div className="">
+          <Link
+            to={"/rooms/"}
+            className="flex mt-5 w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
+          >
+            <span>{language.FlexSearh}</span>
+            <span className="p-2">
+              <AiOutlineRight />
+            </span>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -76,7 +78,7 @@ function PlaceBox() {
       {!suggestArr && (
         <>
           <h2>{language.SearchEveryWhere}</h2>
-          <button className="flex mt-5 min-w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn">
+          <button className="flex mt-5 w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn">
             <span>{language.FlexSearh}</span>
             <span className="p-2">
               <AiOutlineRight />
@@ -91,7 +93,7 @@ function PlaceBox() {
         return (
           <div
             onClick={() => handleChoosePlace(name, _id)}
-            className="flex items-center my-2 cursor-pointer py-2 px-10 hover:bg-gray-400"
+            className="flex items-center my-2 cursor-pointer py-2 px-10 hover:bg-gray-400 dark:hover:bg-gray-800"
             key={`${index}${_id}`}
           >
             <div className=" bg-gray-200 rounded-md overflow-hidden">
