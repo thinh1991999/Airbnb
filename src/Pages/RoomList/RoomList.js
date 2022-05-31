@@ -49,10 +49,10 @@ function RoomList() {
 
   return (
     <div className={`${searchActive ? "pt-[200px]" : "pt-[92px]"} `}>
-      <div className="flex items-stretch justify-end min-h-[800px]">
+      <div className="flex lg:flex-row lg:items-stretch lg:justify-end lg:min-h-[800px] flex-col-reverse">
         <div
           className={`${
-            fullMap ? "w-0 h-0" : "w-[60%] px-5"
+            fullMap ? "w-0 h-0" : "lg:w-[60%] px-5 w-full"
           } pt-4 overflow-hidden `}
         >
           <div className="h-[calc(100%_-_200px)]">
@@ -65,21 +65,21 @@ function RoomList() {
         </div>
         <div
           className={`${
-            fullMap ? "w-full " : "w-[40%]"
+            fullMap ? "w-full " : "lg:w-[40%] lg:h-full h-[500px] w-full"
           } transition-all duration-300 ease-linear `}
         >
           <div
             className={`${
               searchActive && showSearch
-                ? "  h-[calc(100%_-_200px)] top-[200px]"
-                : " h-[calc(100%_-_92px)] top-[92px]"
-            } sticky `}
+                ? "  lg:h-[calc(100%_-_200px)] top-[200px]"
+                : " lg:h-[calc(100%_-_92px)] top-[92px]"
+            } lg:sticky h-full`}
           >
             <div className="h-full relative">
               <Map currentItems={currentItems} />
               <button
                 onClick={handleFullMap}
-                className="absolute hover:opacity-80 top-5 left-5 px-4 py-4 flex justify-center items-center rounded-xl text-black bg-white"
+                className="lg:flex hidden absolute hover:opacity-80 top-5 left-5 px-4 py-4  justify-center items-center rounded-xl text-black bg-white"
               >
                 {fullMap ? (
                   <span className="flex items-center">

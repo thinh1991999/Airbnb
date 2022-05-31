@@ -26,19 +26,10 @@ function Items({ currentItems }) {
     dispatch(setHoverActive(null));
   };
 
-  useEffect(() => {
-    // itemRef?.current?.addEventListener("mouseenter", eventHover);
-    // // window.addEventListener('mouseenter')
-    // return () => {
-    //   itemRef.current.removeEventListener("mouseenter", eventHover);
-    // };
-    // console.log(itemRef);
-  }, []);
-
   if (!mounted) return <></>;
 
   return (
-    <>
+    <div className="w-full flex flex-wrap">
       {currentItems &&
         currentItems.map((item, index) => {
           const {
@@ -67,25 +58,27 @@ function Items({ currentItems }) {
               ref={itemRef}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave()}
-              className={` py-8 border-t ${
-                index === currentItems.length - 1 ? "border-b" : ""
+              className={`md:w-full  md:py-8 md:border-t sm:border-none border-t sm:w-1/2 w-full p-5 ${
+                index === currentItems.length - 1
+                  ? "md:border-b sm:border-none border-b"
+                  : ""
               }`}
               key={_id}
             >
               <Link
                 to={`/roomDetail/${_id}`}
-                className="flex w-full items-stretch cursor-pointer"
+                className="flex flex-wrap w-full h-full items-stretch cursor-pointer"
               >
-                <div className=" w-[250px] rounded-md  bg-gray-400">
+                <div className="md:w-[250px] md:mb-0 mb-5 w-full  rounded-md  bg-gray-400">
                   <LazyLoadImage
                     height={"100%"}
                     src={image}
-                    width={250}
+                    width={"100%"}
                     effect="opacity"
                     className="rounded-md h-full  object-cover"
                   />
                 </div>
-                <div className="ml-4 flex flex-1 flex-col justify-between">
+                <div className="md:ml-4 flex flex-1 flex-col justify-between ">
                   <div className="">
                     <h5 className="text-xl font-bold mb-2 capitalize">
                       {name}
@@ -130,7 +123,7 @@ function Items({ currentItems }) {
             </div>
           );
         })}
-    </>
+    </div>
   );
 }
 

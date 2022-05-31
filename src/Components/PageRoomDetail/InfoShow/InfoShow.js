@@ -48,7 +48,7 @@ export default function InfoShow({ detailData }) {
       <div className="py-5 border-t-[1px] border-gray-500">
         <h3 className="text-xl font-bold">{language.RoomPlaceForU}</h3>
         <div className="flex flex-wrap">
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize ">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize ">
             <div className="relative">
               <AiOutlineWifi />
               {!wifi && (
@@ -59,7 +59,7 @@ export default function InfoShow({ detailData }) {
             </div>{" "}
             <span className={`ml-2 ${!wifi && `line-through`} `}>wi-fi</span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <FaSwimmingPool />
               {!pool && (
@@ -72,7 +72,7 @@ export default function InfoShow({ detailData }) {
               {language.Pool}
             </span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <CgGym />
               {!gym && (
@@ -83,7 +83,7 @@ export default function InfoShow({ detailData }) {
             </div>{" "}
             <span className={`ml-2 ${!gym && `line-through`} `}>gym</span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <GiCampCookingPot />
               {!kitchen && (
@@ -96,7 +96,7 @@ export default function InfoShow({ detailData }) {
               {language.Oven}
             </span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <MdOutlineLocalLaundryService />
               {!dryer && (
@@ -109,7 +109,7 @@ export default function InfoShow({ detailData }) {
               {language.Dryer}
             </span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <MdOutlineElevator />
               {!elevator && (
@@ -122,7 +122,7 @@ export default function InfoShow({ detailData }) {
               {language.Elevator}
             </span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <CgScreen />
               {!cableTV && (
@@ -134,7 +134,7 @@ export default function InfoShow({ detailData }) {
             <span className={`ml-2 ${!cableTV && `line-through`} `}>tv</span>
           </div>
 
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <MdMicrowave />
               {!heating && (
@@ -147,7 +147,7 @@ export default function InfoShow({ detailData }) {
               {language.Microwave}
             </span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <MdOutlineHotTub />
               {!hotTub && (
@@ -160,7 +160,7 @@ export default function InfoShow({ detailData }) {
               {language.HotWater}
             </span>
           </div>
-          <div className="lg:w-1/3 flex items-center my-2 text-xl capitalize">
+          <div className="w-1/3 flex items-center my-2 text-xl capitalize">
             <div className="relative">
               <GiFireplace />
               {!indoorFireplace && (

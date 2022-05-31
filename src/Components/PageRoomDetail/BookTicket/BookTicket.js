@@ -89,9 +89,11 @@ export default function BookTicket({ price, id }) {
     <div className="h-full relative w-full mt-5 pb-5">
       <div className="sticky top-[200px] ">
         <div className="px-10 py-5  min-w-[200px] rounded-xl border-[1px] ">
-          <h5 className="text-2xl font-bold">
+          <h5 className="lg:text-2xl md:text-lg font-bold">
             {getVNDMoney(price)}{" "}
-            <span className="text-lg font-normal">/{language.Night}</span>
+            <span className="lg:text-lg md:text-sm font-normal">
+              /{language.Night}
+            </span>
           </h5>
           <div className="mt-5 rounded-lg  border-[1px] border-gray-500">
             <div
@@ -99,10 +101,10 @@ export default function BookTicket({ price, id }) {
               className="flex items-stretch relative"
             >
               <div className="flex-1 px-3 py-2 cursor-pointer">
-                <span className="font-medium uppercase text-xs">
+                <span className="font-medium uppercase text-xs one__line__text">
                   {language.SearchTakeRoom}
                 </span>
-                <p className="text-base font-thin">
+                <p className="text-base font-thin one__line__text">
                   {" "}
                   {getInforSearchValue("inDate", searchValue) ||
                     language.SearchAddDay}
@@ -110,10 +112,10 @@ export default function BookTicket({ price, id }) {
               </div>
               <div className="w-[1px] bg-gray-500"></div>
               <div className="flex-1 px-3 py-2 cursor-pointer">
-                <span className="font-medium uppercase text-xs">
+                <span className="font-medium uppercase text-xs one__line__text">
                   {language.SearchPayRoom}
                 </span>
-                <p className="text-base font-thin">
+                <p className="text-base font-thin one__line__text">
                   {getInforSearchValue("outDate", searchValue) ||
                     language.SearchAddDay}
                 </p>
@@ -122,7 +124,7 @@ export default function BookTicket({ price, id }) {
                 <div
                   ref={dateBoxRef}
                   id="BookTicket"
-                  className="z-10 absolute top-[-28px] right-[-32px] px-[32px] py-[28px] w-[200%] bg-white  dark:text-white dark:bg-gray-600 rounded-3xl"
+                  className="z-10 absolute top-[-28px] right-[-32px] px-[32px] py-[28px] lg:w-[200%] md:w-[600px] bg-white  dark:text-white dark:bg-gray-600 rounded-3xl"
                 >
                   <div className="h-full w-full  ">
                     <div className="flex w-full">
@@ -190,7 +192,7 @@ export default function BookTicket({ price, id }) {
                 <div
                   ref={memberBoxRef}
                   id="MemberBoxTicket"
-                  className="absolute top-full right-0 left-0 bg-white  dark:text-white dark:bg-gray-600 rounded-md"
+                  className="absolute top-full right-0 2xl:left-0 bg-white  dark:text-white dark:bg-gray-600 rounded-md"
                 >
                   <MemberBox />
                 </div>

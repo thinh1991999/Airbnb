@@ -5,6 +5,7 @@ const initialState = {
   showWarning: false,
   rateData: [],
   reloadRating: false,
+  showBookTicketMB: false,
 };
 
 export const roomDetailSlice = createSlice({
@@ -24,6 +25,9 @@ export const roomDetailSlice = createSlice({
     setReloadRating: (state, action) => {
       state.reloadRating = action.payload;
     },
+    setShowBookTicketMB: (state, action) => {
+      state.showBookTicketMB = action.payload;
+    },
   },
 });
 
@@ -32,6 +36,7 @@ export const {
   setShowWarning,
   setRateData,
   setReloadRating,
+  setShowBookTicketMB,
 } = roomDetailSlice.actions;
 
 export default roomDetailSlice.reducer;

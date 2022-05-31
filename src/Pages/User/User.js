@@ -76,9 +76,9 @@ export default function User() {
   }, [dataUser]);
 
   return (
-    <div className="pt-[96px] container lg:px-20 bg-white dark:bg-gray-900 dark:text-white">
-      <div className="w-full  flex justify-center py-20">
-        <div className="lg:w-1/3 flex justify-center items-start">
+    <div className="m-auto pt-[96px] container lg:px-20 bg-white dark:bg-gray-900 dark:text-white">
+      <div className="w-full  flex flex-wrap justify-center py-20">
+        <div className="lg:w-1/3 w-full flex justify-center items-start">
           <div className=" flex flex-col items-center px-10 py-5 rounded-xl border-[1px] dark:border-gray-500 min-h-[300px]">
             <LazyLoadImage
               src={dataUser?.avatar || unknowImg}
@@ -101,19 +101,19 @@ export default function User() {
             </div>
           </div>
         </div>
-        <div className="lg:w-2/3 flex flex-col ">
-          <div className="border-b-[1px] pb-10 border-gray-500">
+        <div className="lg:w-2/3 lg:px-5 lg:mt-0 mt-10 w-full  flex flex-col ">
+          <div className="lg:text-left text-center border-b-[1px] pb-10 border-gray-500">
             <h3 className="text-5xl font-bold">
               {language.HelloIAm} {dataUser?.name}
             </h3>
             <span className="font-thin">
               {language.StartParticipatingIn} 2022
             </span>
-            <span className="flex items-center text-2xl mt-5">
+            <span className="flex items-center text-2xl mt-5 lg:justify-start justify-center">
               <AiFillStar className="mr-2" /> 0 {language.Rating}
             </span>
           </div>
-          <div className="py-5 border-b-[1px] border-gray-500">
+          <div className="lg:block flex flex-col justify-center items-center py-5 border-b-[1px] border-gray-500">
             <h5 className="text-3xl font-bold mb-5">
               {language.MyInformation}
             </h5>
@@ -165,7 +165,7 @@ export default function User() {
             </div>
           </div>
           <div className="py-5 border-b-[1px] border-gray-500">
-            <h5 className="text-3xl font-bold mb-5">
+            <h5 className="lg:text-left text-center text-3xl font-bold mb-5">
               {language.MyTickets}:{" "}
               {!ticketsLoading && (
                 <span className="text-xl font-normal">
@@ -174,7 +174,6 @@ export default function User() {
                 </span>
               )}
             </h5>
-
             {ticketsLoading ? (
               <div className="flex justify-center">
                 <TailSpin />

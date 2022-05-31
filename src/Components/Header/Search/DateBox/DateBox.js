@@ -7,11 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setActiveSearchForm,
   setSearchValue,
+  setSearchValueMobile,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
 
-function DateBox() {
+function DateBox({ double = true, mobile = false }) {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
+  const searchValueMobile = useSelector(
+    (state) => state.header.searchValueMobile
+  );
 
   const [value, setValue] = useState(null);
   const handleDisableDay = ({ date, view }) => {
@@ -22,27 +26,58 @@ function DateBox() {
     }
   };
   const handleChooseDay = (e) => {
-    const { inDate, outDate } = searchValue;
     if (!moment(moment.now()).startOf("day").isAfter(moment(e))) {
-      if (!inDate) {
-        dispatch(setSearchValue({ ...searchValue, inDate: e }));
-        dispatch(setActiveSearchForm(1));
-      } else {
-        if (moment(inDate).isAfter(moment(e))) {
-          dispatch(setSearchValue({ ...searchValue, inDate: e }));
-          dispatch(setActiveSearchForm(1));
-        } else {
-          dispatch(setSearchValue({ ...searchValue, outDate: e }));
+      switch (mobile) {
+        case true:
+          {
+            if (setSearchValueMobile?.inDate) {
+              dispatch(
+                setSearchValueMobile({ ...searchValueMobile, inDate: e })
+              );
+            } else {
+              if (moment(setSearchValueMobile?.inDate).isAfter(moment(e))) {
+                dispatch(
+                  setSearchValueMobile({ ...searchValueMobile, inDate: e })
+                );
+              } else {
+                dispatch(
+                  setSearchValueMobile({ ...searchValueMobile, outDate: e })
+                );
+              }
+            }
+          }
+          break;
+        case false: {
+          if (searchValue?.inDate) {
+            dispatch(setSearchValue({ ...searchValue, inDate: e }));
+            dispatch(setActiveSearchForm(1));
+          } else {
+            if (moment(searchValue?.inDate).isAfter(moment(e))) {
+              dispatch(setSearchValue({ ...searchValue, inDate: e }));
+              dispatch(setActiveSearchForm(1));
+            } else {
+              dispatch(setSearchValue({ ...searchValue, outDate: e }));
+            }
+          }
+          break;
         }
+        default:
+          break;
       }
     }
   };
 
   useEffect(() => {
-    if (searchValue.inDate || searchValue.outDate) {
-      setValue([searchValue.inDate, searchValue.outDate]);
+    if (mobile) {
+      if (searchValueMobile.inDate || searchValueMobile.outDate) {
+        setValue([searchValueMobile.inDate, searchValueMobile.outDate]);
+      }
+    } else {
+      if (searchValue.inDate || searchValue.outDate) {
+        setValue([searchValue.inDate, searchValue.outDate]);
+      }
     }
-  }, [searchValue]);
+  }, [searchValue, searchValueMobile, mobile]);
 
   return (
     <div id="date_box" className="px-5">
@@ -52,7 +87,7 @@ function DateBox() {
         locale={"vi-VI"}
         value={value}
         className="border-0"
-        showDoubleView={true}
+        showDoubleView={double}
         onClickDay={handleChooseDay}
       />
     </div>

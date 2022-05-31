@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  AiOutlineAppstore,
   AiOutlineGlobal,
   AiOutlineHome,
   AiOutlineLogin,
@@ -13,13 +14,16 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   setShowLanguageSetting,
   setShowNavMobile,
+  setShowSearchMobile,
 } from "../../../Store/HeaderSlice/HeaderSlice";
 import { setMode, setToken, setUser } from "../../../Store/RootSlice/RootSlice";
+import NavMobileSearch from "./NavMobileSearch/NavMobileSearch";
 
 export default function NavMobile() {
   const location = useLocation();
   const dispatch = useDispatch();
   const showNavMobile = useSelector((state) => state.header.showNavMobile);
+
   const mode = useSelector((state) => state.root.mode);
   const user = useSelector((state) => state.root.user);
   const language = useSelector((state) => state.root.language);
@@ -32,6 +36,11 @@ export default function NavMobile() {
   const handlelanguage = () => {
     dispatch(setShowNavMobile(false));
     dispatch(setShowLanguageSetting(true));
+  };
+
+  const handleShowSearch = () => {
+    dispatch(setShowNavMobile(false));
+    dispatch(setShowSearchMobile(true));
   };
 
   const getActiveClass = ({ isActive }) => {
@@ -77,12 +86,19 @@ export default function NavMobile() {
               <AiOutlineHome className="text-3xl" />
               <span className="ml-4">Trang chủ</span>
             </NavLink>
-            <NavLink to={"/searchMoblie"} className={getActiveClass}>
-              <AiOutlineSearch className="text-3xl" />
-              <span className="ml-4">Tìm kiếm</span>
+            <NavLink to={"/rooms"} className={getActiveClass}>
+              <AiOutlineAppstore className="text-3xl" />
+              <span className="ml-4">Danh sach phong</span>
             </NavLink>
           </div>
           <div className=" py-3 border-t-[1px]  dark:border-gray-700">
+            <button
+              onClick={handleShowSearch}
+              className="w-full flex items-center text-xl  py-3 px-5 hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <AiOutlineSearch className="text-3xl" />
+              <span className="ml-4">Tìm kiếm</span>
+            </button>
             <button
               onClick={handlelanguage}
               className="w-full flex items-center text-xl  py-3 px-5 hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -162,6 +178,7 @@ export default function NavMobile() {
           className="absolute top-0 left-0 bottom-0 right-0 bg-black/[0.5]"
         ></div>
       </div>
+      <NavMobileSearch />
     </div>
   );
 }

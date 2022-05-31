@@ -5,13 +5,16 @@ const initialState = {
   scrollActive: true,
   showSearch: true,
   searchValue: {},
+  searchValueMobile: {},
   searchParams: {},
   elementSearch: null,
+  elementSearchMobile: null,
   activeSearchForm: null,
   showLanguageSetting: false,
   showUserSetting: false,
   headerTrans: false,
   showNavMobile: false,
+  showSearchMobile: false,
 };
 
 export const headerSlice = createSlice({
@@ -30,8 +33,20 @@ export const headerSlice = createSlice({
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
     },
+    setSearchValueMobile: (state, action) => {
+      state.searchValueMobile = action.payload;
+    },
+    setSaveValueMobile: (state) => {
+      state.searchValue = {
+        ...state.searchValue,
+        ...state.searchValueMobile,
+      };
+    },
     setElementSearch: (state, action) => {
       state.elementSearch = action.payload;
+    },
+    setElementSearchMobile: (state, action) => {
+      state.elementSearchMobile = action.payload;
     },
     setActiveSearchForm: (state, action) => {
       state.activeSearchForm = action.payload;
@@ -51,6 +66,9 @@ export const headerSlice = createSlice({
     setShowNavMobile: (state, action) => {
       state.showNavMobile = action.payload;
     },
+    setShowSearchMobile: (state, action) => {
+      state.showSearchMobile = action.payload;
+    },
   },
 });
 
@@ -66,6 +84,10 @@ export const {
   setShowUserSetting,
   setHeaderTrans,
   setShowNavMobile,
+  setShowSearchMobile,
+  setElementSearchMobile,
+  setSearchValueMobile,
+  setSaveValueMobile,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;
