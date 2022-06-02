@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { FaSignInAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { unknowImg } from "../../../Shared/Constant";
@@ -66,8 +68,11 @@ export default function UserSetting() {
             )}
             <button
               onClick={handleLogOut}
-              className="hover:dark:bg-gray-200 hover:bg-gray-500 px-5 py-2 text-left"
+              className="hover:dark:bg-gray-200 hover:bg-gray-500 px-5 py-2 text-left flex items-center"
             >
+              <span>
+                <AiOutlineLogout className="mr-2" />
+              </span>
               {language.LogOut}
             </button>
           </>
@@ -75,14 +80,16 @@ export default function UserSetting() {
           <>
             <Link
               to={"/account/signUp"}
-              className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2"
+              className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2 flex items-center"
             >
+              <FaSignInAlt className="mr-2" />
               {language.SignIn}
             </Link>
             <Link
               to={"/account/signIn"}
-              className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2"
+              className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2 flex items-center"
             >
+              <AiOutlineLogin className="mr-2" />
               {language.LogIn}
             </Link>
           </>

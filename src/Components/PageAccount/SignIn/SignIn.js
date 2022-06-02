@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import httpServ from "../../../ServiceWorkers/http.service";
 import Validator from "../../../Shared/Validator";
 import { setToken, setUser } from "../../../Store/RootSlice/RootSlice";
+import Logo from "../../Logo/Logo";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -77,9 +78,12 @@ function SignIn() {
   };
 
   return (
-    <div className="bg-black px-10 py-5 rounded-md text-white lg:w-[400px]">
-      <h2 className="capitalize text-3xl font-semibold mb-5">Sign in</h2>
-      <form action="" className="flex flex-col" onSubmit={handleSubmit}>
+    <div className="bg-black md:px-10 px-5 py-5 rounded-md text-white md:w-[400px] md:h-auto w-full h-full">
+      <div className="md:hidden block mb-10">
+        <Logo />
+      </div>
+      <h2 className=" capitalize text-3xl font-semibold mb-5">Sign in</h2>
+      <form action="" className="flex flex-col " onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Email"
@@ -123,7 +127,7 @@ function SignIn() {
             <span>sign in</span>
           )}
         </button>
-        <p className="mt-4 text-gray-200">
+        <p className="mt-4 text-gray-200 md:text-left text-center">
           Bạn chưa có tài khoản{" "}
           <Link to={"/account/signUp"} className="font-semibold text-red-600">
             Sign Up Now

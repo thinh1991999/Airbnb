@@ -5,6 +5,7 @@ import { TailSpin } from "react-loading-icons";
 import { Link } from "react-router-dom";
 import "react-calendar/dist/Calendar.css";
 import Rules from "./Rules";
+import Logo from "../../Logo/Logo";
 
 function SignUp() {
   const [errors, setErrors] = useState({});
@@ -89,10 +90,15 @@ function SignUp() {
   };
 
   return (
-    <div className="bg-black px-10 py-5 rounded-md text-white lg:w-[800px]">
-      <h2 className="capitalize text-3xl font-semibold mb-5">Sign Up</h2>
+    <div className="bg-black xl:py-5 md:px-10 px-5 py-3 rounded-md text-white lg:max-w-[800px] lg:h-auto w-full h-full overflow-y-auto">
+      <div className="md:hidden block mb-10">
+        <Logo />
+      </div>
+      <h2 className="lg:mt-0 md:mt-20 capitalize text-3xl font-semibold mb-5">
+        Sign Up
+      </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 md:pr-1 w-full ">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -108,7 +114,7 @@ function SignUp() {
           />
           {errors.email && <p className="text-red-600">{errors.email}</p>}
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 md:pl-1 w-full">
           <label htmlFor="name">Full Name</label>
           <input
             id="name"
@@ -124,7 +130,7 @@ function SignUp() {
           />
           {errors.name && <p className="text-red-600">{errors.name}</p>}
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 md:pr-1 w-full">
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -140,7 +146,7 @@ function SignUp() {
           />
           {errors.password && <p className="text-red-600">{errors.password}</p>}
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 md:pl-1 w-full">
           <label htmlFor="cfPw">Comfirm Password</label>
           <input
             id="cfPw"
@@ -158,7 +164,7 @@ function SignUp() {
             <p className="text-red-600">{errors.cfPassword}</p>
           )}
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 md:pr-1 w-full">
           <label htmlFor="phone">Phone Number</label>
           <input
             id="phone"
@@ -174,7 +180,7 @@ function SignUp() {
           />
           {errors.phone && <p className="text-red-600">{errors.phone}</p>}
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 md:pl-1 w-full">
           <label htmlFor="address">Your Address</label>
           <input
             id="address"
@@ -190,7 +196,7 @@ function SignUp() {
           />
           {errors.address && <p className="text-red-600">{errors.address}</p>}
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 md:pr-1 w-full">
           <label htmlFor="date">Birth day</label>
           <input
             id="date"
@@ -206,7 +212,7 @@ function SignUp() {
           />
           {errors.birthday && <p className="text-red-600">{errors.birthday}</p>}
         </div>
-        <div className="lg:w-1/2 lg:pl-1 flex flex-col">
+        <div className="md:w-1/2 md:pl-1 w-full flex flex-col">
           <label className="capitalize" htmlFor="">
             gender
           </label>
@@ -245,7 +251,7 @@ function SignUp() {
             {messSignUp.msg}
           </p>
         )}
-        <div className="lg:w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
           <button
             type="submit"
             onSubmit={handleSubmit}
