@@ -13,6 +13,7 @@ import {
 } from "./Pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "react-scroll-to-top";
 
 function App() {
   const mode = useSelector((state) => state.root.mode);
@@ -83,6 +84,7 @@ function App() {
         </Routes>
       </div>
       <ToastContainer />
+      <ScrollToTop smooth color={mode === "DARK" ? "#6f00ff" : "#fff"} />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import Logo from "../../Components/Logo/Logo";
 import SignIn from "../../Components/PageAccount/SignIn/SignIn";
 import SignUp from "../../Components/PageAccount/SignUp/SignUp";
 import "./Account.css";
@@ -10,8 +11,13 @@ function Account({ type }) {
         alt=""
         className="h-full w-full object-cover object-center"
       />
-      <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-        {type === "SignIn" ? <SignIn /> : <SignUp />}
+      <div className="absolute top-0 left-0 right-0 bottom-0 ">
+        <div className="relative w-full h-full flex items-center justify-center ">
+          <div className="absolute lg:left-20 md:left-10 top-5 md:block hidden">
+            <Logo />
+          </div>
+          {type === "SignIn" ? <SignIn /> : <SignUp />}
+        </div>
       </div>
     </div>
   );
