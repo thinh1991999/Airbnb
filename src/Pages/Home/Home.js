@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { httpServ } from "../../ServiceWorkers";
 import {
   setHeaderTrans,
   setScrollActive,
@@ -10,7 +11,8 @@ import "./Home.scss";
 
 function Home() {
   const dispatch = useDispatch();
-  const mode = useSelector((state) => state.root.mode);
+  const [locsHot,setLocsHot]=useState([]);
+  const [roomsHot,setRoomsHot]=useState([]);
 
   useEffect(() => {
     dispatch(setShowSearch(true));
@@ -21,6 +23,11 @@ function Home() {
       dispatch(setHeaderTrans(false));
     };
   }, []);
+
+  useEffect(()=>{
+    httpServ.layDanhSachViTri()
+  },[])
+  
   return (
     <div className="">
       <div id="home" className="">
