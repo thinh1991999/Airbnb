@@ -15,6 +15,7 @@ const initialState = {
   headerTrans: false,
   showNavMobile: false,
   showSearchMobile: false,
+  homeChecked: false,
 };
 
 export const headerSlice = createSlice({
@@ -69,6 +70,9 @@ export const headerSlice = createSlice({
     setShowSearchMobile: (state, action) => {
       state.showSearchMobile = action.payload;
     },
+    setHomeChecked: (state, action) => {
+      state.homeChecked = action.payload;
+    },
   },
 });
 
@@ -88,6 +92,7 @@ export const {
   setElementSearchMobile,
   setSearchValueMobile,
   setSaveValueMobile,
+  setHomeChecked,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;

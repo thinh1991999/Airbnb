@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search/Search";
 import { useEffect, useRef, useState } from "react";
 import {
+  setHeaderTrans,
   setSearchActive,
   setShowLanguageSetting,
   setShowNavMobile,
@@ -34,6 +35,8 @@ function Header() {
     (state) => state.header.showLanguageSetting
   );
   const showUserSetting = useSelector((state) => state.header.showUserSetting);
+  const homeChecked = useSelector((state) => state.header.homeChecked);
+
   const dispatch = useDispatch();
   const [lastScroll, setLastScroll] = useState(0);
   const headerRef = useRef(null);
@@ -47,6 +50,11 @@ function Header() {
       } else {
         dispatch(setSearchActive(true));
         setLastScroll(currentScroll);
+      }
+      if (homeChecked && currentScroll > 500) {
+        dispatch(setHeaderTrans(false));
+      } else {
+        dispatch(setHeaderTrans(true));
       }
     }
   };
@@ -82,7 +90,9 @@ function Header() {
     <div
       ref={headerRef}
       id="header"
-      className={`${searchActive && showSearch ? " h-[200px]" : "h-[92px]"} ${
+      className={`${
+        searchActive && showSearch ? " md:h-[200px] h-[92px]" : "h-[92px]"
+      } ${
         headerTrans
           ? "bg-transparent dark:bg-transparent"
           : "bg-white header__shadow dark:bg-black"
