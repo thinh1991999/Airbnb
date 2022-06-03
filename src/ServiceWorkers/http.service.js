@@ -9,12 +9,26 @@ class HttpRequestService {
     };
     return AxiosServ.getMethod(uri, false);
   };
+  layDanhSachViTriTrangChu = () => {
+    const uri = "/api/locations";
+    AxiosServ.axiosConfig.params = {
+      limit: 10,
+    };
+    return AxiosServ.getMethod(uri, true);
+  };
   layDanhSachPhong = (params = null, loading = true) => {
     const uri = "/api/rooms";
     if (params) {
       AxiosServ.axiosConfig.params = params;
     }
     return AxiosServ.getMethod(uri, loading);
+  };
+  layDanhSachPhongTrangChu = () => {
+    const uri = "/api/rooms";
+    AxiosServ.axiosConfig.params = {
+      limit: 3,
+    };
+    return AxiosServ.getMethod(uri, true);
   };
   layThongTinChiTietUser = (id, loading = true) => {
     const uri = "/api/users/" + id;
@@ -72,10 +86,12 @@ class HttpRequestService {
   };
   layDanhSachNguoiDung = () => {
     const uri = "/api/users/pagination";
+    AxiosServ.axiosConfig.params = {};
     return AxiosServ.getMethod(uri, false);
   };
   layDanhSachViTriAll = () => {
     const uri = "/api/locations";
+    AxiosServ.axiosConfig.params = {};
     return AxiosServ.getMethod(uri, false);
   };
   layChiTietViTri = (id) => {
@@ -106,6 +122,7 @@ class HttpRequestService {
   };
   layDanhSachPhongAll = () => {
     const uri = "/api/rooms";
+    AxiosServ.axiosConfig.params = {};
     return AxiosServ.getMethod(uri, false);
   };
   taoPhong = (data, token) => {

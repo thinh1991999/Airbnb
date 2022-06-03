@@ -98,7 +98,7 @@ class AxiosService {
         window.location.assign("/error");
         break;
       default:
-        window.location.assign("/error");
+        // window.location.assign("/error");
         break;
     }
   };

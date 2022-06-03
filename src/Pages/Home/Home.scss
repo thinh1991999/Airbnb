@@ -1,22 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Arima+Madurai:300");
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-// h1 {
-//   font-family: "Arima Madurai", cursive;
-//   color: black;
-//   font-size: 4rem;
-//   letter-spacing: -3px;
-//   text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.6);
-//   position: relative;
-//   z-index: 3;
-// }
-
-#home {
+#home__thumnail {
   width: 100%;
   z-index: 1;
   position: relative;
@@ -38,7 +22,12 @@
   padding: 2rem;
 }
 
-.dark #home {
+#home .box__shadow {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.dark #home__thumnail {
   background-image: linear-gradient(
       to bottom,
       rgba(40, 39, 38, 0.6) 0%,
@@ -47,7 +36,7 @@
     url("https://images.unsplash.com/photo-1446824505046-e43605ffb17f");
 }
 
-#home .bird {
+#home__thumnail .bird {
   background-image: url(./birdHome.svg);
   background-size: auto 100%;
   width: 88px;
@@ -78,11 +67,11 @@
   }
 }
 
-.dark #home .bird {
+.dark #home__thumnail .bird {
   background-image: url(./birdWhiteHome.svg);
 }
 
-#home .bird-container {
+#home__thumnail .bird-container {
   position: absolute;
   top: 20%;
   left: -10%;
