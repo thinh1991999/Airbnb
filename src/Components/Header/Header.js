@@ -51,10 +51,12 @@ function Header() {
         dispatch(setSearchActive(true));
         setLastScroll(currentScroll);
       }
-      if (homeChecked && currentScroll > 500) {
-        dispatch(setHeaderTrans(false));
-      } else {
-        dispatch(setHeaderTrans(true));
+      if (homeChecked) {
+        if (currentScroll > 500) {
+          dispatch(setHeaderTrans(false));
+        } else {
+          dispatch(setHeaderTrans(true));
+        }
       }
     }
   };
@@ -64,7 +66,7 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", scrollEvent);
     };
-  }, [lastScroll, scrollActive]);
+  }, [lastScroll, scrollActive, homeChecked]);
 
   const clickEvent = (e) => {
     if (scrollActive) {
@@ -122,16 +124,6 @@ function Header() {
               </div>
             </div>
             <div className="md:flex hidden md:w-1/4 text-xl  justify-end relative z-10">
-              {/* <button
-                className={`${
-                  mode === "DARK"
-                    ? "bg-gray-800/[40%] hover:bg-gray-800"
-                    : "bg-gray-50/[40%] hover:bg-gray-100"
-                } px-3 font-semibold transition-all duration-300 ease-linear text-base py-1 rounded-full `}
-                onClick={() => dispatch(setSearchActive(!searchActive))}
-              >
-                {language.HeaderHouseOwn}
-              </button> */}
               <button
                 onClick={() =>
                   dispatch(setShowLanguageSetting(!showLanguageSetting))

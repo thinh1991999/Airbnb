@@ -108,13 +108,13 @@ function UserAdd() {
   }, [signUpValue]);
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md lg:w-[800px]">
+    <div className="dark:bg-gray-900 bg-gray-100 sm:px-10 px-5 py-5 rounded-md lg:w-[800px] overflow-y-scroll max-h-[100vh] scroll__custom">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
         {language.AdminAddUser}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"email"}
             hint={"Email"}
@@ -124,7 +124,7 @@ function UserAdd() {
             values={signUpValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"name"}
             hint={language.AdminName}
@@ -134,7 +134,7 @@ function UserAdd() {
             values={signUpValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"password"}
             hint={language.Password}
@@ -145,7 +145,7 @@ function UserAdd() {
             type="password"
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"cfPassword"}
             hint={language.CfPassword}
@@ -156,7 +156,7 @@ function UserAdd() {
             type="password"
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"phone"}
             hint={language.AdminPhone}
@@ -166,7 +166,7 @@ function UserAdd() {
             values={signUpValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"address"}
             hint={language.AdminAddress}
@@ -176,7 +176,7 @@ function UserAdd() {
             values={signUpValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"birthday"}
             hint={language.AdminBD}
@@ -188,7 +188,7 @@ function UserAdd() {
             addMode={true}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1 flex flex-col">
+        <div className="md:w-1/2 w-full md:pl-1 flex flex-col">
           <label className="capitalize font-bold" htmlFor="">
             {language.AdminGender}
           </label>
@@ -227,7 +227,7 @@ function UserAdd() {
             {messSignUp.msg}
           </p>
         )}
-        <div className="lg:w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
           <button
             type="submit"
             onSubmit={handleSubmit}

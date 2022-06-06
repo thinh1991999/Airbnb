@@ -106,13 +106,13 @@ export default function RoomRepair() {
   }
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md lg:w-[800px]">
+    <div className="dark:bg-gray-900 bg-gray-100 md:px-10 px-5 py-5 rounded-md lg:w-[800px]  max-h-[100vh] overflow-y-auto scroll__custom">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
         {language.AdminRepairRoom}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"name"}
             hint={language.AdminName}
@@ -122,7 +122,7 @@ export default function RoomRepair() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full lg:pl-1">
           <InputTextForm
             name={"price"}
             hint={language.AdminPrice + "(VND)"}
@@ -132,7 +132,7 @@ export default function RoomRepair() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"guests"}
             hint={language.GuestRoom}
@@ -142,7 +142,7 @@ export default function RoomRepair() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full lg:pl-1">
           <InputTextForm
             name={"bedRoom"}
             hint={language.Bedroom}
@@ -152,7 +152,7 @@ export default function RoomRepair() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"bath"}
             hint={language.Bathroom}
@@ -162,7 +162,7 @@ export default function RoomRepair() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full lg:pl-1">
           <label className="capitalize font-bold">{language.Location}</label>
           <PosList
             posData={posData}
@@ -176,7 +176,7 @@ export default function RoomRepair() {
             <p className="text-red-600">{errors.locationId}</p>
           )}
         </div>
-        <div className="lg:w-full">
+        <div className="w-full">
           <InputTextForm
             name={"description"}
             hint={language.AdminDescription}
@@ -186,7 +186,7 @@ export default function RoomRepair() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint={language.Elevator}
             name="elevator"
@@ -194,7 +194,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="hotTub"
             name="hotTub"
@@ -202,7 +202,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint={language.Pool}
             name="pool"
@@ -210,7 +210,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="indoorFireplace"
             name="indoorFireplace"
@@ -218,7 +218,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint={language.Dryer}
             name="dryer"
@@ -226,7 +226,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="gym"
             name="gym"
@@ -234,7 +234,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint="kitchen"
             name="kitchen"
@@ -242,7 +242,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="wifi"
             name="wifi"
@@ -250,7 +250,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint="heating"
             name="heating"
@@ -258,7 +258,7 @@ export default function RoomRepair() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="cableTV"
             name="cableTV"
@@ -275,7 +275,7 @@ export default function RoomRepair() {
             {messAdd.msg}
           </p>
         )}
-        <div className="lg:w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
           <button
             type="submit"
             onSubmit={handleSubmit}

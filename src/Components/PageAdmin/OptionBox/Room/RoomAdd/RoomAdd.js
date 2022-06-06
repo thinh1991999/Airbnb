@@ -124,13 +124,16 @@ function RoomAdd() {
     return <OptionLoading />;
   }
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 px-10 py-5 rounded-md lg:w-[800px]">
+    <div
+      className="dark:bg-gray-900 bg-gray-100 sm:px-10 px-5 py-5 rounded-md lg:w-[800px] max-h-[100vh] overflow-y-auto scroll__custom
+    "
+    >
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
         {language.AdminAddRoom}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"name"}
             hint={language.AdminName}
@@ -140,7 +143,7 @@ function RoomAdd() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"price"}
             hint={language.AdminPrice + "(VND)"}
@@ -150,7 +153,7 @@ function RoomAdd() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"guests"}
             hint={language.GuestRoom}
@@ -160,7 +163,7 @@ function RoomAdd() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"bedRoom"}
             hint={language.Bedroom}
@@ -170,7 +173,7 @@ function RoomAdd() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"bath"}
             hint={language.Bathroom}
@@ -180,7 +183,7 @@ function RoomAdd() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <label className="capitalize font-bold">{language.Location}</label>
           <PosList
             posData={posData}
@@ -194,7 +197,7 @@ function RoomAdd() {
             <p className="text-red-600">{errors.locationId}</p>
           )}
         </div>
-        <div className="lg:w-full">
+        <div className="w-full">
           <InputTextForm
             name={"description"}
             hint={language.AdminDescription}
@@ -204,7 +207,7 @@ function RoomAdd() {
             values={roomValue}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full  md:pr-1">
           <CheckBoxItem
             hint={language.Elevator}
             name="elevator"
@@ -212,7 +215,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="hotTub"
             name="hotTub"
@@ -220,7 +223,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint={language.Pool}
             name="pool"
@@ -228,7 +231,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full  ">
           <CheckBoxItem
             hint="indoorFireplace"
             name="indoorFireplace"
@@ -236,7 +239,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full  md:pr-1">
           <CheckBoxItem
             hint={language.Dryer}
             name="dryer"
@@ -244,7 +247,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full  ">
           <CheckBoxItem
             hint="gym"
             name="gym"
@@ -252,7 +255,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <CheckBoxItem
             hint="kitchen"
             name="kitchen"
@@ -260,7 +263,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full ">
           <CheckBoxItem
             hint="wifi"
             name="wifi"
@@ -268,7 +271,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full  md:pr-1">
           <CheckBoxItem
             hint={language.Heater}
             name="heating"
@@ -276,7 +279,7 @@ function RoomAdd() {
             handleChange={handleChange}
           />
         </div>
-        <div className="lg:w-1/2 ">
+        <div className="md:w-1/2 w-full  ">
           <CheckBoxItem
             hint="cableTV"
             name="cableTV"
@@ -293,7 +296,7 @@ function RoomAdd() {
             {messAdd.msg}
           </p>
         )}
-        <div className="lg:w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
           <button
             type="submit"
             onSubmit={handleSubmit}

@@ -111,9 +111,9 @@ export default function TableBody({
                 return (
                   <td {...cell.getCellProps()}>
                     <div
-                      className={`flex ${
+                      className={`flex md:flex-row flex-col ${
                         cell.column.Hint === "Image"
-                          ? `justify-around`
+                          ? `sm:justify-around justify-cente items-center`
                           : `justify-center items-center`
                       }`}
                     >
@@ -144,7 +144,7 @@ export default function TableBody({
                           />
                         </div>
                       )}
-                      {cell.column.Hint === "Image" && (
+                      {cell.column.Hint === "Image" && user?.type === "ADMIN" && (
                         <div className="flex items-center">
                           {currentIdTargetImg[id] ? (
                             <Circles height="3em" width="3em" />
@@ -152,7 +152,7 @@ export default function TableBody({
                             <>
                               <label
                                 htmlFor={id}
-                                className="lg:ml-2 px-2 py-1 text-white bg-blue-500 rounded-md cursor-pointer"
+                                className="block ml-2 whitespace-nowrap px-2 py-1 text-white bg-blue-500 rounded-md cursor-pointer"
                               >
                                 {language.Change}
                               </label>
@@ -172,40 +172,41 @@ export default function TableBody({
               }
 
               if (cell.column.Hint === "Actions") {
-                if (user?.type === "ADMIN") {
-                  return (
-                    <td {...cell.getCellProps()}>
-                      {currentIdTarget[id] ? (
-                        <div className="w-full h-full flex justify-center">
-                          <Circles height="3em" width="3em" />
-                        </div>
-                      ) : (
-                        <div className="text-white">
-                          <button
-                            onClick={() => handleShowDetail(id)}
-                            className="mx-2 px-2 py-1 bg-green-500 rounded-md"
-                          >
-                            {language.Detail}
-                          </button>
-                          <button
-                            onClick={() => handleShowRepair(id)}
-                            className="mx-2 px-2 py-1 bg-blue-500 rounded-md"
-                          >
-                            {language.Repair}
-                          </button>
-                          <button
-                            onClick={() => handleDelete(id)}
-                            className="mx-2 px-2 py-1 bg-red-500 rounded-md"
-                          >
-                            {language.Delete}
-                          </button>
-                        </div>
-                      )}
-                    </td>
-                  );
-                } else {
-                  return;
-                }
+                return (
+                  <td {...cell.getCellProps()}>
+                    {currentIdTarget[id] ? (
+                      <div className="w-full h-full flex justify-center">
+                        <Circles height="3em" width="3em" />
+                      </div>
+                    ) : (
+                      <div className="text-white">
+                        <button
+                          onClick={() => handleShowDetail(id)}
+                          className="lg:mx-2 whitespace-nowrap m-2 px-2 py-1 bg-green-500 rounded-md"
+                        >
+                          {language.Detail}
+                        </button>
+                        {user?.type === "ADMIN" && (
+                          <>
+                            {" "}
+                            <button
+                              onClick={() => handleShowRepair(id)}
+                              className="lg:mx-2 whitespace-nowrap m-2 px-2 py-1 bg-blue-500 rounded-md"
+                            >
+                              {language.Repair}
+                            </button>
+                            <button
+                              onClick={() => handleDelete(id)}
+                              className="lg:mx-2 whitespace-nowrap m-2 px-2 py-1 bg-red-500 rounded-md"
+                            >
+                              {language.Delete}
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </td>
+                );
               }
               return (
                 <td {...cell.getCellProps()} className="lg:max-w-[500px]">

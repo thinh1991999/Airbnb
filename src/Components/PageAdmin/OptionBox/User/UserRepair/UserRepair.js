@@ -71,14 +71,14 @@ export default function UserRepair() {
 
   if (loading) {
     return (
-      <div className="w-[300px] h-[200px] py-5 px-7 rounded-xl flex justify-center items-center dark:bg-gray-900 bg-gray-100">
+      <div className="w-[300px] h-[200px] py-5 px-7 rounded-xl flex justify-center items-center dark:bg-gray-900 bg-gray-100 ">
         <Circles fill="white" />
       </div>
     );
   }
 
   return (
-    <div className=" min-w-[320px] max-w-[600px]  py-5 px-10 rounded-xl dark:bg-gray-900 bg-gray-100">
+    <div className=" min-w-[320px] max-w-[600px]  py-5 md:px-10 px-5 rounded-xl dark:bg-gray-900 bg-gray-100 max-h-[100vh] overflow-y-auto scroll__custom">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
         {language.AdminRepairUser}
@@ -95,18 +95,18 @@ export default function UserRepair() {
         />
       </div>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             disabled={!activeEmail}
             name={"email"}
-            hint={userData.email}
+            hint={"email"}
             handleFocus={handleFocus}
             handleChange={handleChange}
             errors={errors}
             values={userData}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"name"}
             hint={language.AdminName}
@@ -116,7 +116,7 @@ export default function UserRepair() {
             values={userData}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"phone"}
             hint={language.AdminPhone}
@@ -126,7 +126,7 @@ export default function UserRepair() {
             values={userData}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1">
+        <div className="md:w-1/2 w-full md:pl-1">
           <InputTextForm
             name={"address"}
             hint={language.AdminAddress}
@@ -136,7 +136,7 @@ export default function UserRepair() {
             values={userData}
           />
         </div>
-        <div className="lg:w-1/2 lg:pr-1">
+        <div className="md:w-1/2 w-full md:pr-1">
           <InputTextForm
             name={"birthday"}
             hint={language.AdminBD}
@@ -147,7 +147,7 @@ export default function UserRepair() {
             type={"date"}
           />
         </div>
-        <div className="lg:w-1/2 lg:pl-1 flex flex-col">
+        <div className="md:w-1/2 w-full md:pl-1 flex flex-col">
           <label className="capitalize font-bold" htmlFor="">
             {language.AdminGender}
           </label>
@@ -186,7 +186,7 @@ export default function UserRepair() {
             {messSignUp.msg}
           </p>
         )}
-        <div className="lg:w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
           <button
             type="submit"
             onSubmit={handleSubmit}

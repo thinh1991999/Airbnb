@@ -49,6 +49,13 @@
 .scroll__custom::-webkit-scrollbar-thumb {
   background-color: gray;
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
 
 /* Custom scroll top button */
 .styles_scroll-to-top__2A70v {

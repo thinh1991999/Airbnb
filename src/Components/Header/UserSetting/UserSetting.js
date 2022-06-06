@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { FaSignInAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -61,9 +62,8 @@ export default function UserSetting() {
                 to={"/admin"}
                 className="px-5 py-2 flex items-center hover:dark:bg-gray-200 hover:bg-gray-500 cursor-pointer"
               >
-                <div className="">
-                  <span className="font-bold">{language.AdminPage}</span>
-                </div>
+                <MdOutlineAdminPanelSettings className="text-3xl" />
+                <span className="font-bold ml-4">{language.AdminPage}</span>
               </Link>
             )}
             <button

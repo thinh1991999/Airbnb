@@ -23,8 +23,8 @@ function Home() {
     dispatch(setHeaderTrans(true));
     dispatch(setHomeChecked(true));
     return () => {
-      dispatch(setHeaderTrans(false));
       dispatch(setHomeChecked(false));
+      dispatch(setHeaderTrans(false));
     };
   }, []);
 

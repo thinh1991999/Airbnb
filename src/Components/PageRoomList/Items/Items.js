@@ -58,7 +58,7 @@ function Items({ currentItems }) {
               ref={itemRef}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave()}
-              className={`md:w-full  md:py-8 md:border-t sm:border-none border-t sm:w-1/2 w-full p-5 ${
+              className={`md:w-full  md:py-8 md:border-t sm:border-none border-t sm:w-1/2 w-full py-5 ${
                 index === currentItems.length - 1
                   ? "md:border-b sm:border-none border-b"
                   : ""

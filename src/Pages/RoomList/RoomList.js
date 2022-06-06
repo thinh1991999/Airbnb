@@ -49,11 +49,11 @@ function RoomList() {
 
   return (
     <div className={`${searchActive ? "pt-[200px]" : "pt-[92px]"} `}>
-      <div className="flex lg:flex-row lg:items-stretch lg:justify-end lg:min-h-[800px] flex-col-reverse">
+      <div className="flex md:container m-auto lg:px-20 md:px-10 px-5 lg:flex-row lg:items-stretch lg:justify-end lg:min-h-[800px] flex-col-reverse ">
         <div
           className={`${
-            fullMap ? "w-0 h-0" : "lg:w-[60%] px-5 w-full"
-          } pt-4 overflow-hidden `}
+            fullMap ? "w-0 h-0" : "lg:w-[60%]  w-full"
+          } pt-4 overflow-hidden pr-5`}
         >
           <div className="h-[calc(100%_-_200px)]">
             <PaginatedItems
@@ -65,13 +65,17 @@ function RoomList() {
         </div>
         <div
           className={`${
-            fullMap ? "w-full " : "lg:w-[40%] lg:h-full h-[500px] w-full"
+            fullMap ? "w-full " : "lg:w-[40%]  w-full"
           } transition-all duration-300 ease-linear `}
         >
           <div
-            className={`${
+            className={` ${
               searchActive && showSearch
-                ? "  lg:h-[calc(100%_-_200px)] top-[200px]"
+                ? fullMap
+                  ? "h-full"
+                  : "  lg:h-[calc(100%_-_200px)] top-[200px]"
+                : fullMap
+                ? "h-full"
                 : " lg:h-[calc(100%_-_92px)] top-[92px]"
             } lg:sticky h-full`}
           >
