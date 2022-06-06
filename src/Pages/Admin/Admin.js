@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSearch } from "../../Store/HeaderSlice/HeaderSlice";
+import {
+  setHeaderTrans,
+  setShowSearch,
+} from "../../Store/HeaderSlice/HeaderSlice";
 import { httpServ } from "../../ServiceWorkers";
 import TableAdmin from "../../Components/PageAdmin/TableAdmin/TableAdmin";
 import { AiOutlineUserAdd } from "react-icons/ai";
@@ -38,6 +41,7 @@ export default function Admin() {
   }, [currentNav, navData]);
 
   useEffect(() => {
+    dispatch(setHeaderTrans(false));
     dispatch(setShowSearch(false));
   }, []);
 
@@ -181,25 +185,23 @@ export default function Admin() {
   }, [language]);
 
   return (
-    <div className="lg:pt-[96px] container lg:px-[80px]  mx-auto">
-      <div className="flex justify-center">
-        <ul className="flex justify-center">
-          {navData?.map((item, index) => {
-            const { name } = item;
-            return (
-              <li
-                onClick={() => setCurrentNav(index)}
-                key={index}
-                className={`${
-                  currentNav === index && " border-b-[4px]"
-                }  py-5  mx-5 cursor-pointer text-xl font-bold border-black dark:border-white capitalize`}
-              >
-                {name}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+    <div className="pt-[96px] lg:px-20 md:px-10 px-5 container  mx-auto">
+      <ul className="flex justify-center">
+        {navData?.map((item, index) => {
+          const { name } = item;
+          return (
+            <li
+              onClick={() => setCurrentNav(index)}
+              key={index}
+              className={`${
+                currentNav === index && " border-b-[4px]"
+              }  py-5  md:mx-5 mx-2 cursor-pointer md:text-xl sm:text-base text-sm sm:font-bold font-semibold text-center  border-black dark:border-white capitalize`}
+            >
+              {name}
+            </li>
+          );
+        })}
+      </ul>
       {loading && <AdminLoading />}
       {!loading && navData && (
         <TableAdmin currentNavData={navData?.[currentNav]} />

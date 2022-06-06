@@ -68,7 +68,7 @@ export default function PosList({
       </button>
 
       {showPosList && (
-        <ul className="scroll__custom bg-gray-300 dark:bg-gray-700 border-[2px] border-gray-400 py-2 rounded-md absolute top-[calc(100%_+_10px)] right-0 left-0 max-h-[300px] overflow-y-auto">
+        <ul className=" bg-gray-300 dark:bg-gray-700 border-[2px] border-gray-400 py-2 rounded-md absolute top-[calc(100%_+_10px)] right-0 left-0 sm:max-h-[300px] max-h-[250px] overflow-y-auto scroll__custom">
           {posData?.map((item) => {
             const { _id, name, province, country } = item;
             const value = `${name},${province},${country}`;

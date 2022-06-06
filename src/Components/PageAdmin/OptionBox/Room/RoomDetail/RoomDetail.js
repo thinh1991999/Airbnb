@@ -74,7 +74,7 @@ export default function RoomDetail() {
   const { name, description, price, bath, bedRoom, guests, image } = roomData;
 
   return (
-    <div className=" min-w-[320px] max-w-[600px]  py-5 px-7 rounded-xl dark:bg-gray-900 bg-gray-100">
+    <div className=" min-w-[320px] max-w-[600px]  py-5 md:px-10 px-5 rounded-xl dark:bg-gray-900 bg-gray-100 max-h-[100vh] overflow-y-auto scroll__custom">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">Chi tiết phòng</h2>
       <div className="flex justify-center mb-5">

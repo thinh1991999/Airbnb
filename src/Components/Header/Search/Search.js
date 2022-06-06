@@ -65,9 +65,6 @@ function Search() {
           },
         ],
       },
-      {
-        title: language.HeaderExOl,
-      },
     ]);
   }, [language]);
 

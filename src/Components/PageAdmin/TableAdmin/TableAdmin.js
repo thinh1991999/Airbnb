@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePagination, useTable } from "react-table";
 import { IoCaretBackOutline, IoCaretForwardOutline } from "react-icons/io5";
 import { ImBackward2, ImForward3 } from "react-icons/im";
@@ -11,12 +11,10 @@ import {
   setComponentShow,
   setCurrentPage,
   setData,
-  setIdOption,
   setReloadData,
   setShowOptionBox,
 } from "../../../Store/AdminSlice/AdminSlice";
 import TableBody from "./TableBody/TableBody";
-import { Circles } from "react-loading-icons";
 import AdminLoading from "../AdminLoading/AdminLoading";
 
 function TableAdmin({ currentNavData }) {
@@ -28,6 +26,7 @@ function TableAdmin({ currentNavData }) {
 
   const columns = useMemo(() => currentNavData?.tableColumns, [currentNavData]);
   const [loading, setLoading] = useState(false);
+  const [hide, setHide] = useState(["name"]);
 
   const {
     getTableProps,
@@ -42,15 +41,57 @@ function TableAdmin({ currentNavData }) {
     gotoPage,
     nextPage,
     previousPage,
+    setHiddenColumns,
     state: { pageIndex },
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0, hiddenColumns: [] },
     },
     usePagination
   );
+
+  const setResponTable = useCallback((width) => {
+    console.log(width);
+    if (width >= 1360) {
+      setHiddenColumns([]);
+    }
+    if (width < 1360 && width >= 1240) {
+      setHiddenColumns(["country"]);
+    }
+    if (width < 1240 && width >= 768) {
+      setHiddenColumns(["gender", "birthday", "address", "country"]);
+    }
+    if (width < 768 && width >= 400) {
+      setHiddenColumns([
+        "gender",
+        "birthday",
+        "address",
+        "avatar",
+        "phone",
+        "country",
+        "province",
+        "valueate",
+        "description",
+      ]);
+    }
+    if (width < 400) {
+      setHiddenColumns([
+        "gender",
+        "birthday",
+        "address",
+        "avatar",
+        "phone",
+        "email",
+        "country",
+        "province",
+        "valueate",
+        "description",
+        "price",
+      ]);
+    }
+  }, []);
 
   const handleShowAdd = () => {
     dispatch(setComponentShow(currentNavData?.addComponent));
@@ -70,21 +111,36 @@ function TableAdmin({ currentNavData }) {
       });
     }
   }, [reloadData]);
+
+  const resizeEvent = (e) => {
+    const width = e.target.outerWidth;
+    setResponTable(width);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", resizeEvent);
+    setResponTable(window.outerWidth);
+    return () => {
+      window.removeEventListener("resize", resizeEvent);
+    };
+  }, []);
+
   return (
     <div className="mt-10" id="table__admin">
       {loading ? (
         <AdminLoading />
       ) : (
         <>
-          <div className="flex justify-end mb-5">
-            <button
-              onClick={handleShowAdd}
-              className="px-4 py-3 rounded-md primary--BGcolor flex items-center capitalize text-xl text-white"
-            >
-              <span className="mr-2">{currentNavData?.btnAddMess}</span>
-              {currentNavData?.btnAddIcon}
-            </button>
-          </div>
+          {user?.type === "ADMIN" && (
+            <div className="flex justify-end mb-5">
+              <button
+                onClick={handleShowAdd}
+                className="px-4 py-3 rounded-md primary--BGcolor flex items-center capitalize text-xl text-white"
+              >
+                <span className="mr-2">{currentNavData?.btnAddMess}</span>
+                {currentNavData?.btnAddIcon}
+              </button>
+            </div>
+          )}
           <table {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => {

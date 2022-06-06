@@ -26,7 +26,7 @@ class HttpRequestService {
   layDanhSachPhongTrangChu = () => {
     const uri = "/api/rooms";
     AxiosServ.axiosConfig.params = {
-      limit: 3,
+      limit: 6,
     };
     return AxiosServ.getMethod(uri, true);
   };

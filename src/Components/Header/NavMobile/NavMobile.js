@@ -7,6 +7,7 @@ import {
   AiOutlineLogout,
   AiOutlineSearch,
 } from "react-icons/ai";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { FaSignInAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -144,6 +145,15 @@ export default function NavMobile() {
                     <p>{language.YourProfile}</p>
                   </div>
                 </Link>
+                {user?.type === "ADMIN" && (
+                  <Link
+                    to={"/admin"}
+                    className="px-5 py-2 flex items-center hover:dark:bg-gray-200 hover:bg-gray-500 cursor-pointer"
+                  >
+                    <MdOutlineAdminPanelSettings className="text-3xl" />
+                    <span className="font-bold ml-4">{language.AdminPage}</span>
+                  </Link>
+                )}
                 <button
                   onClick={handleLogOut}
                   className="w-full flex items-center text-xl  py-3 px-5 hover:bg-gray-200 dark:hover:bg-gray-700"

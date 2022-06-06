@@ -31,7 +31,7 @@ export default function PositionDetail() {
   }
   const { country, image, name, province, valueate } = posData;
   return (
-    <div className=" min-w-[320px] max-w-[600px]  py-5 px-7 rounded-xl dark:bg-gray-900 bg-gray-100">
+    <div className=" min-w-[320px] max-w-[600px]  py-5 md:px-10 px-5 rounded-xl dark:bg-gray-900 bg-gray-100 max-h-[100vh] overflow-y-auto scroll__custom">
       <BtnClose />
       <h2 className="capitalize text-3xl font-semibold mb-5">
         {language.Detail}
