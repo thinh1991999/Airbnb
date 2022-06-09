@@ -6,19 +6,17 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setActiveSearchForm,
+  setActiveSearchMobile,
   setSearchValue,
   setSearchValueMobile,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
 
-function DateBox({ double = true, mobile = false }) {
+function DateBox({ double = true, title = null }) {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
-  const searchValueMobile = useSelector(
-    (state) => state.header.searchValueMobile
-  );
 
   const [value, setValue] = useState(null);
-  const handleDisableDay = ({ date, view }) => {
+  const handleDisableDay = ({ date }) => {
     if (!moment(moment.now()).startOf("day").isSameOrBefore(moment(date))) {
       return "disable";
     } else {
@@ -27,60 +25,28 @@ function DateBox({ double = true, mobile = false }) {
   };
   const handleChooseDay = (e) => {
     if (!moment(moment.now()).startOf("day").isAfter(moment(e))) {
-      switch (mobile) {
-        case true:
-          {
-            if (setSearchValueMobile?.inDate) {
-              dispatch(
-                setSearchValueMobile({ ...searchValueMobile, inDate: e })
-              );
-            } else {
-              if (moment(setSearchValueMobile?.inDate).isAfter(moment(e))) {
-                dispatch(
-                  setSearchValueMobile({ ...searchValueMobile, inDate: e })
-                );
-              } else {
-                dispatch(
-                  setSearchValueMobile({ ...searchValueMobile, outDate: e })
-                );
-              }
-            }
-          }
-          break;
-        case false: {
-          if (searchValue?.inDate) {
-            dispatch(setSearchValue({ ...searchValue, inDate: e }));
-            dispatch(setActiveSearchForm(1));
-          } else {
-            if (moment(searchValue?.inDate).isAfter(moment(e))) {
-              dispatch(setSearchValue({ ...searchValue, inDate: e }));
-              dispatch(setActiveSearchForm(1));
-            } else {
-              dispatch(setSearchValue({ ...searchValue, outDate: e }));
-            }
-          }
-          break;
+      if (!searchValue?.inDate) {
+        dispatch(setSearchValue({ ...searchValue, inDate: e }));
+        dispatch(setActiveSearchMobile(1));
+      } else {
+        if (moment(searchValue?.inDate).isAfter(moment(e))) {
+          dispatch(setSearchValue({ ...searchValue, inDate: e }));
+          dispatch(setActiveSearchForm(1));
+          dispatch(setActiveSearchMobile(1));
+        } else {
+          dispatch(setSearchValue({ ...searchValue, outDate: e }));
         }
-        default:
-          break;
       }
     }
   };
 
   useEffect(() => {
-    if (mobile) {
-      if (searchValueMobile.inDate || searchValueMobile.outDate) {
-        setValue([searchValueMobile.inDate, searchValueMobile.outDate]);
-      }
-    } else {
-      if (searchValue.inDate || searchValue.outDate) {
-        setValue([searchValue.inDate, searchValue.outDate]);
-      }
-    }
-  }, [searchValue, searchValueMobile, mobile]);
+    setValue([searchValue?.inDate, searchValue?.outDate]);
+  }, [searchValue]);
 
   return (
     <div id="date_box" className="px-5">
+      {title && <h5 className="font-bold text-xl mb-5">{title}</h5>}
       <Calendar
         // onChange={onChange}
         tileClassName={handleDisableDay}

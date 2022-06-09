@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { httpServ } from "../../ServiceWorkers";
 import {
   setHeaderTrans,
@@ -72,7 +73,10 @@ function Home() {
                     key={_id}
                     className="xl:w-1/5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full p-2 flex flex-col"
                   >
-                    <div className="w-full rounded-xl overflow-hidden relative cursor-pointer hover:-translate-y-2 transition-all duration-300 ease-linear box__shadow">
+                    <Link
+                      to={`/rooms/${_id}`}
+                      className="w-full rounded-xl overflow-hidden relative cursor-pointer hover:-translate-y-2 transition-all duration-300 ease-linear box__shadow"
+                    >
                       <img
                         src={image}
                         alt=""
@@ -81,7 +85,7 @@ function Home() {
                       <div className="absolute top-0 left-0 right-0 bottom-0 p-2">
                         <span className="font-bold text-white">{province}</span>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 );
               })}
@@ -101,7 +105,10 @@ function Home() {
                     key={_id}
                     className="lg:w-1/3 md:w-1/2 w-full p-2 flex flex-col"
                   >
-                    <div className="box__shadow rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2 transition-all duration-300 ease-linear ">
+                    <Link
+                      to={`/roomDetail/${_id}`}
+                      className="box__shadow rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2 transition-all duration-300 ease-linear "
+                    >
                       <div className="w-full">
                         <img
                           src={image}
@@ -117,7 +124,7 @@ function Home() {
                           <span className="font-thin">/đêm</span>
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 );
               })}

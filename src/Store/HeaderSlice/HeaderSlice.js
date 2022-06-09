@@ -4,7 +4,7 @@ const initialState = {
   searchActive: false,
   scrollActive: true,
   showSearch: true,
-  searchValue: {},
+  searchValue: { members: { NL: 1 } },
   searchValueMobile: {},
   searchParams: {},
   elementSearch: null,
@@ -15,6 +15,7 @@ const initialState = {
   headerTrans: false,
   showNavMobile: false,
   showSearchMobile: false,
+  activeSearchMobile: null,
   homeChecked: false,
 };
 
@@ -33,15 +34,6 @@ export const headerSlice = createSlice({
     },
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
-    },
-    setSearchValueMobile: (state, action) => {
-      state.searchValueMobile = action.payload;
-    },
-    setSaveValueMobile: (state) => {
-      state.searchValue = {
-        ...state.searchValue,
-        ...state.searchValueMobile,
-      };
     },
     setElementSearch: (state, action) => {
       state.elementSearch = action.payload;
@@ -73,6 +65,9 @@ export const headerSlice = createSlice({
     setHomeChecked: (state, action) => {
       state.homeChecked = action.payload;
     },
+    setActiveSearchMobile: (state, action) => {
+      state.activeSearchMobile = action.payload;
+    },
   },
 });
 
@@ -90,8 +85,7 @@ export const {
   setShowNavMobile,
   setShowSearchMobile,
   setElementSearchMobile,
-  setSearchValueMobile,
-  setSaveValueMobile,
+  setActiveSearchMobile,
   setHomeChecked,
 } = headerSlice.actions;
 

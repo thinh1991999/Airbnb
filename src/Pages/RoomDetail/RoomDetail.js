@@ -111,7 +111,9 @@ export default function RoomDetail() {
         detailImage={detailData?.image}
       />
       {showWarning && <WarningLayout />}
-      <BookTicketMobile detailData={detailData} />
+      <div className="md:hidden">
+        <BookTicketMobile detailData={detailData} />
+      </div>
     </div>
   );
 }
