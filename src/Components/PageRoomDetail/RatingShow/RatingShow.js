@@ -179,7 +179,7 @@ export default function RatingShow({ id }) {
             return (
               <div
                 className={`${
-                  (hideRates.includes(_id) || delRates[_id]) && "opacity-50"
+                  hideRates.includes(_id) || delRates[_id] ? "opacity-50" : ""
                 } flex items-center my-5 group `}
               >
                 <div className="mr-4">
@@ -189,7 +189,7 @@ export default function RatingShow({ id }) {
                     alt=""
                   />
                 </div>
-                <div className="">
+                <div className="flex-1">
                   <h5 className="text-lg font-bold flex items-center">
                     <span>{name || "..."}</span>
                     <span className="text-sm font-thin ml-2">
@@ -206,7 +206,7 @@ export default function RatingShow({ id }) {
                       {_id === showOption.id && showOption.show && (
                         <div
                           ref={(el) => (optionRef.current[index] = el)}
-                          className="z-50 absolute min-w-[200px] bg-gray-800 top-full py-2  rounded-md"
+                          className="z-50 absolute min-w-[200px] bg-gray-800 top-full py-2  rounded-md sm:right-[unset] right-full"
                         >
                           <ul className="text-lg font-medium capitalize">
                             <li

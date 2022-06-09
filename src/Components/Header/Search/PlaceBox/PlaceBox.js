@@ -1,25 +1,27 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineRight } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { httpServ } from "../../../../ServiceWorkers";
-import { GoLocation } from "react-icons/go";
 import {
+  setElementSearchMobile,
   setSearchParams,
   setSearchValue,
+  setShowSearchMobile,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function PlaceBox() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
   const searchParams = useSelector((state) => state.header.searchParams);
   const language = useSelector((state) => state.root.language);
-  const dispatch = useDispatch();
 
   const [suggestArr, setSuggestArr] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleChoosePlace = (name, _id) => {
+    dispatch(setElementSearchMobile(null));
     dispatch(setSearchValue({ ...searchValue, place: name }));
     dispatch(
       setSearchParams({
@@ -27,6 +29,12 @@ function PlaceBox() {
         locationId: _id,
       })
     );
+  };
+
+  const handleSearch = () => {
+    dispatch(setShowSearchMobile(false));
+    dispatch(setElementSearchMobile(null));
+    navigate("/rooms");
   };
 
   useEffect(() => {
@@ -55,15 +63,15 @@ function PlaceBox() {
       <div className="px-10">
         <h2>{language.SearchEveryWhere}</h2>
         <div className="">
-          <Link
-            to={"/rooms/"}
+          <button
+            onClick={handleSearch}
             className="flex mt-5 w-[250px] px-4 py-2 rounded-full items-center justify-between border-[1px] header__btn"
           >
             <span>{language.FlexSearh}</span>
             <span className="p-2">
               <AiOutlineRight />
             </span>
-          </Link>
+          </button>
         </div>
       </div>
     );

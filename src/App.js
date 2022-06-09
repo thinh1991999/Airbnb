@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Layout } from "./Components";
 import Loading from "./Components/Loading/Loading";
 import {
@@ -14,12 +14,18 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "react-scroll-to-top";
+import { useEffect } from "react";
 
 function App() {
+  const location = useLocation();
   const mode = useSelector((state) => state.root.mode);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
+
   return (
-    <div className={`${mode === "DARK" && `dark`}`}>
+    <div className={`${mode === "DARK" && `dark`} scroll-smooth`}>
       <Loading />
       <div className="bg-white dark:bg-gray-900 dark:text-white min-h-screen flex flex-col">
         <Routes>

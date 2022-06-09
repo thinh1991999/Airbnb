@@ -13,15 +13,9 @@ function MemberBox() {
   console.log(data);
   const handleMinus = (type, hint) => {
     const count = data[hint] ? data[hint] * 1 : 0;
-    const countNL = data[hint] ? data[hint] * 1 : 0;
-    const arr = Object.values(data);
-    const countAll = arr.reduce((prev, current) => {
-      return prev + current;
-    }, 0);
 
     if (count > 0) {
-      if (hint === "NL" && count === 1 && countAll > 1) {
-      } else {
+      if ((hint === "NL" && count >= 2) || hint !== "NL") {
         setData({
           ...data,
           [hint]: count - 1,
@@ -93,10 +87,7 @@ function MemberBox() {
         const { title, des, type, hint } = item;
         const count = data[hint] ? data[hint] : 0;
         const arr = Object.values(data);
-        const countAll = arr.reduce((prev, current) => {
-          return prev + current;
-        }, 0);
-        const validBtn = hint === "NL" && count === 1 && countAll > 1;
+        const validBtn = hint === "NL" && count === 1;
         return (
           <div
             key={index}

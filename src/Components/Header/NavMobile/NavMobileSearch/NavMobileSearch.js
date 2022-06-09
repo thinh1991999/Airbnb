@@ -5,19 +5,23 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
+  setActiveSearchMobile,
   setElementSearchMobile,
+  setSearchParams,
   setSearchValue,
   setShowSearchMobile,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
+import { getInforSearchValue } from "../../../../Untils";
 import DateBox from "../../Search/DateBox/DateBox";
 import MemberBox from "../../Search/MemberBox/MemberBox";
-import PlaceBox from "../../Search/PlaceBox/PlaceBox";
 import "./NavMobileSearch.css";
 import PlaceBoxMobile from "./PlaceBoxMobile/PlaceBoxMobile";
 import SearchBoxMobile from "./SearchBoxMobile/SearchBoxMobile";
 
 export default function NavMobileSearch() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
   const showSearchMobile = useSelector(
@@ -27,14 +31,24 @@ export default function NavMobileSearch() {
     (state) => state.header.elementSearchMobile
   );
   const searchValue = useSelector((state) => state.header.searchValue);
+  const searchParams = useSelector((state) => state.header.searchParams);
+  const activeSearchMobile = useSelector(
+    (state) => state.header.activeSearchMobile
+  );
 
   const [navData, setNavData] = useState([]);
-  const [currentNav, setCurrentNav] = useState(0);
+  const [currentNavMobile, setCurrentNavMobile] = useState(0);
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    dispatch(setShowSearchMobile(false));
+    navigate(
+      `/rooms/${searchParams.locationId ? searchParams?.locationId : ""}`
+    );
+  };
 
   const handleClose = () => {
     if (elementSearchMobile) {
+      dispatch(setActiveSearchMobile(null));
       dispatch(setElementSearchMobile(null));
     } else {
       dispatch(setShowSearchMobile(false));
@@ -53,17 +67,28 @@ export default function NavMobileSearch() {
     );
   };
 
-  const handleShowBox = (item) => {
-    dispatch(
-      setElementSearchMobile({
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        component: item.element,
-      })
-    );
+  const handleShowBox = (index) => {
+    dispatch(setActiveSearchMobile(index));
   };
+
+  const handleClearSearch = () => {
+    dispatch(setSearchValue({ members: { NL: 1 } }));
+    dispatch(setSearchParams({}));
+  };
+
+  useEffect(() => {
+    activeSearchMobile !== null &&
+      dispatch(
+        setElementSearchMobile({
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          component:
+            navData[currentNavMobile]?.buttons[activeSearchMobile].element,
+        })
+      );
+  }, [activeSearchMobile]);
 
   useEffect(() => {
     setNavData([
@@ -74,13 +99,13 @@ export default function NavMobileSearch() {
             name: language.SearchTakeRoom,
             value: language.SearchAddDay,
             hint: "inDate",
-            element: <DateBox />,
+            element: <DateBox double={false} title={language.SearchTakeRoom} />,
           },
           {
             name: language.SearchPayRoom,
             value: language.SearchAddDay,
             hint: "outDate",
-            element: <DateBox />,
+            element: <DateBox double={false} title={language.SearchPayRoom} />,
           },
           {
             name: language.SearchGuest,
@@ -120,9 +145,9 @@ export default function NavMobileSearch() {
               {navData.map((navItem, index) => {
                 return (
                   <li
-                    onClick={() => setCurrentNav(index)}
+                    onClick={() => setCurrentNavMobile(index)}
                     className={`${
-                      index === currentNav &&
+                      index === currentNavMobile &&
                       "border-b-[2px] border-black dark:border-white"
                     } py-2 mx-2  `}
                     key={index}
@@ -134,36 +159,35 @@ export default function NavMobileSearch() {
             </ul>
           </div>
         </div>
-        <div className="pl-5 pr-5 relative flex-1 flex flex-col">
+        <div className="p-5 relative flex-1 flex flex-col">
           <div className="">
             <button
               onClick={handleShowPlaceBox}
               className="cursor-text w-full block text-left px-5 py-3 my-5 rounded-lg bg-gray-100 dark:bg-gray-700 border-[1px] border-gray-600 dark:border-gray-300"
             >
               <h5>Dia diem</h5>
-              {/* <input
-                type="text"
-                placeholder="ban se di dau"
-                className="w-full bg-white dark:bg-gray-700 outline-none"
-              /> */}
-              <label htmlFor="">ban se di dau</label>
+              <p className="text-gray-400">
+                {searchValue?.place || "Bạn sẽ đi đâu"}
+              </p>
             </button>
-            {navData[currentNav]?.buttons?.map((item, index) => {
-              const { name, hint, value, element } = item;
+            {navData[currentNavMobile]?.buttons?.map((item, index) => {
+              const { name, hint } = item;
+              let newValue = getInforSearchValue(hint, searchValue);
               return (
                 <div
-                  onClick={() => handleShowBox(item)}
+                  onClick={() => handleShowBox(index)}
                   key={index}
                   className="px-5 py-3 my-5 rounded-lg bg-gray-100 dark:bg-gray-700 border-[1px] border-gray-600 dark:border-gray-300"
                 >
                   <h5>{name}</h5>
+                  <p className="text-gray-400">{newValue || ""}</p>
                 </div>
               );
             })}
           </div>
           <div className="flex-1 flex  items-end">
             <div className="w-full flex justify-between">
-              <button>
+              <button onClick={handleClearSearch}>
                 <span>Clear</span>
               </button>
               <button

@@ -11,10 +11,14 @@ import {
 } from "react-icons/md";
 import Calendar from "react-calendar";
 import "./InfoShow.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import DateBox from "../../Header/Search/DateBox/DateBox";
+import { setSearchValue } from "../../../Store/HeaderSlice/HeaderSlice";
 
 export default function InfoShow({ detailData }) {
+  const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
+  const searchValue = useSelector((state) => state.header.searchValue);
   const {
     name,
     guests,
@@ -32,6 +36,17 @@ export default function InfoShow({ detailData }) {
     pool,
     wifi,
   } = detailData;
+
+  const handleClearDay = () => {
+    dispatch(
+      setSearchValue({
+        members: { ...searchValue?.members },
+        inDate: null,
+        outDate: null,
+      })
+    );
+  };
+
   return (
     <div className="w-full" id="RoomDetailInfo">
       <div className="py-5  border-gray-500">
@@ -178,15 +193,13 @@ export default function InfoShow({ detailData }) {
       <div className="py-5 border-t-[1px] border-gray-500">
         <h3 className="text-xl font-bold">{language.RoomSelectCheckIn}</h3>
         <span className="font-light">{language.RoomAddTravelDate}</span>
-        <Calendar
-          // onChange={onChange}
-          // tileClassName={handleDisableDay}
-          locale={"vi-VI"}
-          //   value={value}
-          className="border-0 text-black mt-5 w-full bg-white dark:bg-gray-900 dark:text-white"
-          showDoubleView={true}
-          // onClickDay={handleChooseDay}
-        />
+        <DateBox double={false} />
+        <button
+          onClick={handleClearDay}
+          className="underline mt-2 hover:text-red-500 transition-all duration-300 ease-linear"
+        >
+          Xóa ngày
+        </button>
       </div>
     </div>
   );

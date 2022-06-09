@@ -164,13 +164,15 @@ function Header() {
                 {showUserSetting && <UserSetting />}
               </div>
             </div>
-            <button
-              onClick={() => dispatch(setShowSearchMobile(true))}
-              className="md:hidden flex items-center dark:bg-gray-800 px-4 py-2 rounded-full sm:flex-none sm:w-[300px] sm:mr-0 flex-1 mr-2 dark:border-gray-500 border-[1px]"
-            >
-              <AiOutlineSearch className="text-2xl" />
-              <span className="ml-4">Ban se di dau</span>
-            </button>
+            {showSearch && (
+              <button
+                onClick={() => dispatch(setShowSearchMobile(true))}
+                className="md:hidden flex items-center dark:bg-gray-800 px-4 py-2 rounded-full sm:flex-none sm:w-[300px] sm:mr-0 flex-1 mr-2 dark:border-gray-500 border-[1px]"
+              >
+                <AiOutlineSearch className="text-2xl" />
+                <span className="ml-4">Ban se di dau</span>
+              </button>
+            )}
             <button
               onClick={() => dispatch(setShowNavMobile(true))}
               className="md:hidden block text-3xl font-bold"
