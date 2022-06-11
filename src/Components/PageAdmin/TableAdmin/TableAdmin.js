@@ -53,7 +53,6 @@ function TableAdmin({ currentNavData }) {
   );
 
   const setResponTable = useCallback((width) => {
-    console.log(width);
     if (width >= 1360) {
       setHiddenColumns([]);
     }
@@ -113,12 +112,12 @@ function TableAdmin({ currentNavData }) {
   }, [reloadData]);
 
   const resizeEvent = (e) => {
-    const width = e.target.outerWidth;
+    const width = e.target.innerWidth;
     setResponTable(width);
   };
   useEffect(() => {
     window.addEventListener("resize", resizeEvent);
-    setResponTable(window.outerWidth);
+    setResponTable(window.innerWidth);
     return () => {
       window.removeEventListener("resize", resizeEvent);
     };

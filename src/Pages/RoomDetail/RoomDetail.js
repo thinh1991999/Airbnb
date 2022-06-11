@@ -12,13 +12,16 @@ import RatingShow from "../../Components/PageRoomDetail/RatingShow/RatingShow";
 import WarningLayout from "../../Components/PageRoomDetail/WarningLayout/WarningLayout";
 
 import BookTicketMobile from "../../Components/PageRoomDetail/BookTicketMobile/BookTicketMobile";
+import TicketsShow from "../../Components/PageRoomDetail/TicketsShow/TicketsShow";
 
 export default function RoomDetail() {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
   const showWarning = useSelector((state) => state.roomDetail.showWarning);
+
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
+  const [ticketsData, setTicketsData] = useState([]);
   const [subImgs, setSubImgs] = useState([
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img1.webp?alt=media&token=b22c6a2f-f439-46ee-a361-1c13254698a1",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img2.webp?alt=media&token=150c93a8-ba6a-4a82-910f-ea5f194d7c1e",
@@ -31,9 +34,17 @@ export default function RoomDetail() {
   const [showImages, setShowImages] = useState(false);
 
   useEffect(() => {
-    httpServ.layThongTinChiTietPhong(id).then((res) => {
-      setDetailData(res.data);
-    });
+    httpServ
+      .layThongTinChiTietPhong(id)
+      .then((res) => {
+        setDetailData(res.data);
+        document.title = res.data?.name;
+      })
+      .then(() => {
+        httpServ.layDanhSachVeTheoPhong(id).then((res) => {
+          setTicketsData(res.data);
+        });
+      });
   }, [id]);
 
   useEffect(() => {
@@ -101,6 +112,7 @@ export default function RoomDetail() {
               <BookTicket price={price} id={id} />
             </div>
           </div>
+          <TicketsShow ticketsData={ticketsData} />
           <RatingShow id={id} />
         </div>
       )}
@@ -111,7 +123,7 @@ export default function RoomDetail() {
         detailImage={detailData?.image}
       />
       {showWarning && <WarningLayout />}
-      <div className="md:hidden">
+      <div className={`md:hidden ${showImages && "hidden"}`}>
         <BookTicketMobile detailData={detailData} />
       </div>
     </div>

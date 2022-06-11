@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./Error.scss";
 
 export default function Error() {
+  const language = useSelector((state) => state.root.language);
+
+  useEffect(() => {
+    document.title = language.error;
+  }, []);
   return (
     <div id="error">
       <div>

@@ -217,7 +217,7 @@ export default function RatingShow({ id }) {
                                 ? language.ShowReview
                                 : language.HideReview}
                             </li>
-                            {user?._id === id && (
+                            {user?._id === id && user?.type === "ADMIN" && (
                               <>
                                 <li
                                   onClick={() => handleShowDeleteRating(_id)}

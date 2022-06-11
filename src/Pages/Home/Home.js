@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { httpServ } from "../../ServiceWorkers";
 import {
@@ -7,6 +7,7 @@ import {
   setHomeChecked,
   setScrollActive,
   setSearchActive,
+  setShowLogoMobile,
   setShowSearch,
 } from "../../Store/HeaderSlice/HeaderSlice";
 import { getVNDMoney } from "../../Untils";
@@ -14,6 +15,7 @@ import "./Home.scss";
 
 function Home() {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.root.language);
   const [locsHot, setLocsHot] = useState([]);
   const [roomsHot, setRoomsHot] = useState([]);
 
@@ -23,6 +25,7 @@ function Home() {
     dispatch(setScrollActive(true));
     dispatch(setHeaderTrans(true));
     dispatch(setHomeChecked(true));
+    document.title = language.homeTitle;
     return () => {
       dispatch(setHomeChecked(false));
       dispatch(setHeaderTrans(false));

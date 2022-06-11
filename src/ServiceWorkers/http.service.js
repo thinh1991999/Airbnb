@@ -34,7 +34,6 @@ class HttpRequestService {
     const uri = "/api/users/" + id;
     return AxiosServ.getMethod(uri, loading);
   };
-
   dangNhap = (data) => {
     const uri = "/api/auth/login";
     return AxiosServ.postMethod(uri, data, false);
@@ -60,10 +59,19 @@ class HttpRequestService {
     const uri = "/api/tickets/" + id;
     return AxiosServ.getMethod(uri, false);
   };
+  layDanhSachVeTheoPhong = (id) => {
+    const uri = "/api/tickets/by-room?roomId=" + id;
+    return AxiosServ.getMethod(uri, true);
+  };
   datPhong = (data, token) => {
     const uri = "/api/rooms/booking";
     AxiosServ.axiosConfig.headers.token = token;
     return AxiosServ.postMethod(uri, data, false);
+  };
+  huyVe = (id, token) => {
+    const uri = "/api/tickets/" + id;
+    AxiosServ.axiosConfig.headers.token = token;
+    return AxiosServ.deleteMothod(uri, false);
   };
   taoDanhGia = (id, data, token) => {
     const uri = "/api/reviews";
