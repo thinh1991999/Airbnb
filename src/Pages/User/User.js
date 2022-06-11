@@ -51,6 +51,7 @@ export default function User() {
     }
     httpServ.layThongTinChiTietUser(user._id, true).then((res) => {
       setDataUser(res.data);
+      document.title = language.userTitle;
     });
   }, [user]);
 
@@ -65,6 +66,12 @@ export default function User() {
       newTicketsData.push(asyncResult);
     }
     return newTicketsData;
+  };
+
+  const handleDelTicket = (id) => {
+    httpServ.huyVe(id, token).then((res) => {
+      console.log(res);
+    });
   };
 
   useEffect(() => {
@@ -186,7 +193,10 @@ export default function User() {
                       roomId: { image, price, name },
                     } = ticket;
                     return (
-                      <div className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center ">
+                      <div
+                        key={index}
+                        className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center justify-between"
+                      >
                         <div className="mr-5">
                           <img
                             src={image}
@@ -200,6 +210,12 @@ export default function User() {
                             {getVNDMoney(price)}/{language.Night}
                           </span>
                         </div>
+                        <button
+                          onClick={() => handleDelTicket(ticket._id)}
+                          className="px-3 py-2 rounded-md bg-red-500"
+                        >
+                          Huy ve
+                        </button>
                       </div>
                     );
                   }

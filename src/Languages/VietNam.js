@@ -166,4 +166,7 @@ export const VNLanguage = {
   cfPasswordRequired: "Trường xác nhận mật khẩu là bắt buộc.",
   emailChecked: "Trường này phải là email.",
   phoneChecked: "Trườn này phải là SĐT.",
+  error: "Có lỗi xảy ra",
+  homeTitle: "Nhà nghỉ dưỡng & Căn hộ cao cấp cho thuê - Airbnb - Airbnb",
+  userTitle: "Trang cá nhân",
 };

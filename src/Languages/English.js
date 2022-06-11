@@ -166,4 +166,7 @@ export const ELLanguage = {
   cfPasswordRequired: "The comfirm password field is required!",
   emailChecked: "This field is email.",
   phoneChecked: "This field is phone number.",
+  error: "An error occurred",
+  homeTitle: "Holiday Homes & Apartment Rentals - Airbnb - Airbnb",
+  userTitle: "Personal page",
 };

@@ -81,12 +81,15 @@ function Header() {
   };
 
   useEffect(() => {
-    window.pageYOffset === 0 && dispatch(setSearchActive(true));
     window.addEventListener("click", clickEvent);
     return () => {
       window.removeEventListener("click", clickEvent);
     };
-  }, []);
+  }, [searchActive]);
+
+  useEffect(() => {
+    scrollActive && window.pageYOffset === 0 && dispatch(setSearchActive(true));
+  }, [scrollActive]);
 
   return (
     <div
@@ -103,7 +106,11 @@ function Header() {
       <div className="relative md:container m-auto">
         <div className=" lg:px-20 lg:py-5 md:px-10 px-5 py-5">
           <div className=" flex items-center md:justify-between justify-between">
-            <div className="sm:block hidden md:w-1/4 relative z-10">
+            <div
+              className={`sm:block ${
+                showSearch ? "hidden" : "block"
+              }  md:w-1/4 relative z-10`}
+            >
               <Logo />
             </div>
             <div className="md:block marker: hidden flex-1">
