@@ -1,17 +1,17 @@
-#header .header__btn{
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+#header .header__btn {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 #header .header__btn:hover,
-#header .user__btn:hover{
-    transition: all 0.3s linear;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+#header .user__btn:hover {
+  transition: all 0.3s linear;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-#header{
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+#header.header__shadow {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.dark #header{
-    box-shadow: unset
+.dark #header {
+  box-shadow: unset;
 }

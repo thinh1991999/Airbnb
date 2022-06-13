@@ -25,23 +25,23 @@ function DateBox({ double = true, title = null }) {
   };
   const handleChooseDay = (e) => {
     if (!moment(moment.now()).startOf("day").isAfter(moment(e))) {
-      if (!searchValue?.inDate) {
-        dispatch(setSearchValue({ ...searchValue, inDate: e }));
+      if (!searchValue?.checkIn) {
+        dispatch(setSearchValue({ ...searchValue, checkIn: e }));
         dispatch(setActiveSearchMobile(1));
       } else {
-        if (moment(searchValue?.inDate).isAfter(moment(e))) {
-          dispatch(setSearchValue({ ...searchValue, inDate: e }));
+        if (moment(searchValue?.checkIn).isAfter(moment(e))) {
+          dispatch(setSearchValue({ ...searchValue, checkIn: e }));
           dispatch(setActiveSearchForm(1));
           dispatch(setActiveSearchMobile(1));
         } else {
-          dispatch(setSearchValue({ ...searchValue, outDate: e }));
+          dispatch(setSearchValue({ ...searchValue, checkOut: e }));
         }
       }
     }
   };
 
   useEffect(() => {
-    setValue([searchValue?.inDate, searchValue?.outDate]);
+    setValue([searchValue?.checkIn, searchValue?.checkOut]);
   }, [searchValue]);
 
   return (

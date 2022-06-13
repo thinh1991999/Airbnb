@@ -47,7 +47,7 @@ export default function RatingAdd({ id }) {
               onChange={(e) => setRatingValue(e.target.value)}
               type="text"
               placeholder={language.RoomEnterRating}
-              className="w-full bg-gray-900 text-lg outline-none"
+              className="w-full dark:bg-gray-900 text-lg outline-none"
             />
             <button type="submit" className="text-3xl">
               <AiOutlineSend />

@@ -45,7 +45,6 @@ export default function RatingShow({ id }) {
         return item === id;
       });
       hideRatesCopy.splice(idx, 1);
-      console.log(hideRatesCopy);
       setHideRates([...hideRatesCopy]);
     } else {
       setHideRates([...hideRates, id]);
@@ -73,7 +72,12 @@ export default function RatingShow({ id }) {
   const handleShowDeleteRating = (id) => {
     dispatch(
       setComponentShow(
-        <WarningDelete id={id} handleDeleteRating={handleDeleteRating} />
+        <WarningDelete
+          id={id}
+          handleDelete={handleDeleteRating}
+          title="Xóa đánh giá"
+          question={"Bạn có chắc muốn xóa đánh giá này"}
+        />
       )
     );
     dispatch(setShowWarning(true));

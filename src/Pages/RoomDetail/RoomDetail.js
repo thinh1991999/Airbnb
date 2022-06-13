@@ -13,6 +13,7 @@ import WarningLayout from "../../Components/PageRoomDetail/WarningLayout/Warning
 
 import BookTicketMobile from "../../Components/PageRoomDetail/BookTicketMobile/BookTicketMobile";
 import TicketsShow from "../../Components/PageRoomDetail/TicketsShow/TicketsShow";
+import Circles from "react-loading-icons/dist/components/circles";
 
 export default function RoomDetail() {
   const dispatch = useDispatch();
@@ -32,6 +33,13 @@ export default function RoomDetail() {
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img6.webp?alt=media&token=c3afea08-c868-4d2c-be09-c4d1e13f4ab4",
   ]);
   const [showImages, setShowImages] = useState(false);
+  const [reloadTickets, setReloadTickets] = useState(false);
+
+  const fetchTickets = async () => {
+    httpServ.layDanhSachVeTheoPhong(id).then((res) => {
+      setTicketsData(res.data);
+    });
+  };
 
   useEffect(() => {
     httpServ
@@ -41,11 +49,15 @@ export default function RoomDetail() {
         document.title = res.data?.name;
       })
       .then(() => {
-        httpServ.layDanhSachVeTheoPhong(id).then((res) => {
-          setTicketsData(res.data);
-        });
+        fetchTickets();
       });
   }, [id]);
+
+  useEffect(() => {
+    fetchTickets().then(() => {
+      setReloadTickets(false);
+    });
+  }, [reloadTickets]);
 
   useEffect(() => {
     dispatch(setShowSearch(false));
@@ -109,10 +121,18 @@ export default function RoomDetail() {
               <InfoShow detailData={detailData} />
             </div>
             <div className="md:w-2/6 md:block hidden">
-              <BookTicket price={price} id={id} />
+              <BookTicket
+                price={price}
+                id={id}
+                setReloadTickets={setReloadTickets}
+              />
             </div>
           </div>
-          <TicketsShow ticketsData={ticketsData} />
+          <TicketsShow
+            ticketsData={ticketsData}
+            reloadTickets={reloadTickets}
+            setReloadTickets={setReloadTickets}
+          />
           <RatingShow id={id} />
         </div>
       )}

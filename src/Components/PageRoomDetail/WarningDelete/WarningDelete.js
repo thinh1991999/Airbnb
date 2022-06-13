@@ -3,15 +3,15 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { setShowWarning } from "../../../Store/RoomDetailSlice/RoomDetailSlice";
 
-export default function WarningDelete({ id, handleDeleteRating }) {
+export default function WarningDelete({ id, handleDelete, title, question }) {
   const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(setShowWarning(false));
   };
 
-  const handleDelete = () => {
-    handleDeleteRating(id);
+  const handleDeleteAcion = () => {
+    handleDelete(id);
     dispatch(setShowWarning(false));
   };
 
@@ -22,9 +22,9 @@ export default function WarningDelete({ id, handleDeleteRating }) {
           <AiOutlineClose />
         </button>
       </div>
-      <h2 className="capitalize text-3xl font-semibold mb-5">Xóa đánh giá</h2>
+      <h2 className="capitalize text-3xl font-semibold mb-5">{title}</h2>
       <div className="">
-        <p className="text-xl">Bạn có chắc muốn xóa đánh giá này?</p>
+        <p className="text-xl">{question}?</p>
         <div className="flex justify-end mt-10 ">
           <button
             onClick={handleClose}
@@ -33,7 +33,7 @@ export default function WarningDelete({ id, handleDeleteRating }) {
             Hủy
           </button>
           <button
-            onClick={handleDelete}
+            onClick={handleDeleteAcion}
             className="px-3 py-2 bg-red-500 rounded-md font-bold"
           >
             Xóa

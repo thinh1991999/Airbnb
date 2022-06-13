@@ -97,8 +97,10 @@ class AxiosService {
       case 403:
         window.location.assign("/error");
         break;
+      case 500:
+        break;
       default:
-        // window.location.assign("/error");
+        window.location.assign("/error");
         break;
     }
   };

@@ -21,8 +21,8 @@ export default function BookTicketMobile({ detailData }) {
 
   const checkBooking = useMemo(() => {
     if (
-      searchValue?.inDate &&
-      searchValue?.outDate &&
+      searchValue?.checkIn &&
+      searchValue?.checkOut &&
       !_.isEmpty(searchValue?.members)
     ) {
       return true;

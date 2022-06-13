@@ -2,7 +2,7 @@ import moment from "moment";
 
 export const getInforSearchValue = (hint, searchValue) => {
   let newValue = "";
-  if (hint === "inDate" || hint === "outDate") {
+  if (hint === "checkIn" || hint === "checkOut") {
     newValue = searchValue[hint]
       ? moment(searchValue[hint]).format("MM/DD/YYYY").toString()
       : "";
