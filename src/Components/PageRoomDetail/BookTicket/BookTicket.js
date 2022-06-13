@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { AiOutlineDown } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,8 +10,14 @@ import { TailSpin } from "react-loading-icons";
 import "./BookTicket.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setLocation } from "../../../Store/LoginSlice/LoginSlice";
+import _ from "lodash";
+import { toast } from "react-toastify";
+import {
+  resetSearchValue,
+  setSearchValue,
+} from "../../../Store/HeaderSlice/HeaderSlice";
 
-export default function BookTicket({ price, id }) {
+export default function BookTicket({ price, id, setReloadTickets }) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -27,28 +33,45 @@ export default function BookTicket({ price, id }) {
     mess: "",
   });
 
+  const checkBooking = useMemo(() => {
+    if (
+      searchValue?.checkIn &&
+      searchValue?.checkOut &&
+      !_.isEmpty(searchValue?.members)
+    ) {
+      return true;
+    }
+    return false;
+  }, [searchValue]);
+
   const dateBoxRef = useRef(null);
   const memberBoxRef = useRef(null);
 
   const handleBookTicket = () => {
-    if (!loadingBtn) {
-      setLoadingBtn(true);
-      httpServ
-        .datPhong(
-          {
-            roomId: id,
-            checkIn: "2021-05-11T17:00:00.000+00:00",
-            checkOut: "2021-05-15T17:00:00.000+00:00",
-          },
-          token
-        )
-        .then((res) => {
-          setMess({
-            type: "SUCCESS",
-            mess: language.RoomSuccessfulBooking,
+    if (checkBooking) {
+      if (!loadingBtn) {
+        setLoadingBtn(true);
+        httpServ
+          .datPhong(
+            {
+              roomId: id,
+              ...searchValue,
+            },
+            token
+          )
+          .then((res) => {
+            setReloadTickets(true);
+            dispatch(resetSearchValue());
+            setMess({
+              type: "SUCCESS",
+              mess: language.RoomSuccessfulBooking,
+            });
+            setLoadingBtn(false);
+            toast.success("Đặt phòng thành công!");
           });
-          setLoadingBtn(false);
-        });
+      }
+    } else {
+      toast.error("Vui lòng chọn đầy đủ thông tin đặt phòng!");
     }
   };
 
@@ -106,7 +129,7 @@ export default function BookTicket({ price, id }) {
                 </span>
                 <p className="text-base font-thin one__line__text">
                   {" "}
-                  {getInforSearchValue("inDate", searchValue) ||
+                  {getInforSearchValue("checkIn", searchValue) ||
                     language.SearchAddDay}
                 </p>
               </div>
@@ -116,7 +139,7 @@ export default function BookTicket({ price, id }) {
                   {language.SearchPayRoom}
                 </span>
                 <p className="text-base font-thin one__line__text">
-                  {getInforSearchValue("outDate", searchValue) ||
+                  {getInforSearchValue("checkOut", searchValue) ||
                     language.SearchAddDay}
                 </p>
               </div>

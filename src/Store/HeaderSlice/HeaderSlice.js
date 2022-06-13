@@ -35,6 +35,9 @@ export const headerSlice = createSlice({
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
     },
+    resetSearchValue: (state) => {
+      state.searchValue = { members: { NL: 1 } };
+    },
     setElementSearch: (state, action) => {
       state.elementSearch = action.payload;
     },
@@ -87,6 +90,7 @@ export const {
   setElementSearchMobile,
   setActiveSearchMobile,
   setHomeChecked,
+  resetSearchValue,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;

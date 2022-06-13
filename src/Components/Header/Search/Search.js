@@ -38,13 +38,13 @@ function Search() {
           {
             name: language.SearchTakeRoom,
             value: language.SearchAddDay,
-            hint: "inDate",
+            hint: "checkIn",
             element: <DateBox />,
           },
           {
             name: language.SearchPayRoom,
             value: language.SearchAddDay,
-            hint: "outDate",
+            hint: "checkOut",
             element: <DateBox />,
           },
           {
