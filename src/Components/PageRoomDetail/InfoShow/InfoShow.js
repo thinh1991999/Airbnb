@@ -41,8 +41,8 @@ export default function InfoShow({ detailData }) {
     dispatch(
       setSearchValue({
         members: { ...searchValue?.members },
-        inDate: null,
-        outDate: null,
+        checkIn: null,
+        checkOut: null,
       })
     );
   };
@@ -198,7 +198,7 @@ export default function InfoShow({ detailData }) {
           onClick={handleClearDay}
           className="underline mt-2 hover:text-red-500 transition-all duration-300 ease-linear"
         >
-          Xóa ngày
+          {language.delDay}
         </button>
       </div>
     </div>

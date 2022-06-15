@@ -75,7 +75,7 @@ function TableAdmin({ currentNavData }) {
         "description",
       ]);
     }
-    if (width < 400) {
+    if (width < 450) {
       setHiddenColumns([
         "gender",
         "birthday",

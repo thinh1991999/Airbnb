@@ -8,6 +8,7 @@ import { getInforSearchValue, getVNDMoney } from "../../../Untils";
 import Button from "../../Button/Button";
 import DateBox from "../../Header/Search/DateBox/DateBox";
 import MemberBox from "../../Header/Search/MemberBox/MemberBox";
+import RequireSignIn from "../../RequireSignIn/RequireSignIn";
 
 export default function BookTicketMobile({ detailData }) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function BookTicketMobile({ detailData }) {
     (state) => state.roomDetail.showBookTicketMB
   );
   const language = useSelector((state) => state.root.language);
+  const user = useSelector((state) => state.root.user);
   const searchValue = useSelector((state) => state.header.searchValue);
 
   const [timeBooking, setTimeBooking] = useState("");
@@ -62,7 +64,7 @@ export default function BookTicketMobile({ detailData }) {
     <>
       <div className="fixed left-0 right-0 bottom-0  bg-white dark:bg-gray-800 border-t z-50">
         <div className="px-5 py-5 flex justify-between items-center">
-          <div className="">
+          <div className={`${user ? "" : "sm:block hidden"}`}>
             <p className="flex items-center">
               <span className="font-bold text-xl">{getVNDMoney(price)}</span>
               <span>/dem</span>
@@ -80,18 +82,18 @@ export default function BookTicketMobile({ detailData }) {
               </div>
             )}
           </div>
-          <button onClick={handleBooking}>
-            <Button>{checkBooking ? "Đặt phòng" : "Đăng ký đặt phòng"}</Button>
-          </button>
-          {/* {showBookTicketMB && (
-            <button
-              className={`${
-                checkBooking ? "opacity-100" : "opacity-50 cursor-not-allowed"
-              }`}
-            >
-              <Button>Đặt phòng</Button>
+
+          {user ? (
+            <button onClick={handleBooking}>
+              <Button>
+                <span className="sm:text-base text-xs">
+                  {checkBooking ? "Đặt phòng" : "Đăng ký đặt phòng"}
+                </span>
+              </Button>
             </button>
-          )} */}
+          ) : (
+            <RequireSignIn />
+          )}
         </div>
       </div>
       <div

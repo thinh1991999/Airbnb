@@ -152,7 +152,7 @@ export default function TableBody({
                             <>
                               <label
                                 htmlFor={id}
-                                className="block ml-2 whitespace-nowrap px-2 py-1 text-white bg-blue-500 rounded-md cursor-pointer"
+                                className="block md:ml-2 whitespace-nowrap px-2 py-1 text-white bg-blue-500 rounded-md cursor-pointer"
                               >
                                 {language.Change}
                               </label>

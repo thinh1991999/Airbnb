@@ -202,7 +202,7 @@ export default function RatingShow({ id }) {
                     <div className=" flex relative text-sm w-[20px] h-[20px] ml-2">
                       <button
                         ref={(el) => (btnRef.current[index] = el)}
-                        className="group-hover:flex hidden w-[20px] h-[20px] bg-gray-800 rounded-full justify-center items-center"
+                        className="group-hover:flex hidden w-[20px] h-[20px] bg-gray-200 dark:bg-gray-800 rounded-full justify-center items-center"
                         onClick={() => handleShowOption(_id)}
                       >
                         <BsThreeDots />
@@ -210,12 +210,12 @@ export default function RatingShow({ id }) {
                       {_id === showOption.id && showOption.show && (
                         <div
                           ref={(el) => (optionRef.current[index] = el)}
-                          className="z-50 absolute min-w-[200px] bg-gray-800 top-full py-2  rounded-md sm:right-[unset] right-full"
+                          className="z-50 absolute min-w-[200px] bg-gray-200 dark:bg-gray-800 top-full py-2  rounded-md sm:right-[unset] right-full"
                         >
                           <ul className="text-lg font-medium capitalize">
                             <li
                               onClick={() => handleHideRating(_id)}
-                              className="py-2 px-3 cursor-pointer hover:bg-gray-700"
+                              className="py-2 px-3 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700"
                             >
                               {hideRates.includes(_id)
                                 ? language.ShowReview

@@ -100,7 +100,7 @@ class AxiosService {
       case 500:
         break;
       default:
-        window.location.assign("/error");
+        // window.location.assign("/error");
         break;
     }
   };

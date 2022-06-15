@@ -23,6 +23,7 @@ export default function TicketsShow({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.root.token);
   const user = useSelector((state) => state.root.user);
+  const language = useSelector((state) => state.root.language);
 
   const [showDetail, setShowDetail] = useState(false);
   const [delList, setDelList] = useState({});
@@ -56,12 +57,18 @@ export default function TicketsShow({
   return (
     <div className="py-5 border-t-[1px] border-b-[1px] border-gray-500">
       <h2 className="text-xl font-bold capitalize flex items-center">
-        booking history : {!reloadTickets && <>{ticketsData.length} tickets </>}
+        {language.bookingHistory} :{" "}
+        {!reloadTickets && (
+          <>
+            {ticketsData.length}{" "}
+            {ticketsData.length > 1 ? language.Tickets : language.Ticket}
+          </>
+        )}
         <button
           onClick={() => setShowDetail(!showDetail)}
           className="px-2 py-1 flex items-center text-base rounded-md text-white bg-blue-500 ml-2 hover:opacity-75 transition-all duration-300 ease-linear"
         >
-          <span>{showDetail ? "Hide" : "Show"}</span>
+          <span>{showDetail ? language.hide : language.show}</span>
           {showDetail ? (
             <AiOutlineUp className="ml-1" />
           ) : (
@@ -78,28 +85,28 @@ export default function TicketsShow({
           {showDetail && (
             <div className="flex flex-wrap -ml-2 -mr-2">
               {ticketsData?.map((ticket) => {
-                const {
-                  _id,
-                  checkIn,
-                  checkOut,
-                  userId: { avatar, name },
-                } = ticket;
+                const { _id, checkIn, checkOut, userId } = ticket;
                 return (
-                  <div key={_id} className="w-1/2 p-2 flex items-center">
+                  <div
+                    key={_id}
+                    className="md:w-1/2 w-full p-2 flex items-center"
+                  >
                     <div className="mr-2">
                       <img
-                        src={avatar || unknowImg}
+                        src={userId?.avatar || unknowImg}
                         alt=""
                         className="w-[50px] h-[50px] rounded-full"
                       />
                     </div>
                     <div className="flex flex-col">
-                      <h5 className="font-bold text-lg">{name}</h5>
+                      <h5 className="font-bold text-lg">
+                        {userId?.name || "..."}
+                      </h5>
                       <span className="font-thin">
-                        Check In : {getTime(checkIn)}
+                        {language.SearchTakeRoom} : {getTime(checkIn)}
                       </span>
                       <span className="font-thin">
-                        Check Out : {getTime(checkOut)}
+                        {language.SearchPayRoom} : {getTime(checkOut)}
                       </span>
                     </div>
                     {user?.type === "ADMIN" && (
@@ -111,7 +118,7 @@ export default function TicketsShow({
                             onClick={() => handleShowDelTicket(_id)}
                             className="px-2 py-1 rounded-md bg-red-500 text-white hover:opacity-75 transition-all duration-300 ease-linear"
                           >
-                            Huy ve
+                            {language.delTicket}
                           </button>
                         )}
                       </div>

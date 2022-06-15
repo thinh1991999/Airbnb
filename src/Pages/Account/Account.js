@@ -16,6 +16,14 @@ function Account({ type }) {
     }
   }, []);
 
+  useEffect(() => {
+    {
+      type === "SignIn"
+        ? (document.title = "Sign In")
+        : (document.title = "Sign Up");
+    }
+  }, [type]);
+
   return (
     <div className="h-screen w-screen relative">
       <img
