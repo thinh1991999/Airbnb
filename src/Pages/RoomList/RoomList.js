@@ -71,7 +71,7 @@ function RoomList() {
         </div>
         <div
           className={`${
-            fullMap ? "w-full " : "lg:w-[40%] lg:h-auto  w-full "
+            fullMap ? "w-full h-[800px]" : "lg:w-[40%] lg:h-auto  w-full "
           } ${
             fullMapMobile ? "lg:h-auto h-[800px]" : "h-0"
           } transition-all duration-300 ease-linear `}
@@ -107,15 +107,15 @@ function RoomList() {
       </div>
       <button
         onClick={() => setFullMapMobile(!fullMapMobile)}
-        className="lg:hidden fixed bottom-5 left-[50%] -translate-x-[50%] px-5 py-3 flex items-center hover:opacity-50 transition-all duration-300 ease-linear bg-gray-100 dark:bg-black rounded-full text-lg font-bold"
+        className="lg:hidden fixed bottom-5 left-[50%] -translate-x-[50%] px-5 py-3 flex items-center hover:bg-gray-200 dark:hover:bg-gray-900 transition-all duration-300 ease-linear bg-gray-100 dark:bg-black rounded-full text-lg font-bold"
       >
         {fullMapMobile ? (
           <>
-            Hiển thị danh sách <BsListStars className="ml-2" />
+            {language.showList} <BsListStars className="ml-2" />
           </>
         ) : (
           <>
-            Hiển thị bản đồ <FiMap className="ml-2" />
+            {language.showMap} <FiMap className="ml-2" />
           </>
         )}
       </button>

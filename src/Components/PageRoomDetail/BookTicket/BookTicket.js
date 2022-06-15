@@ -16,6 +16,8 @@ import {
   resetSearchValue,
   setSearchValue,
 } from "../../../Store/HeaderSlice/HeaderSlice";
+import DateBox from "../../Header/Search/DateBox/DateBox";
+import RequireSignIn from "../../RequireSignIn/RequireSignIn";
 
 export default function BookTicket({ price, id, setReloadTickets }) {
   const navigate = useNavigate();
@@ -55,7 +57,9 @@ export default function BookTicket({ price, id, setReloadTickets }) {
           .datPhong(
             {
               roomId: id,
-              ...searchValue,
+              checkIn: "2022-06-13T17:00:00.000Z",
+              checkOut: "2022-06-21T17:00:00.000Z",
+              userId: user?._id,
             },
             token
           )
@@ -78,6 +82,16 @@ export default function BookTicket({ price, id, setReloadTickets }) {
   const handleForwardLogin = () => {
     dispatch(setLocation(location.pathname));
     navigate("/account/signIn");
+  };
+
+  const handleClearDay = () => {
+    dispatch(
+      setSearchValue({
+        members: { ...searchValue?.members },
+        checkIn: null,
+        checkOut: null,
+      })
+    );
   };
 
   const clickEvent = (e) => {
@@ -147,12 +161,12 @@ export default function BookTicket({ price, id, setReloadTickets }) {
                 <div
                   ref={dateBoxRef}
                   id="BookTicket"
-                  className="z-10 absolute top-[-28px] right-[-32px] px-[32px] py-[28px] lg:w-[200%] md:w-[600px] bg-white  dark:text-white dark:bg-gray-600 rounded-3xl"
+                  className="z-10 absolute top-[-28px] right-[-32px] px-[32px] py-[28px] lg:w-[calc(200%_+_64px)] md:w-[600px] bg-white  dark:text-white dark:bg-gray-600 rounded-3xl"
                 >
                   <div className="h-full w-full  ">
                     <div className="flex w-full">
                       <div className="w-1/2">
-                        <h5 className="text-2xl font-bold">
+                        <h5 className="text-2xl font-bold ">
                           {language.RoomChooseDate}
                         </h5>
                         <span className="text-gray-600 dark:text-gray-200">
@@ -164,8 +178,8 @@ export default function BookTicket({ price, id, setReloadTickets }) {
                           <label className="font-bold" htmlFor="">
                             {language.SearchTakeRoom}
                           </label>
-                          <span className="text-gray-600 dark:text-gray-200">
-                            {getInforSearchValue("inDate", searchValue) ||
+                          <span className="text-gray-600 dark:text-gray-200 one__line__text">
+                            {getInforSearchValue("checkIn", searchValue) ||
                               language.SearchAddDay}
                           </span>
                         </div>
@@ -174,22 +188,22 @@ export default function BookTicket({ price, id, setReloadTickets }) {
                           <label className="font-bold" htmlFor="">
                             {language.SearchTakeRoom}
                           </label>
-                          <span className="text-gray-600 dark:text-gray-200">
-                            {getInforSearchValue("outDate", searchValue) ||
+                          <span className="text-gray-600 dark:text-gray-200 one__line__text">
+                            {getInforSearchValue("checkOut", searchValue) ||
                               language.SearchAddDay}
                           </span>
                         </div>
                       </div>
                     </div>
-                    <Calendar
-                      // onChange={onChange}
-                      // tileClassName={handleDisableDay}
-                      locale={"vi-VI"}
-                      //   value={value}
-                      className="border-0 text-black mt-5 w-full bg-white dark:bg-gray-600 dark:text-white"
-                      showDoubleView={true}
-                      // onClickDay={handleChooseDay}
-                    />
+                    <DateBox double={false} />
+                    <div className="">
+                      <button
+                        onClick={handleClearDay}
+                        className="underline mt-2 hover:text-red-500 transition-all duration-300 ease-linear"
+                      >
+                        {language.delDay}
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -247,15 +261,7 @@ export default function BookTicket({ price, id, setReloadTickets }) {
               </Button>
             </button>
           ) : (
-            <p className="mt-5">
-              Bạn cần đăng nhập để đặt phòng{" "}
-              <button
-                onClick={handleForwardLogin}
-                className="font-bold text-blue-300 hover:opacity-70"
-              >
-                Đăng nhập
-              </button>
-            </p>
+            <RequireSignIn />
           )}
         </div>
       </div>

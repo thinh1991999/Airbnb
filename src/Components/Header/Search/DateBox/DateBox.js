@@ -45,10 +45,9 @@ function DateBox({ double = true, title = null }) {
   }, [searchValue]);
 
   return (
-    <div id="date_box" className="px-5">
+    <div id="date_box" className={`${double ? "px-5" : ""}`}>
       {title && <h5 className="font-bold text-xl mb-5">{title}</h5>}
       <Calendar
-        // onChange={onChange}
         tileClassName={handleDisableDay}
         locale={"vi-VI"}
         value={value}

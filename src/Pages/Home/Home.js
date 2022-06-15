@@ -48,7 +48,7 @@ function Home() {
   return (
     <div id="home" className="">
       <div id="home__thumnail" className="">
-        <p className="line-1 anim-typewriter">Booking Your Room</p>
+        <p className="line-1 anim-typewriter">{language.bookingYourRoom}</p>
         <div className="bird-container bird-container--one">
           <div className="bird bird--one" />
         </div>
@@ -66,9 +66,9 @@ function Home() {
         {locsHot.length > 0 && (
           <div className="my-10">
             <h5 className="mb-4 text-center text-3xl font-bold ">
-              Địa điểm nổi bật
+              {language.hotLoc}
             </h5>
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap justify-center items-center">
               {locsHot.map((loc) => {
                 const { province, image, _id } = loc;
                 return (
@@ -98,7 +98,7 @@ function Home() {
         {roomsHot.length > 0 && (
           <div className="my-10">
             <h5 className="mb-4 text-center text-3xl font-bold ">
-              Phòng nổi bật
+              {language.hotRoom}
             </h5>
             <div className="flex flex-wrap">
               {roomsHot.map((item) => {
@@ -124,7 +124,7 @@ function Home() {
                         <p className="one__line__text">{description}</p>
                         <p>
                           {getVNDMoney(price)}{" "}
-                          <span className="font-thin">/đêm</span>
+                          <span className="font-thin">/{language.Night}</span>
                         </p>
                       </div>
                     </Link>

@@ -149,7 +149,7 @@ export default function NavMobileSearch() {
                     className={`${
                       index === currentNavMobile &&
                       "border-b-[2px] border-black dark:border-white"
-                    } py-2 mx-2  `}
+                    } py-2 mx-2 cursor-pointer `}
                     key={index}
                   >
                     {navItem.title}
@@ -165,9 +165,9 @@ export default function NavMobileSearch() {
               onClick={handleShowPlaceBox}
               className="cursor-text w-full block text-left px-5 py-3 my-5 rounded-lg bg-gray-100 dark:bg-gray-700 border-[1px] border-gray-600 dark:border-gray-300"
             >
-              <h5>Dia diem</h5>
+              <h5>{language.Location}</h5>
               <p className="text-gray-400">
-                {searchValue?.place || "Bạn sẽ đi đâu"}
+                {searchValue?.place || language.SearchAdressFinal}
               </p>
             </button>
             {navData[currentNavMobile]?.buttons?.map((item, index) => {
@@ -188,7 +188,9 @@ export default function NavMobileSearch() {
           <div className="flex-1 flex  items-end">
             <div className="w-full flex justify-between">
               <button onClick={handleClearSearch}>
-                <span>Clear</span>
+                <span className="underline hover:text-red-500 transition-all duration-300 ease-linear">
+                  {language.clear}
+                </span>
               </button>
               <button
                 onClick={handleSearch}

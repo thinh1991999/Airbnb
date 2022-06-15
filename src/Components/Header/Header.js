@@ -101,7 +101,7 @@ function Header() {
         headerTrans
           ? "bg-transparent dark:bg-transparent"
           : "bg-white header__shadow dark:bg-black"
-      }  fixed top-0 left-0 right-0 z-10  text-black  dark:text-white `}
+      }  fixed top-0 left-0 right-0 z-[51]  text-black  dark:text-white `}
     >
       <div className="relative md:container m-auto">
         <div className=" lg:px-20 lg:py-5 md:px-10 px-5 py-5">
@@ -177,7 +177,7 @@ function Header() {
                 className="md:hidden flex items-center dark:bg-gray-800 px-4 py-2 rounded-full sm:flex-none sm:w-[300px] sm:mr-0 flex-1 mr-2 dark:border-gray-500 border-[1px]"
               >
                 <AiOutlineSearch className="text-2xl" />
-                <span className="ml-4">Ban se di dau</span>
+                <span className="ml-4">{language.SearchAdressFinal}</span>
               </button>
             )}
             <button
@@ -191,7 +191,7 @@ function Header() {
         <div
           className={`${
             searchActive && showSearch ? "scale-100" : "scale-0"
-          } transition duration-300 ease-linear absolute lg:top-5 md:top-[80px] md:block hidden left-0 right-0`}
+          } transition duration-300 ease-linear absolute  top-5 md:block hidden left-0 right-0`}
         >
           <Search />
         </div>

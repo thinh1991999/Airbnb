@@ -115,7 +115,7 @@ function Search() {
               id="search"
               action=""
               onSubmit={(e) => e.preventDefault()}
-              className="mt-5 lg:min-w-[850px]  flex justify-between bg-gray-100 rounded-full relative"
+              className="mt-5 lg:min-w-[850px] md:min-w-[550px]  flex justify-between bg-gray-100 rounded-full relative"
               ref={formRef}
             >
               <div

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function SearchBoxMobile({ children }) {
+export default function SearchBoxMobile() {
   const elementSearchMobile = useSelector(
     (state) => state.header.elementSearchMobile
   );

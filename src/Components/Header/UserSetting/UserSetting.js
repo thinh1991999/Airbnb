@@ -36,7 +36,7 @@ export default function UserSetting() {
   return (
     <div
       ref={wrapRef}
-      className="absolute text-base top-[calc(100%_+_10px)] lg:min-w-[200px]  py-3 right-0 bg-gray-600 text-white  dark:text-black dark:bg-white rounded-lg"
+      className="absolute text-base top-[calc(100%_+_10px)] min-w-[200px]  py-3 right-0 bg-gray-600 text-white  dark:text-black dark:bg-white rounded-lg"
     >
       <div className="flex flex-col">
         {user ? (
