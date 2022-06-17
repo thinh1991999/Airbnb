@@ -15,10 +15,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "react-scroll-to-top";
 import { useEffect } from "react";
+import WarningLayout from "./Components/WarningLayout/WarningLayout";
 
 function App() {
   const location = useLocation();
   const mode = useSelector((state) => state.root.mode);
+  const showWarning = useSelector((state) => state.root.showWarning);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -91,6 +93,7 @@ function App() {
       </div>
       <ToastContainer />
       <ScrollToTop smooth color={mode === "DARK" ? "#6f00ff" : "#fff"} />
+      {showWarning && <WarningLayout />}
     </div>
   );
 }

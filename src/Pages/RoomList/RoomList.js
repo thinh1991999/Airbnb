@@ -55,18 +55,26 @@ function RoomList() {
       id="RoomList"
       className={`${searchActive ? "pt-[200px]" : "pt-[92px]"} `}
     >
-      <div className="flex md:container m-auto lg:px-20 md:px-10 px-5 lg:flex-row lg:items-stretch lg:justify-end lg:min-h-[800px] flex-col-reverse ">
+      <div className="flex md:container m-auto lg:px-20 md:px-10 px-5 lg:flex-row lg:items-stretch lg:justify-end min-h-[800px] flex-col-reverse justify-end">
         <div
           className={`${fullMap ? "w-0 h-0" : "lg:w-[60%]  w-full"} ${
             fullMapMobile ? "lg:h-auto h-0" : ""
           } pt-4 overflow-hidden lg:pr-5`}
         >
           <div className="h-[calc(100%_-_200px)]">
-            <PaginatedItems
-              itemsPerPage={4}
-              items={roomsData}
-              setCurrentItemsFunc={setCurrentItemsFunc}
-            />
+            {roomsData.length > 0 ? (
+              <PaginatedItems
+                itemsPerPage={4}
+                items={roomsData}
+                setCurrentItemsFunc={setCurrentItemsFunc}
+              />
+            ) : (
+              <div className="">
+                <p className="text-center h-full block">
+                  {language.NothingToSee}
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <div
@@ -107,7 +115,7 @@ function RoomList() {
       </div>
       <button
         onClick={() => setFullMapMobile(!fullMapMobile)}
-        className="lg:hidden fixed bottom-5 left-[50%] -translate-x-[50%] px-5 py-3 flex items-center hover:bg-gray-200 dark:hover:bg-gray-900 transition-all duration-300 ease-linear bg-gray-100 dark:bg-black rounded-full text-lg font-bold"
+        className="lg:hidden min-w-[200px] fixed bottom-5 left-[50%] -translate-x-[50%] px-5 py-3 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-900 transition-all duration-300 ease-linear bg-gray-100 dark:bg-black rounded-full text-lg font-bold"
       >
         {fullMapMobile ? (
           <>

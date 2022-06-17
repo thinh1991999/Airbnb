@@ -10,14 +10,16 @@ import _ from "lodash";
 import { unknowImg } from "../../../Shared/Constant";
 import { httpServ } from "../../../ServiceWorkers";
 import {
-  setComponentShow,
-  setShowWarning,
   setRateData,
   setReloadRating,
 } from "../../../Store/RoomDetailSlice/RoomDetailSlice";
-import WarningDelete from "../WarningDelete/WarningDelete";
+import WarningDelete from "../../WarningDelete/WarningDelete";
 import RatingAdd from "./RatingAdd/RatingAdd";
 import RatingRepair from "./RatingRepair/RatingRepair";
+import {
+  setComponentWarning,
+  setShowWarning,
+} from "../../../Store/RootSlice/RootSlice";
 
 export default function RatingShow({ id }) {
   const dispatch = useDispatch();
@@ -71,7 +73,7 @@ export default function RatingShow({ id }) {
   };
   const handleShowDeleteRating = (id) => {
     dispatch(
-      setComponentShow(
+      setComponentWarning(
         <WarningDelete
           id={id}
           handleDelete={handleDeleteRating}
