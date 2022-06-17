@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  componentShow: null,
-  showWarning: false,
   rateData: [],
   reloadRating: false,
   showBookTicketMB: false,
@@ -12,13 +10,6 @@ export const roomDetailSlice = createSlice({
   name: "roomDetail",
   initialState,
   reducers: {
-    setComponentShow: (state, action) => {
-      console.log(action.payload);
-      state.componentShow = action.payload;
-    },
-    setShowWarning: (state, action) => {
-      state.showWarning = action.payload;
-    },
     setRateData: (state, action) => {
       state.rateData = action.payload;
     },
@@ -31,12 +22,7 @@ export const roomDetailSlice = createSlice({
   },
 });
 
-export const {
-  setComponentShow,
-  setShowWarning,
-  setRateData,
-  setReloadRating,
-  setShowBookTicketMB,
-} = roomDetailSlice.actions;
+export const { setRateData, setReloadRating, setShowBookTicketMB } =
+  roomDetailSlice.actions;
 
 export default roomDetailSlice.reducer;

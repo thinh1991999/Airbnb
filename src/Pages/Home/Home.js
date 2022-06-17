@@ -7,7 +7,6 @@ import {
   setHomeChecked,
   setScrollActive,
   setSearchActive,
-  setShowLogoMobile,
   setShowSearch,
 } from "../../Store/HeaderSlice/HeaderSlice";
 import { getVNDMoney } from "../../Untils";

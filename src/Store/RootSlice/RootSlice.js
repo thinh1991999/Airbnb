@@ -8,6 +8,8 @@ const initialState = {
   user: localStorageServ.userInfo.get(),
   token: localStorageServ.token.get(),
   mode: localStorageServ.modeTheme.get() || "LIGHT",
+  showWarning: false,
+  componentWarning: null,
 };
 
 export const rootSlice = createSlice({
@@ -31,10 +33,22 @@ export const rootSlice = createSlice({
       localStorageServ.languageTheme.set(action.payload);
       state.languageHint = action.payload;
     },
+    setComponentWarning: (state, action) => {
+      state.componentWarning = action.payload;
+    },
+    setShowWarning: (state, action) => {
+      state.showWarning = action.payload;
+    },
   },
 });
 
-export const { setUser, setMode, setLanguageHint, setToken } =
-  rootSlice.actions;
+export const {
+  setUser,
+  setMode,
+  setLanguageHint,
+  setToken,
+  setComponentWarning,
+  setShowWarning,
+} = rootSlice.actions;
 
 export default rootSlice.reducer;

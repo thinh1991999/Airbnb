@@ -11,6 +11,11 @@ import {
 } from "../../../../Store/AdminSlice/AdminSlice";
 import { httpServ } from "../../../../ServiceWorkers";
 import { getVNDMoney } from "../../../../Untils";
+import {
+  setComponentWarning,
+  setShowWarning,
+} from "../../../../Store/RootSlice/RootSlice";
+import WarningDelete from "../../../WarningDelete/WarningDelete";
 
 export default function TableBody({
   getTableBodyProps,
@@ -37,6 +42,20 @@ export default function TableBody({
         return { ...prev };
       });
     });
+  };
+
+  const handleShowDelete = (id) => {
+    dispatch(
+      setComponentWarning(
+        <WarningDelete
+          id={id}
+          handleDelete={handleDelete}
+          title={currentNavData.delTitle}
+          question={currentNavData.delQuestion}
+        />
+      )
+    );
+    dispatch(setShowWarning(true));
   };
 
   const handleShowDetail = (id) => {
@@ -196,7 +215,7 @@ export default function TableBody({
                               {language.Repair}
                             </button>
                             <button
-                              onClick={() => handleDelete(id)}
+                              onClick={() => handleShowDelete(id)}
                               className="lg:mx-2 whitespace-nowrap m-2 px-2 py-1 bg-red-500 rounded-md"
                             >
                               {language.Delete}

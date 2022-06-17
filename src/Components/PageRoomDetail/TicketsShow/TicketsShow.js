@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
-import { MdArrowDropDown } from "react-icons/md";
 import Circles from "react-loading-icons/dist/components/circles";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,11 +8,11 @@ import { httpServ } from "../../../ServiceWorkers";
 import { unknowImg } from "../../../Shared/Constant";
 import { getTime } from "../../../Untils";
 import { toast } from "react-toastify";
+import WarningDelete from "../../WarningDelete/WarningDelete";
 import {
-  setComponentShow,
+  setComponentWarning,
   setShowWarning,
-} from "../../../Store/RoomDetailSlice/RoomDetailSlice";
-import WarningDelete from "../WarningDelete/WarningDelete";
+} from "../../../Store/RootSlice/RootSlice";
 
 export default function TicketsShow({
   ticketsData,
@@ -42,7 +41,7 @@ export default function TicketsShow({
 
   const handleShowDelTicket = (id) => {
     dispatch(
-      setComponentShow(
+      setComponentWarning(
         <WarningDelete
           id={id}
           handleDelete={handleDelTicket}

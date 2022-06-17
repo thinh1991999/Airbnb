@@ -59,12 +59,33 @@
 
 /* Custom scroll top button */
 .styles_scroll-to-top__2A70v {
-  /* bottom: 120px !important; */
+  width: 44px !important;
+  height: 44px !important;
+  right: 30px !important;
+  bottom: 30px !important;
   background-color: rgb(255, 56, 92) !important;
+  z-index: 9999999 !important;
 }
 .dark .styles_scroll-to-top__2A70v {
   background-color: white !important;
 }
 .styles_scroll-to-top__2A70v svg {
   width: 100%;
+}
+
+/* Custom chat plugin */
+#fb-root iframe {
+  bottom: 120px !important;
+  right: 30px !important;
+  padding: unset !important;
+  margin: unset !important;
+}
+
+@media screen and (max-width: 400px) {
+  .styles_scroll-to-top__2A70v {
+    right: 0px !important;
+  }
+  #fb-root iframe {
+    right: 0px !important;
+  }
 }

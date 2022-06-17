@@ -9,17 +9,14 @@ import ImagesShow from "../../Components/PageRoomDetail/ImagesShow/ImagesShow";
 import InfoShow from "../../Components/PageRoomDetail/InfoShow/InfoShow";
 import BookTicket from "../../Components/PageRoomDetail/BookTicket/BookTicket";
 import RatingShow from "../../Components/PageRoomDetail/RatingShow/RatingShow";
-import WarningLayout from "../../Components/PageRoomDetail/WarningLayout/WarningLayout";
+import WarningLayout from "../../Components/WarningLayout/WarningLayout";
 
 import BookTicketMobile from "../../Components/PageRoomDetail/BookTicketMobile/BookTicketMobile";
 import TicketsShow from "../../Components/PageRoomDetail/TicketsShow/TicketsShow";
-import Circles from "react-loading-icons/dist/components/circles";
 
 export default function RoomDetail() {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
-  const showWarning = useSelector((state) => state.roomDetail.showWarning);
-
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
   const [ticketsData, setTicketsData] = useState([]);
@@ -142,7 +139,6 @@ export default function RoomDetail() {
         setShowImages={setShowImages}
         detailImage={detailData?.image}
       />
-      {showWarning && <WarningLayout />}
       <div className={`md:hidden ${showImages && "hidden"}`}>
         <BookTicketMobile detailData={detailData} />
       </div>
