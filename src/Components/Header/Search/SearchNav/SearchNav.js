@@ -49,7 +49,7 @@ function SearchNav({ navData, currentNav }) {
                 className={` ${
                   activeSearchForm === index
                     ? "bg-white search__shadow"
-                    : "hover:bg-stone-300"
+                    : "hover:bg-gray-300"
                 } pl-8 cursor-pointer pr-2 flex flex-1 justify-between rounded-full text-black transition-all duration-300 ease-linear `}
               >
                 <div
@@ -93,7 +93,7 @@ function SearchNav({ navData, currentNav }) {
                 className={` ${
                   activeSearchForm === index
                     ? "bg-white search__shadow"
-                    : "hover:bg-stone-300"
+                    : "hover:bg-gray-300"
                 } px-8 flex flex-col items-center justify-center rounded-full text-black transition-all duration-300 ease-linear `}
                 onClick={() => handleClickSearch(index, element)}
                 type={"button"}

@@ -4,6 +4,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { httpServ } from "../../../../ServiceWorkers";
 import { toast } from "react-toastify";
 import { setReloadRating } from "../../../../Store/RoomDetailSlice/RoomDetailSlice";
+import RequireSignIn from "../../../RequireSignIn/RequireSignIn";
 
 export default function RatingAdd({ id }) {
   const dispatch = useDispatch();
@@ -55,15 +56,7 @@ export default function RatingAdd({ id }) {
           </form>
         </div>
       ) : (
-        <p className="">
-          Bạn cần đăng nhập để đánh giá{" "}
-          <button
-            // onClick={handleForwardLogin}
-            className="font-bold text-blue-300 hover:opacity-70"
-          >
-            Đăng nhập
-          </button>
-        </p>
+        <RequireSignIn title={language.Rating} />
       )}
     </div>
   );

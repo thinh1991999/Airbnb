@@ -11,7 +11,7 @@ export default function ImagesShow({
     <div
       className={`fixed ${
         !showImages ? "translate-y-[100%] overflow-y-hidden" : "overflow-y-auto"
-      }  top-0 right-0 left-0 bottom-0  dark:bg-gray-800 bg-white z-30 transition-all duration-300 ease-linear`}
+      }  top-0 right-0 left-0 bottom-0  dark:bg-gray-800 bg-white  transition-all duration-300 ease-linear z-[52]`}
     >
       <div className="pt-[40px] h-full ">
         <div className=" flex flex-col items-stretch overflow-hidden h-full">

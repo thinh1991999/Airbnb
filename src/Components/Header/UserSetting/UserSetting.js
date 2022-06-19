@@ -83,7 +83,7 @@ export default function UserSetting() {
               className="font-semibold cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-200 px-5 py-2 flex items-center"
             >
               <FaSignInAlt className="mr-2" />
-              {language.SignIn}
+              {language.SignUp}
             </Link>
             <Link
               to={"/account/signIn"}

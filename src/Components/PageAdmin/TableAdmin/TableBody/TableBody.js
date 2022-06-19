@@ -80,11 +80,11 @@ export default function TableBody({
           delete prev[id];
           return { ...prev };
         });
-        toast.success("Thay đổi ảnh thành công!");
+        toast.success(language.pictureChangeSuccess);
       });
     } else {
       e.target.value = null;
-      toast.error("File được chọn phải là ảnh!");
+      toast.error(language.pictureRequire);
     }
   };
 

@@ -59,7 +59,7 @@ function Search() {
         title: language.HeaderEx,
         buttons: [
           {
-            name: "Ngày",
+            name: language.time,
             value: "Thêm thời gian muốn tham gia",
             element: <DateBox />,
           },
@@ -121,8 +121,8 @@ function Search() {
               <div
                 className={`${
                   activeSearchForm === "SEARCH_INPUT"
-                    ? "bg-white search__shadow"
-                    : "hover:bg-stone-300"
+                    ? "bg-white  search__shadow"
+                    : "hover:bg-gray-300"
                 } flex flex-1  cursor-pointer text-black rounded-full flex-col text-sm font-semibold`}
               >
                 <label
@@ -139,7 +139,7 @@ function Search() {
                     )
                   }
                   autoComplete={"off"}
-                  className="px-8 pb-4 bg-transparent outline-none placeholder:text-black"
+                  className="px-8 pb-4 bg-transparent outline-none dark:placeholder:text-black"
                   type="text"
                   id="searchPlace"
                   placeholder={language.SearchAdressFinal}

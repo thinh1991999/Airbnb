@@ -261,7 +261,9 @@ export default function BookTicket({ price, id, setReloadTickets }) {
               </Button>
             </button>
           ) : (
-            <RequireSignIn />
+            <div className="mt-5">
+              <RequireSignIn title={language.RoomBooking} />
+            </div>
           )}
         </div>
       </div>

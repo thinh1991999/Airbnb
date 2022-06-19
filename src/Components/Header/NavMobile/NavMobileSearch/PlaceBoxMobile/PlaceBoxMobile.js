@@ -24,7 +24,7 @@ export default function PlaceBoxMobile() {
         />
       </div>
       <div className="mt-5 ">
-        <PlaceBox />
+        <PlaceBox mobile={true} />
       </div>
     </>
   );

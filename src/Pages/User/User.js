@@ -32,14 +32,14 @@ export default function User() {
         .then((res) => {
           dispatch(setUser(res.data));
           setDataUser(res.data);
-          toast.success("Thay doi anh dai dien thanh cong");
+          toast.success(language.pictureChangeSuccess);
         })
         .catch((err) => {
           throw new Error(err);
         });
     } else {
       e.target.value = null;
-      toast.error("File được chọn phải là ảnh!");
+      toast.error(language.pictureRequire);
     }
   };
 
@@ -195,27 +195,31 @@ export default function User() {
                     return (
                       <div
                         key={index}
-                        className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center justify-between"
+                        className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center justify-start"
                       >
-                        <div className="mr-5">
-                          <img
-                            src={image}
-                            className="w-[100px] rounded-md"
-                            alt=""
-                          />
+                        <div className="flex items-center">
+                          <div className="mr-5">
+                            <img
+                              src={image}
+                              className="w-[100px] rounded-md"
+                              alt=""
+                            />
+                          </div>
+                          <div className="">
+                            <h5 className="text-xl font-bold">{name}</h5>
+                            <span>
+                              {getVNDMoney(price)}/{language.Night}
+                            </span>
+                          </div>
                         </div>
-                        <div className="">
-                          <h5 className="text-xl font-bold">{name}</h5>
-                          <span>
-                            {getVNDMoney(price)}/{language.Night}
-                          </span>
-                        </div>
-                        <button
-                          onClick={() => handleDelTicket(ticket._id)}
-                          className="px-3 py-2 rounded-md bg-red-500"
-                        >
-                          Huy ve
-                        </button>
+                        {user?.type === "ADMIN" && (
+                          <button
+                            onClick={() => handleDelTicket(ticket._id)}
+                            className="px-3 py-2 rounded-md bg-red-500"
+                          >
+                            {language.delTicket}
+                          </button>
+                        )}
                       </div>
                     );
                   }
