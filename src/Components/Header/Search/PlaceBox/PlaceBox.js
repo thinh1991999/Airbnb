@@ -10,7 +10,7 @@ import {
 } from "../../../../Store/HeaderSlice/HeaderSlice";
 import { useNavigate } from "react-router-dom";
 
-function PlaceBox() {
+function PlaceBox({ mobile = false }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
@@ -60,7 +60,7 @@ function PlaceBox() {
 
   if (!searchValue.place) {
     return (
-      <div className="px-10">
+      <div className="px-10 ">
         <h2>{language.SearchEveryWhere}</h2>
         <div className="">
           <button
@@ -101,7 +101,11 @@ function PlaceBox() {
         return (
           <div
             onClick={() => handleChoosePlace(name, _id)}
-            className="flex items-center my-2 cursor-pointer py-2 px-10 hover:bg-gray-400 dark:hover:bg-gray-800"
+            className={`flex items-center my-2 cursor-pointer py-2 px-10 ${
+              mobile
+                ? "hover:bg-gray-400 dark:hover:bg-gray-800"
+                : "hover:bg-gray-200"
+            } `}
             key={`${index}${_id}`}
           >
             <div className=" bg-gray-200 rounded-md overflow-hidden">

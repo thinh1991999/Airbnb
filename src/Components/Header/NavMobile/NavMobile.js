@@ -151,7 +151,7 @@ export default function NavMobile() {
                   className="w-full flex items-center text-xl  py-3 px-5 hover:bg-gray-200 dark:hover:bg-gray-700"
                 >
                   <AiOutlineLogout className="text-3xl" />
-                  <span className="ml-4">Đăng xuất</span>
+                  <span className="ml-4">{language.LogOut}</span>
                 </button>
               </>
             )}
@@ -162,14 +162,14 @@ export default function NavMobile() {
                   className="w-full flex items-center text-xl  py-3 px-5 hover:bg-gray-200 dark:hover:bg-gray-700"
                 >
                   <FaSignInAlt className="text-3xl" />
-                  <span className="ml-4">Đăng ký</span>
+                  <span className="ml-4">{language.SignUp}</span>
                 </Link>
                 <Link
                   to={"/account/signIn"}
                   className="w-full flex items-center text-xl  py-3 px-5 hover:bg-gray-200 dark:hover:bg-gray-700"
                 >
                   <AiOutlineLogin className="text-3xl" />
-                  <span className="ml-4">Đăng nhập</span>
+                  <span className="ml-4">{language.LogIn}</span>
                 </Link>
               </>
             )}

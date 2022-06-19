@@ -82,7 +82,9 @@ function SignIn() {
       <div className="md:hidden block mb-10">
         <Logo />
       </div>
-      <h2 className=" capitalize text-3xl font-semibold mb-5">Sign in</h2>
+      <h2 className=" capitalize text-3xl font-semibold mb-5">
+        {language.LogIn}
+      </h2>
       <form action="" className="flex flex-col " onSubmit={handleSubmit}>
         <input
           type="text"
@@ -98,7 +100,7 @@ function SignIn() {
         {errors.email && <p className="text-red-600">{errors.email}</p>}
         <input
           type="password"
-          placeholder="Password"
+          placeholder={language.Password}
           name="password"
           value={signInValue.password}
           onFocus={handleFocus}
@@ -124,11 +126,11 @@ function SignIn() {
               strokeWidth={3}
             />
           ) : (
-            <span>sign in</span>
+            <span>{language.LogIn}</span>
           )}
         </button>
         <p className="mt-4 text-gray-200 md:text-left text-center">
-          Bạn chưa có tài khoản{" "}
+          {language.noAccount}{" "}
           <Link to={"/account/signUp"} className="font-semibold text-red-600">
             Sign Up Now
           </Link>

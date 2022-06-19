@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import "react-calendar/dist/Calendar.css";
 import Rules from "./Rules";
 import Logo from "../../Logo/Logo";
+import { useSelector } from "react-redux";
 
 function SignUp() {
+  const language = useSelector((state) => state.root.language);
   const [errors, setErrors] = useState({});
   const [signUpValue, setSignUpValue] = useState({
     email: "",
@@ -46,7 +48,7 @@ function SignUp() {
           });
           setMessSignUp({
             type: "Success",
-            msg: "Đăng ký thành công",
+            msg: language.signUnSuccess,
           });
           setLoading(false);
         })
@@ -54,7 +56,7 @@ function SignUp() {
           setLoading(false);
           setMessSignUp({
             type: "Fail",
-            msg: "Có lỗi xảy ra,vui lòng thử lại",
+            msg: language.errorTryAgian,
           });
         });
     }
@@ -64,7 +66,7 @@ function SignUp() {
     if (signUpValue.cfPassword !== signUpValue.password) {
       setErrors({
         ...errors,
-        cfPassword: "Comfirm password isn't corrected!",
+        cfPassword: language.cfPasswordNotCorrect,
       });
       return false;
     } else {
@@ -95,7 +97,7 @@ function SignUp() {
         <Logo />
       </div>
       <h2 className="lg:mt-0 md:mt-20 capitalize text-3xl font-semibold mb-5">
-        Sign Up
+        {language.SignUp}
       </h2>
       <form action="" className="flex flex-wrap" onSubmit={handleSubmit}>
         <div className="md:w-1/2 md:pr-1 w-full ">
@@ -115,11 +117,11 @@ function SignUp() {
           {errors.email && <p className="text-red-600">{errors.email}</p>}
         </div>
         <div className="md:w-1/2 md:pl-1 w-full">
-          <label htmlFor="name">Full Name</label>
+          <label htmlFor="name">{language.fullName}</label>
           <input
             id="name"
             type="text"
-            placeholder="Ho Ten"
+            placeholder={language.fullName}
             name="name"
             value={signUpValue.name}
             onFocus={handleFocus}
@@ -131,11 +133,11 @@ function SignUp() {
           {errors.name && <p className="text-red-600">{errors.name}</p>}
         </div>
         <div className="md:w-1/2 md:pr-1 w-full">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{language.Password}</label>
           <input
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder={language.Password}
             name="password"
             value={signUpValue.password}
             onFocus={handleFocus}
@@ -147,11 +149,11 @@ function SignUp() {
           {errors.password && <p className="text-red-600">{errors.password}</p>}
         </div>
         <div className="md:w-1/2 md:pl-1 w-full">
-          <label htmlFor="cfPw">Comfirm Password</label>
+          <label htmlFor="cfPw">{language.CfPassword}</label>
           <input
             id="cfPw"
             type="password"
-            placeholder="Comfirm Password"
+            placeholder={language.CfPassword}
             name="cfPassword"
             value={signUpValue.cfPassword}
             onFocus={handleFocus}
@@ -165,11 +167,11 @@ function SignUp() {
           )}
         </div>
         <div className="md:w-1/2 md:pr-1 w-full">
-          <label htmlFor="phone">Phone Number</label>
+          <label htmlFor="phone">{language.AdminPhone}</label>
           <input
             id="phone"
             type="text"
-            placeholder="Phone"
+            placeholder={language.AdminPhone}
             name="phone"
             value={signUpValue.phone}
             onFocus={handleFocus}
@@ -181,11 +183,11 @@ function SignUp() {
           {errors.phone && <p className="text-red-600">{errors.phone}</p>}
         </div>
         <div className="md:w-1/2 md:pl-1 w-full">
-          <label htmlFor="address">Your Address</label>
+          <label htmlFor="address">{language.AdminAddress}</label>
           <input
             id="address"
             type="text"
-            placeholder="Address"
+            placeholder={language.AdminAddress}
             name="address"
             value={signUpValue.address}
             onFocus={handleFocus}
@@ -197,11 +199,11 @@ function SignUp() {
           {errors.address && <p className="text-red-600">{errors.address}</p>}
         </div>
         <div className="md:w-1/2 md:pr-1 w-full">
-          <label htmlFor="date">Birth day</label>
+          <label htmlFor="date">{language.AdminBD}</label>
           <input
             id="date"
             type="date"
-            placeholder="Birth Day"
+            placeholder={language.AdminBD}
             name="birthday"
             value={signUpValue.birthday}
             onFocus={handleFocus}
@@ -214,7 +216,7 @@ function SignUp() {
         </div>
         <div className="md:w-1/2 md:pl-1 w-full flex flex-col">
           <label className="capitalize" htmlFor="">
-            gender
+            {language.AdminGender}
           </label>
           <div className="w-full flex items-center h-full">
             <input
@@ -226,7 +228,7 @@ function SignUp() {
               onChange={() => setSignUpValue({ ...signUpValue, gender: true })}
             />
             <label htmlFor="male" className="ml-1 cursor-pointer">
-              Male
+              {language.Male}
             </label>
             <input
               type="radio"
@@ -237,7 +239,7 @@ function SignUp() {
               onChange={() => setSignUpValue({ ...signUpValue, gender: false })}
             />
             <label htmlFor="Female" className="ml-1 cursor-pointer">
-              Female
+              {language.Female}
             </label>
           </div>
         </div>
@@ -267,11 +269,11 @@ function SignUp() {
                 strokeWidth={3}
               />
             ) : (
-              <span>sign up</span>
+              <span>{language.SignUp}</span>
             )}
           </button>
           <p className="mt-4 text-gray-200">
-            Bạn đã có tài khoản{" "}
+            {language.haveAccount}{" "}
             <Link to={"/account/signIn"} className="font-semibold text-red-600">
               Sign In Now
             </Link>

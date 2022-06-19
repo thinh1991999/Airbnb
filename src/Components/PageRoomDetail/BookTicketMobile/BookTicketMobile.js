@@ -39,13 +39,6 @@ export default function BookTicketMobile({ detailData }) {
     }
   };
 
-  // const handleSaveInfoBooking = () => {
-  //   if (checkBooking) {
-  //     dispatch(setSaveValueMobile());
-  //     dispatch(setShowBookTicketMB(false));
-  //   }
-  // };
-
   useEffect(() => {
     let newValue = "";
     const inDateText = getInforSearchValue("inDate", searchValue);
@@ -62,12 +55,12 @@ export default function BookTicketMobile({ detailData }) {
 
   return (
     <>
-      <div className="fixed left-0 right-0 bottom-0  bg-white dark:bg-gray-800 border-t z-50">
+      <div className="fixed left-0 right-0 bottom-0  bg-white dark:bg-gray-800 border-t z-[53]">
         <div className="px-5 py-5 flex justify-between items-center">
           <div className={`${user ? "" : "sm:block hidden"}`}>
             <p className="flex items-center">
               <span className="font-bold text-xl">{getVNDMoney(price)}</span>
-              <span>/dem</span>
+              <span>/{language.Night}</span>
             </p>
 
             {timeBooking ? (
@@ -92,14 +85,14 @@ export default function BookTicketMobile({ detailData }) {
               </Button>
             </button>
           ) : (
-            <RequireSignIn />
+            <RequireSignIn title={language.RoomBooking} />
           )}
         </div>
       </div>
       <div
         className={`${
           showBookTicketMB ? "translate-y-0" : "translate-y-full"
-        } transition-all duration-300 ease-linear p-5 fixed bottom-0 left-0 right-0 top-0 bg-white dark:bg-gray-800 z-40 overflow-y-auto`}
+        } transition-all duration-300 ease-linear p-5 fixed bottom-0 left-0 right-0 top-0 bg-white dark:bg-gray-800 z-[52] overflow-y-auto`}
       >
         <div className="">
           <button
@@ -112,15 +105,18 @@ export default function BookTicketMobile({ detailData }) {
         <div className="mt-5 pb-20">
           <div className="">
             <h5 className="font-bold text-2xl">
-              Chon ngay {searchValue?.inDate ? "tra phong" : "nhan phong"}
+              {language.RoomChooseDate}{" "}
+              {searchValue?.inDate
+                ? language.SearchPayRoom
+                : language.SearchTakeRoom}
             </h5>
-            <span>Them ngay de biet gia chinh xac</span>
+            <span>{language.RoomAddTravelDate}</span>
             <div className="mt-5">
               <DateBox double={false} mobile={true} />
             </div>
           </div>
           <div className="mt-10">
-            <h5 className="font-bold text-2xl">Chon so luong hanh khach</h5>
+            <h5 className="font-bold text-2xl">{language.SearchAddGuest}</h5>
             <div className="">
               <MemberBox />
             </div>
