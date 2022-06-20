@@ -39,6 +39,7 @@ export default function RatingShow({ id }) {
   const [hideRates, setHideRates] = useState([]);
   const [delRates, setDelRates] = useState({});
   const [repairCurrent, setRepairCurrent] = useState(null);
+  const [showAll, setShowAll] = useState(false);
 
   const handleHideRating = (id) => {
     if (hideRates.includes(id)) {
@@ -68,7 +69,7 @@ export default function RatingShow({ id }) {
       arr.splice(idx, 1);
       dispatch(setRateData(arr));
       dispatch(setReloadRating(true));
-      toast.success("Xóa đánh giá thành công!");
+      toast.success(language.DeleteReviewSuccess);
     });
   };
   const handleShowDeleteRating = (id) => {
@@ -77,8 +78,8 @@ export default function RatingShow({ id }) {
         <WarningDelete
           id={id}
           handleDelete={handleDeleteRating}
-          title="Xóa đánh giá"
-          question={"Bạn có chắc muốn xóa đánh giá này"}
+          title={language.DeleteReview}
+          question={language.DeleteReviewQuestion}
         />
       )
     );
@@ -109,7 +110,6 @@ export default function RatingShow({ id }) {
 
   useEffect(() => {
     httpServ.layDanhGiaPhong(id).then((res) => {
-      console.log(res.data);
       const arr = res.data;
       _.reverse(arr);
       dispatch(setRateData(arr));
@@ -166,11 +166,10 @@ export default function RatingShow({ id }) {
         <>
           {rateData.map((rateItem, index) => {
             const { content, created_at, _id, userId = {} } = rateItem;
-            let name, avatar, id;
+            let name, avatar;
             if (userId) {
               name = userId?.name;
               avatar = userId?.avatar;
-              id = userId?._id;
             }
             moment.locale(language.FromNow);
             const timeFromNow = moment(created_at).fromNow();
@@ -181,6 +180,9 @@ export default function RatingShow({ id }) {
                   setRepairCurrent={setRepairCurrent}
                 />
               );
+            }
+            if (!showAll && index > 5) {
+              return;
             }
             return (
               <div
@@ -212,7 +214,7 @@ export default function RatingShow({ id }) {
                       {_id === showOption.id && showOption.show && (
                         <div
                           ref={(el) => (optionRef.current[index] = el)}
-                          className="z-50 absolute min-w-[200px] bg-gray-200 dark:bg-gray-800 top-full py-2  rounded-md sm:right-[unset] right-full"
+                          className="z-50 absolute sm:min-w-[200px] min-w-[150px] bg-gray-200 dark:bg-gray-800 top-full py-2  rounded-md sm:right-[unset] right-full"
                         >
                           <ul className="text-lg font-medium capitalize">
                             <li
@@ -223,7 +225,7 @@ export default function RatingShow({ id }) {
                                 ? language.ShowReview
                                 : language.HideReview}
                             </li>
-                            {user?._id === id && user?.type === "ADMIN" && (
+                            {user?.type === "ADMIN" && (
                               <>
                                 <li
                                   onClick={() => handleShowDeleteRating(_id)}
@@ -249,6 +251,12 @@ export default function RatingShow({ id }) {
               </div>
             );
           })}
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="underline hover:text-blue-500 transition-all duration-300 ease-linear"
+          >
+            {showAll ? language.ShowLessReview : language.ShowAllReview}
+          </button>
         </>
       )}
     </div>

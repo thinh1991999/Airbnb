@@ -29,13 +29,13 @@ export default function WarningDelete({ id, handleDelete, title, question }) {
         <div className="flex justify-end mt-10 ">
           <button
             onClick={handleClose}
-            className="mr-5 font-bold text-blue-500"
+            className="mr-5 font-bold text-blue-500 hover:opacity-50 transition-all duration-300 ease-linear"
           >
             {language.Cancer}
           </button>
           <button
             onClick={handleDeleteAcion}
-            className="px-3 py-2 bg-red-500 rounded-md font-bold"
+            className="px-3 py-2 bg-red-500 rounded-md font-bold hover:opacity-50 transition-all duration-300 ease-linear"
           >
             {language.Delete}
           </button>

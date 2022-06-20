@@ -9,16 +9,13 @@ import {
   MdMicrowave,
   MdOutlineHotTub,
 } from "react-icons/md";
-import Calendar from "react-calendar";
 import "./InfoShow.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DateBox from "../../Header/Search/DateBox/DateBox";
-import { setSearchValue } from "../../../Store/HeaderSlice/HeaderSlice";
+import ButtonClearDate from "../ButtonClearDate/ButtonClearDate";
 
 export default function InfoShow({ detailData }) {
-  const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
-  const searchValue = useSelector((state) => state.header.searchValue);
   const {
     name,
     guests,
@@ -36,16 +33,6 @@ export default function InfoShow({ detailData }) {
     pool,
     wifi,
   } = detailData;
-
-  const handleClearDay = () => {
-    dispatch(
-      setSearchValue({
-        members: { ...searchValue?.members },
-        checkIn: null,
-        checkOut: null,
-      })
-    );
-  };
 
   return (
     <div className="w-full" id="RoomDetailInfo">
@@ -194,12 +181,7 @@ export default function InfoShow({ detailData }) {
         <h3 className="text-xl font-bold">{language.RoomSelectCheckIn}</h3>
         <span className="font-light">{language.RoomAddTravelDate}</span>
         <DateBox double={false} />
-        <button
-          onClick={handleClearDay}
-          className="underline mt-2 hover:text-red-500 transition-all duration-300 ease-linear"
-        >
-          {language.delDay}
-        </button>
+        <ButtonClearDate />
       </div>
     </div>
   );

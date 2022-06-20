@@ -129,12 +129,9 @@ function Footer() {
             <div className="sm:w-auto sm:justify-start w-full flex justify-center">
               {policy?.map((item, index) => {
                 return (
-                  <div className="flex items-center">
+                  <div className="flex items-center" key={index}>
                     <span className="align-middle mx-2">.</span>
-                    <div
-                      key={index}
-                      className="font-light  hover:text-blue-600 transition-all ease-linear duration-100 cursor-pointer"
-                    >
+                    <div className="font-light  hover:text-blue-600 transition-all ease-linear duration-100 cursor-pointer">
                       {item}
                     </div>
                   </div>

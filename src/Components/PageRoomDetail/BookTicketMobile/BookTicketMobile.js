@@ -2,13 +2,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import { AiFillStar, AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { setSaveValueMobile } from "../../../Store/HeaderSlice/HeaderSlice";
 import { setShowBookTicketMB } from "../../../Store/RoomDetailSlice/RoomDetailSlice";
 import { getInforSearchValue, getVNDMoney } from "../../../Untils";
 import Button from "../../Button/Button";
 import DateBox from "../../Header/Search/DateBox/DateBox";
 import MemberBox from "../../Header/Search/MemberBox/MemberBox";
 import RequireSignIn from "../../RequireSignIn/RequireSignIn";
+import ButtonClearDate from "../ButtonClearDate/ButtonClearDate";
 
 export default function BookTicketMobile({ detailData }) {
   const dispatch = useDispatch();
@@ -41,8 +41,8 @@ export default function BookTicketMobile({ detailData }) {
 
   useEffect(() => {
     let newValue = "";
-    const inDateText = getInforSearchValue("inDate", searchValue);
-    const outDateText = getInforSearchValue("outDate", searchValue);
+    const inDateText = getInforSearchValue("checkIn", searchValue);
+    const outDateText = getInforSearchValue("checkOut", searchValue);
     if (inDateText && outDateText) {
       newValue = inDateText + "->" + outDateText;
       setTimeBooking(newValue);
@@ -57,14 +57,18 @@ export default function BookTicketMobile({ detailData }) {
     <>
       <div className="fixed left-0 right-0 bottom-0  bg-white dark:bg-gray-800 border-t z-[53]">
         <div className="px-5 py-5 flex justify-between items-center">
-          <div className={`${user ? "" : "sm:block hidden"}`}>
+          <div className={`${user ? "" : "sm:block hidden"} mr-2`}>
             <p className="flex items-center">
-              <span className="font-bold text-xl">{getVNDMoney(price)}</span>
-              <span>/{language.Night}</span>
+              <span className="font-bold sm:text-xl text-base">
+                {getVNDMoney(price)}
+              </span>
+              <span className="font-bold sm:text-base text-sm">
+                /{language.Night}
+              </span>
             </p>
 
             {timeBooking ? (
-              <p className="font-light">{timeBooking}</p>
+              <p className="font-light sm:text-base text-sm">{timeBooking}</p>
             ) : (
               <div className="flex items-center">
                 <span className="text-pink-500 mr-1">
@@ -113,6 +117,7 @@ export default function BookTicketMobile({ detailData }) {
             <span>{language.RoomAddTravelDate}</span>
             <div className="mt-5">
               <DateBox double={false} mobile={true} />
+              <ButtonClearDate />
             </div>
           </div>
           <div className="mt-10">
