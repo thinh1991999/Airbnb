@@ -8,6 +8,7 @@ import BtnClose from "../../BtnClose/BtnClose";
 import { setUserAddValue } from "../../../../../Store/AdminSlice/AdminSlice";
 import Rules from "../Rules";
 import InputTextForm from "../../../../InputTextForm/InputTextForm";
+import { useRef } from "react";
 
 function UserAdd() {
   const dispatch = useDispatch();
@@ -18,14 +19,25 @@ function UserAdd() {
 
   const [errors, setErrors] = useState({});
   const [signUpValue, setSignUpValue] = useState({ ...userAddValue });
-
-  const [rules, setRules] = useState(Rules());
-  const [validator, setValidator] = useState(new Validator(rules));
   const [messSignUp, setMessSignUp] = useState({
     type: "Success",
     msg: "",
   });
   const [loading, setLoading] = useState(false);
+
+  const rules = useRef(Rules()).current;
+  const validator = useRef(
+    new Validator([
+      ...rules,
+      {
+        field: "cfPassword",
+        method: "isEmpty",
+        validWhen: false,
+        message: language.cfPasswordRequired,
+      },
+    ])
+  ).current;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors(validator.validate(signUpValue));
@@ -58,7 +70,7 @@ function UserAdd() {
           });
           setMessSignUp({
             type: "Success",
-            msg: "Thêm quản trị viên thành công",
+            msg: language.adminAddSuccess,
           });
           setLoading(false);
           dispatch(setReloadData(true));
@@ -67,7 +79,7 @@ function UserAdd() {
           setLoading(false);
           setMessSignUp({
             type: "Fail",
-            msg: "Có lỗi xảy ra,vui lòng thử lại",
+            msg: language.errorTryAgian,
           });
         });
     }
@@ -76,7 +88,7 @@ function UserAdd() {
     if (signUpValue.cfPassword !== signUpValue.password) {
       setErrors({
         ...errors,
-        cfPassword: "Comfirm password isn't corrected!",
+        cfPassword: language.cfPasswordNotCorrect,
       });
       return false;
     } else {

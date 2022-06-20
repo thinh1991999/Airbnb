@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Circles } from "react-loading-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,23 +33,33 @@ export default function UserRepair() {
     address: "",
   });
   const [activeEmail, setActiveEmail] = useState(true);
-  const [rules, setRules] = useState(Rules());
-  const [validator, setValidator] = useState(new Validator(rules));
   const [messSignUp, setMessSignUp] = useState({
     type: "Success",
     msg: "",
   });
+
+  const rules = useRef(Rules()).current;
+  const validator = useRef(new Validator(rules)).current;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors(validator.validate(userData));
     if (validator.isValid && !btnLoading) {
       setBtnLoading(true);
-      httpServ.capNhatNguoiDung(userData, idOption, token).then((res) => {
-        dispatch(setShowOptionBox(false));
-        dispatch(setReloadData(true));
-        toast.success("Chinh sua ho so thanh cong");
-        setBtnLoading(false);
-      });
+      httpServ
+        .capNhatNguoiDung(userData, idOption, token)
+        .then(() => {
+          dispatch(setShowOptionBox(false));
+          dispatch(setReloadData(true));
+          toast.success(language.userChangeSuccess);
+          setBtnLoading(false);
+        })
+        .catch(() => {
+          setMessSignUp({
+            type: "Fail",
+            msg: language.errorTryAgian,
+          });
+        });
     }
   };
   const handleFocus = (e) => {};

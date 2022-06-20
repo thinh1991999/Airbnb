@@ -98,13 +98,13 @@ export default function NavMobileSearch() {
           {
             name: language.SearchTakeRoom,
             value: language.SearchAddDay,
-            hint: "inDate",
+            hint: "checkIn",
             element: <DateBox double={false} title={language.SearchTakeRoom} />,
           },
           {
             name: language.SearchPayRoom,
             value: language.SearchAddDay,
-            hint: "outDate",
+            hint: "checkOut",
             element: <DateBox double={false} title={language.SearchPayRoom} />,
           },
           {
@@ -120,8 +120,9 @@ export default function NavMobileSearch() {
         buttons: [
           {
             name: "Ngày",
+            hint: "checkIn",
             value: "Thêm thời gian muốn tham gia",
-            element: <DateBox />,
+            element: <DateBox double={false} />,
           },
         ],
       },

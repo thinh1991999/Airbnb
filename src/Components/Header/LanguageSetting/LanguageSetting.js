@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowLanguageSetting } from "../../../Store/HeaderSlice/HeaderSlice";
 import { setLanguageHint } from "../../../Store/RootSlice/RootSlice";
@@ -8,7 +8,7 @@ function LanguageSetting() {
   const languageHint = useSelector((state) => state.root.languageHint);
   const language = useSelector((state) => state.root.language);
 
-  const [languages, setLanguages] = useState([
+  const languages = useRef([
     {
       name: "Tiếng Việt",
       country: "Việt Nam",
@@ -19,8 +19,7 @@ function LanguageSetting() {
       country: "United States",
       hint: "US",
     },
-  ]);
-
+  ]).current;
   const wrapRef = useRef(null);
   const contentRef = useRef(null);
 

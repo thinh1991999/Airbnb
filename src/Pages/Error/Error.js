@@ -326,7 +326,8 @@ export default function Error() {
         <h1>404 Error</h1>
         <h2>Couldn't launch :(</h2>
         <h3>
-          Page Not Found - lets take you <a href="/">Home</a>
+          {language.pageNotFound} - {language.returnHome}{" "}
+          <a href="/">{language.menu}</a>
         </h3>
       </div>
     </div>

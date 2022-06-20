@@ -52,12 +52,6 @@ function Rules() {
       validWhen: false,
       message: language.passwordRequired,
     },
-    {
-      field: "cfPassword",
-      method: "isEmpty",
-      validWhen: false,
-      message: language.cfPasswordRequired,
-    },
   ];
 }
 

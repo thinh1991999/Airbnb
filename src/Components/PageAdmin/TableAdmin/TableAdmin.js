@@ -3,7 +3,6 @@ import { usePagination, useTable } from "react-table";
 import { IoCaretBackOutline, IoCaretForwardOutline } from "react-icons/io5";
 import { ImBackward2, ImForward3 } from "react-icons/im";
 import "./TableAdmin.css";
-
 import { useDispatch, useSelector } from "react-redux";
 import { httpServ } from "../../../ServiceWorkers";
 
@@ -26,7 +25,6 @@ function TableAdmin({ currentNavData }) {
 
   const columns = useMemo(() => currentNavData?.tableColumns, [currentNavData]);
   const [loading, setLoading] = useState(false);
-  const [hide, setHide] = useState(["name"]);
 
   const {
     getTableProps,
@@ -96,20 +94,18 @@ function TableAdmin({ currentNavData }) {
     dispatch(setComponentShow(currentNavData?.addComponent));
     dispatch(setShowOptionBox(true));
   };
-
   useEffect(() => {
     if (reloadData) {
       dispatch(setCurrentPage(pageIndex));
       setLoading(true);
       httpServ[currentNavData.getDataFunc](null, false).then((res) => {
         dispatch(setData(res.data));
-        console.log(currentPage);
         gotoPage(currentPage);
         dispatch(setReloadData(false));
         setLoading(false);
       });
     }
-  }, [reloadData]);
+  }, [reloadData, currentPage]);
 
   const resizeEvent = (e) => {
     const width = e.target.innerWidth;

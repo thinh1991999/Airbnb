@@ -35,7 +35,7 @@ export default function TicketsShow({
         return { ...prev };
       });
       setReloadTickets(true);
-      toast.success("Hủy vé thành công!");
+      toast.success(language.delTicketSuccess);
     });
   };
 
@@ -45,8 +45,8 @@ export default function TicketsShow({
         <WarningDelete
           id={id}
           handleDelete={handleDelTicket}
-          title="Xóa vé"
-          question={"Bạn có chắc muốn xóa vé này"}
+          title={language.delTicket}
+          question={language.delTicketQuestion}
         />
       )
     );
@@ -55,7 +55,7 @@ export default function TicketsShow({
 
   return (
     <div className="py-5 border-t-[1px] border-b-[1px] border-gray-500">
-      <h2 className="text-xl font-bold capitalize flex items-center">
+      <h2 className="text-xl font-bold capitalize flex flex-wrap items-center">
         {language.bookingHistory} :{" "}
         {!reloadTickets && (
           <>
@@ -65,7 +65,7 @@ export default function TicketsShow({
         )}
         <button
           onClick={() => setShowDetail(!showDetail)}
-          className="px-2 py-1 flex items-center text-base rounded-md text-white bg-blue-500 ml-2 hover:opacity-75 transition-all duration-300 ease-linear"
+          className="my-2 px-2 py-1 flex items-center text-base rounded-md text-white bg-blue-500 ml-2 hover:opacity-75 transition-all duration-300 ease-linear"
         >
           <span>{showDetail ? language.hide : language.show}</span>
           {showDetail ? (
@@ -88,25 +88,27 @@ export default function TicketsShow({
                 return (
                   <div
                     key={_id}
-                    className="md:w-1/2 w-full p-2 flex items-center"
+                    className="md:w-1/2 w-full p-2 flex items-center md:justify-start justify-between"
                   >
-                    <div className="mr-2">
-                      <img
-                        src={userId?.avatar || unknowImg}
-                        alt=""
-                        className="w-[50px] h-[50px] rounded-full"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <h5 className="font-bold text-lg">
-                        {userId?.name || "..."}
-                      </h5>
-                      <span className="font-thin">
-                        {language.SearchTakeRoom} : {getTime(checkIn)}
-                      </span>
-                      <span className="font-thin">
-                        {language.SearchPayRoom} : {getTime(checkOut)}
-                      </span>
+                    <div className="flex items-center">
+                      <div className="mr-2">
+                        <img
+                          src={userId?.avatar || unknowImg}
+                          alt=""
+                          className="w-[50px] h-[50px] rounded-full"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <h5 className="font-bold text-lg">
+                          {userId?.name || "..."}
+                        </h5>
+                        <span className="font-thin sm:text-base text-xs">
+                          {language.SearchTakeRoom} : {getTime(checkIn)}
+                        </span>
+                        <span className="font-thin sm:text-base text-xs">
+                          {language.SearchPayRoom} : {getTime(checkOut)}
+                        </span>
+                      </div>
                     </div>
                     {user?.type === "ADMIN" && (
                       <div className="ml-2">
@@ -115,7 +117,7 @@ export default function TicketsShow({
                         ) : (
                           <button
                             onClick={() => handleShowDelTicket(_id)}
-                            className="px-2 py-1 rounded-md bg-red-500 text-white hover:opacity-75 transition-all duration-300 ease-linear"
+                            className="px-2 py-1 rounded-md bg-red-500 text-white sm:text-base text-sm hover:opacity-75 transition-all duration-300 ease-linear"
                           >
                             {language.delTicket}
                           </button>
