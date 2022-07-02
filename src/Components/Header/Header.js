@@ -69,23 +69,23 @@ function Header() {
   }, [lastScroll, scrollActive, homeChecked]);
 
   const clickEvent = (e) => {
-    if (scrollActive) {
-      if (!headerRef.current.contains(e.target) && window.pageYOffset !== 0) {
-        dispatch(setSearchActive(false));
-      }
-    } else {
-      if (!headerRef.current.contains(e.target)) {
-        dispatch(setSearchActive(false));
-      }
+    if (
+      scrollActive &&
+      !headerRef.current.contains(e.target) &&
+      window.pageYOffset !== 0
+    ) {
+      dispatch(setSearchActive(false));
+      return;
     }
+    if (!headerRef.current.contains(e.target)) dispatch(setSearchActive(false));
   };
 
   useEffect(() => {
-    window.addEventListener("click", clickEvent);
+    searchActive && window.addEventListener("click", clickEvent);
     return () => {
       window.removeEventListener("click", clickEvent);
     };
-  }, [searchActive]);
+  }, [searchActive, scrollActive]);
 
   useEffect(() => {
     scrollActive && window.pageYOffset === 0 && dispatch(setSearchActive(true));
