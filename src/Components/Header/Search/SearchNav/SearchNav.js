@@ -8,21 +8,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getInforSearchValue } from "../../../../Untils";
 
-function SearchNav({ navData, currentNav }) {
+function SearchNav({ navData, currentNav, handleSearch }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
-  const searchParams = useSelector((state) => state.header.searchParams);
   const language = useSelector((state) => state.root.language);
   const activeSearchForm = useSelector(
     (state) => state.header.activeSearchForm
   );
-
-  const handleSearch = () => {
-    navigate(
-      `/rooms/${searchParams.locationId ? searchParams?.locationId : ""}`
-    );
-  };
 
   const handleClickSearch = (index, element) => {
     dispatch(setActiveSearchForm(index));
@@ -61,7 +54,7 @@ function SearchNav({ navData, currentNav }) {
                 </div>
                 <div className="flex items-center ml-10">
                   <button
-                    onClick={handleSearch}
+                    onClick={() => handleSearch()}
                     className={`${
                       activeSearchForm !== null
                         ? "bg-gradient-to-r from-pink-600 to-pink-500"

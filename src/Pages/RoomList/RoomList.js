@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setScrollActive,
   setSearchActive,
+  setShowSearch,
 } from "../../Store/HeaderSlice/HeaderSlice";
 import "./RoomList.css";
 
@@ -33,6 +34,7 @@ function RoomList() {
   }, []);
 
   useEffect(() => {
+    dispatch(setSearchActive(false));
     httpServ
       .layDanhSachPhong(
         {
@@ -46,6 +48,7 @@ function RoomList() {
   }, [locId]);
 
   useEffect(() => {
+    dispatch(setShowSearch(true));
     dispatch(setScrollActive(false));
     dispatch(setSearchActive(false));
   }, []);

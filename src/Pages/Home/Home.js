@@ -27,7 +27,9 @@ function Home() {
     document.title = language.homeTitle;
     return () => {
       dispatch(setHomeChecked(false));
-      dispatch(setHeaderTrans(false));
+      setTimeout(() => {
+        dispatch(setHeaderTrans(false));
+      }, 100);
     };
   }, []);
 

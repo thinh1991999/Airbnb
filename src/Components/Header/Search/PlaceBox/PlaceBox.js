@@ -15,20 +15,26 @@ function PlaceBox({ mobile = false }) {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
   const searchParams = useSelector((state) => state.header.searchParams);
+  const elementSearchMobile = useSelector(
+    (state) => state.header.elementSearchMobile
+  );
+
   const language = useSelector((state) => state.root.language);
 
   const [suggestArr, setSuggestArr] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleChoosePlace = (name, _id) => {
-    dispatch(setElementSearchMobile(null));
-    dispatch(setSearchValue({ ...searchValue, place: name }));
-    dispatch(
-      setSearchParams({
-        ...searchParams,
-        locationId: _id,
-      })
-    );
+    elementSearchMobile && dispatch(setElementSearchMobile(null));
+    setTimeout(() => {
+      dispatch(setSearchValue({ ...searchValue, place: name }));
+      dispatch(
+        setSearchParams({
+          ...searchParams,
+          locationId: _id,
+        })
+      );
+    }, 100);
   };
 
   const handleSearch = () => {

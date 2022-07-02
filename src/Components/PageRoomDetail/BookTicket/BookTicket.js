@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Calendar from "react-calendar";
-import { AiOutlineDown } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { httpServ, localStorageServ } from "../../../ServiceWorkers";
 import { getInforSearchValue, getVNDMoney } from "../../../Untils";
@@ -209,20 +209,22 @@ export default function BookTicket({ price, id, setReloadTickets }) {
               )}
             </div>
             <div className="relative ">
-              <div className="px-3 py-2 items-center flex justify-between cursor-pointer border-t-[1px] border-gray-500">
+              <div className="px-3 py-2  cursor-pointer border-t-[1px] border-gray-500">
                 <div
-                  className=""
                   onClick={() => setShowMemberBox(!showMemberBox)}
+                  className="items-center flex justify-between"
                 >
-                  <span className="font-medium uppercase text-xs">
-                    {language.SearchGuest}
-                  </span>
-                  <p className="text-base font-thin one__line__text">
-                    {getInforSearchValue("members", searchValue) ||
-                      language.SearchAddGuest}
-                  </p>
+                  <div className="">
+                    <span className="font-medium uppercase text-xs">
+                      {language.SearchGuest}
+                    </span>
+                    <p className="text-base font-thin one__line__text">
+                      {getInforSearchValue("members", searchValue) ||
+                        language.SearchAddGuest}
+                    </p>
+                  </div>
+                  {showMemberBox ? <AiOutlineUp /> : <AiOutlineDown />}
                 </div>
-                <AiOutlineDown />
               </div>
 
               {showMemberBox && (

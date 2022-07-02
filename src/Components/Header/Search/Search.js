@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Search.css";
 import SearchBox from "./SearchBox/SearchBox";
@@ -11,10 +11,13 @@ import PlaceBox from "./PlaceBox/PlaceBox";
 import DateBox from "./DateBox/DateBox";
 import MemberBox from "./MemberBox/MemberBox";
 import SearchNav from "./SearchNav/SearchNav";
+import { useNavigate } from "react-router-dom";
 
 function Search() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
+  const searchParams = useSelector((state) => state.header.searchParams);
   const activeSearchForm = useSelector(
     (state) => state.header.activeSearchForm
   );
@@ -29,6 +32,16 @@ function Search() {
     dispatch(setActiveSearchForm("SEARCH_INPUT"));
     dispatch(setElementSearch({ element: <PlaceBox />, left: 0 }));
   };
+
+  const handleSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      navigate(
+        `/rooms/${searchParams.locationId ? searchParams?.locationId : ""}`
+      );
+    },
+    [searchParams]
+  );
 
   useEffect(() => {
     setNavData([
@@ -75,9 +88,9 @@ function Search() {
   };
 
   useEffect(() => {
-    window.addEventListener("click", eventClick);
+    window.addEventListener("mousedown", eventClick);
     return () => {
-      window.removeEventListener("click", eventClick);
+      window.removeEventListener("mousedown", eventClick);
     };
   }, []);
 
@@ -114,7 +127,7 @@ function Search() {
             <form
               id="search"
               action=""
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSearch}
               className="mt-5 lg:min-w-[850px] md:min-w-[550px]  flex justify-between bg-gray-100 rounded-full relative"
               ref={formRef}
             >
@@ -133,11 +146,11 @@ function Search() {
                 </label>
                 <input
                   onFocus={handleFocusInput}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     dispatch(
                       setSearchValue({ ...searchValue, place: e.target.value })
-                    )
-                  }
+                    );
+                  }}
                   autoComplete={"off"}
                   className="px-8 pb-4 bg-transparent outline-none dark:placeholder:text-black"
                   type="text"
@@ -147,7 +160,11 @@ function Search() {
                 />
               </div>
               <div className="flex min-w-[50%]">
-                <SearchNav navData={navData} currentNav={currentNav} />
+                <SearchNav
+                  navData={navData}
+                  currentNav={currentNav}
+                  handleSearch={handleSearch}
+                />
               </div>
               {elementSearch && activeSearchForm !== null && (
                 <SearchBox>{elementSearch?.element}</SearchBox>

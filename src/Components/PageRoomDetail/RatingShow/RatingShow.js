@@ -181,7 +181,7 @@ export default function RatingShow({ id }) {
                 />
               );
             }
-            if (!showAll && index > 5) {
+            if (!showAll && index >= 5) {
               return;
             }
             return (
@@ -251,12 +251,14 @@ export default function RatingShow({ id }) {
               </div>
             );
           })}
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="underline hover:text-blue-500 transition-all duration-300 ease-linear"
-          >
-            {showAll ? language.ShowLessReview : language.ShowAllReview}
-          </button>
+          {rateData?.length > 5 && (
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="underline hover:text-blue-500 transition-all duration-300 ease-linear"
+            >
+              {showAll ? language.ShowLessReview : language.ShowAllReview}
+            </button>
+          )}
         </>
       )}
     </div>
