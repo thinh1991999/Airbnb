@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -19,7 +19,9 @@ export default function RoomDetail() {
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
   const [ticketsData, setTicketsData] = useState([]);
-  const [subImgs, setSubImgs] = useState([
+  const [showImages, setShowImages] = useState(false);
+  const [reloadTickets, setReloadTickets] = useState(false);
+  const subImgs = useRef([
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img1.webp?alt=media&token=b22c6a2f-f439-46ee-a361-1c13254698a1",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img2.webp?alt=media&token=150c93a8-ba6a-4a82-910f-ea5f194d7c1e",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img3.webp?alt=media&token=b7637afe-afe4-42c5-a8a9-d3dd6177a8d8",
@@ -27,9 +29,7 @@ export default function RoomDetail() {
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img4.webp?alt=media&token=2fe03f04-c49e-4046-a5c5-9550ba432c01",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img5.webp?alt=media&token=43ae2500-9187-4da4-853a-b9344a352208",
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img6.webp?alt=media&token=c3afea08-c868-4d2c-be09-c4d1e13f4ab4",
-  ]);
-  const [showImages, setShowImages] = useState(false);
-  const [reloadTickets, setReloadTickets] = useState(false);
+  ]).current;
 
   const fetchTickets = async () => {
     httpServ.layDanhSachVeTheoPhong(id).then((res) => {

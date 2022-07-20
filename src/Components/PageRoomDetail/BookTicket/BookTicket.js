@@ -52,13 +52,13 @@ export default function BookTicket({ price, id, setReloadTickets }) {
           .datPhong(
             {
               roomId: id,
-              checkIn: "2022-06-13T17:00:00.000Z",
-              checkOut: "2022-06-21T17:00:00.000Z",
+              checkIn: searchValue.checkIn,
+              checkOut: searchValue.checkOut,
               userId: user?._id,
             },
             token
           )
-          .then((res) => {
+          .then(() => {
             setReloadTickets(true);
             dispatch(resetSearchValue());
             setMess({
@@ -127,7 +127,7 @@ export default function BookTicket({ price, id, setReloadTickets }) {
               onClick={() => setShowDateBox(true)}
               className="flex items-stretch relative"
             >
-              <div className="flex-1 px-3 py-2 cursor-pointer">
+              <div className="flex-1 px-3 py-2 cursor-pointer one__line__text">
                 <span className="font-medium uppercase text-xs one__line__text">
                   {language.SearchTakeRoom}
                 </span>
@@ -138,7 +138,7 @@ export default function BookTicket({ price, id, setReloadTickets }) {
                 </p>
               </div>
               <div className="w-[1px] bg-gray-500"></div>
-              <div className="flex-1 px-3 py-2 cursor-pointer">
+              <div className="flex-1 px-3 py-2 cursor-pointer one__line__text">
                 <span className="font-medium uppercase text-xs one__line__text">
                   {language.SearchPayRoom}
                 </span>
