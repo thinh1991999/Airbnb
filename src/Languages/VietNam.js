@@ -211,4 +211,6 @@ export const VNLanguage = {
   userChangeSuccess: "Chỉnh sửa hồ sơ thành công",
   pageNotFound: "Không tìm thấy trang",
   returnHome: "Đưa bạn đến",
+  checkAdmin: "Bạn không phải quản trị viên",
+  checkLogin: "Bạn chưa đăng nhập",
 };

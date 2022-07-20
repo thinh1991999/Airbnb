@@ -10,8 +10,7 @@ function MemberBox() {
 
   const [options, setOptions] = useState([]);
   const [data, setData] = useState(searchValue.members || {});
-  console.log(data);
-  const handleMinus = (type, hint) => {
+  const handleMinus = (hint) => {
     const count = data[hint] ? data[hint] * 1 : 0;
 
     if (count > 0) {
@@ -86,7 +85,6 @@ function MemberBox() {
       {options.map((item, index) => {
         const { title, des, type, hint } = item;
         const count = data[hint] ? data[hint] : 0;
-        const arr = Object.values(data);
         const validBtn = hint === "NL" && count === 1;
         return (
           <div
@@ -101,6 +99,7 @@ function MemberBox() {
             </div>
             <div className="flex items-center">
               <button
+                type="button"
                 className={`${
                   count === 0 || validBtn
                     ? "cursor-not-allowed opacity-40 text-gray-400"
@@ -112,6 +111,7 @@ function MemberBox() {
               </button>
               <span className="mx-5">{count}</span>
               <button
+                type="button"
                 className="w-8 text-base h-8 flex justify-center border-gray-400 items-center rounded-full border hover:border-black"
                 onClick={() => handlePlus(type, hint)}
               >

@@ -1,15 +1,12 @@
-import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   setActiveSearchForm,
   setElementSearch,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
-import { useNavigate } from "react-router-dom";
 import { getInforSearchValue } from "../../../../Untils";
 
 function SearchNav({ navData, currentNav, handleSearch }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
   const language = useSelector((state) => state.root.language);

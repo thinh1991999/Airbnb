@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Circles } from "react-loading-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { unknowPosImg } from "../../../../../Shared/Constant";
 import ItemDetail from "../../ItemDetail/ItemDetail";
 import { httpServ } from "../../../../../ServiceWorkers";

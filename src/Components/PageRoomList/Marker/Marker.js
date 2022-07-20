@@ -16,9 +16,6 @@ function Marker({ index, data, mapSize }) {
         currency: "VND",
       })
     : 0;
-  const handleClickMarker = () => {
-    console.log(123);
-  };
 
   const eventClick = (e) => {
     const {

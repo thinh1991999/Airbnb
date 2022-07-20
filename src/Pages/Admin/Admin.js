@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { MdOutlineAddLocationAlt, MdAddBusiness } from "react-icons/md";
 import {
   setHeaderTrans,
   setShowSearch,
 } from "../../Store/HeaderSlice/HeaderSlice";
 import { httpServ } from "../../ServiceWorkers";
 import TableAdmin from "../../Components/PageAdmin/TableAdmin/TableAdmin";
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { MdOutlineAddLocationAlt, MdAddBusiness } from "react-icons/md";
 import { setData, setLoading } from "../../Store/AdminSlice/AdminSlice";
 import OptionBox from "../../Components/PageAdmin/OptionBox/OptionBox";
 import UserAdd from "../../Components/PageAdmin/OptionBox/User/UserAdd/UserAdd";
@@ -20,10 +21,13 @@ import PositionAdd from "../../Components/PageAdmin/OptionBox/Position/PositionA
 import PositionDetail from "../../Components/PageAdmin/OptionBox/Position/PositionDetail/PositionDetail";
 import PositionRepair from "../../Components/PageAdmin/OptionBox/Position/PositionRepair/PositionRepair";
 import AdminLoading from "../../Components/PageAdmin/AdminLoading/AdminLoading";
+import { toast } from "react-toastify";
 
 export default function Admin() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.root.language);
+  const user = useSelector((state) => state.root.user);
   const showOptionBox = useSelector((state) => state.admin.showOptionBox);
   const loading = useSelector((state) => state.admin.loading);
 
@@ -39,6 +43,13 @@ export default function Admin() {
       });
     }
   }, [currentNav, navData]);
+
+  useEffect(() => {
+    if (user?.type !== "ADMIN") {
+      navigate("/");
+      toast.error(language.checkAdmin);
+    }
+  }, [user]);
 
   useEffect(() => {
     dispatch(setHeaderTrans(false));

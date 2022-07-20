@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import httpServ from "../../../../../ServiceWorkers/http.service";
 import Validator from "../../../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
@@ -24,15 +24,14 @@ function RoomAdd() {
   const [errors, setErrors] = useState({});
   const [roomValue, setRoomValue] = useState({ ...roomAddValue });
   const [posData, setPosData] = useState([]);
-
-  const [rules, setRules] = useState(Rules());
-  const [validator, setValidator] = useState(new Validator(rules));
   const [messAdd, setMessAdd] = useState({
     type: "Success",
     msg: "",
   });
   const [btnLoading, setBtnLoading] = useState(false);
   const [loading, setloading] = useState(true);
+  const rules = useRef(Rules()).current;
+  const validator = useRef(new Validator(rules)).current;
 
   const handleSubmit = (e) => {
     e.preventDefault();

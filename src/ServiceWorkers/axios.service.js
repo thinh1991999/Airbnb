@@ -9,7 +9,7 @@ class AxiosService {
   axios;
   axiosConfig;
   authService;
-  constructor(params) {
+  constructor() {
     this.axios = Axios.create({
       baseURL: this.getBaseUrl(),
     });
@@ -21,7 +21,6 @@ class AxiosService {
   }
 
   getAxiosConfig = (_token) => {
-    // const token = _token ? _token : localStorageServ.accessToken.get();
     this.axiosConfig = {
       headers: {
         tokenByClass:
