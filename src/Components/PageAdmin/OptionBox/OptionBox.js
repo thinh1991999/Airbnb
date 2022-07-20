@@ -19,7 +19,7 @@ export default function OptionBox() {
     };
   }, []);
   return (
-    <div className="fixed top-0 right-0 bottom-0 left-0  z-50 ">
+    <div className="fixed top-0 right-0 bottom-0 left-0  z-[52] ">
       <div className="w-full h-full relative">
         <div className="absolute top-0 left-0 bottom-0 right-0 bg-black/[0.5] flex justify-center items-center">
           <div ref={wrapRef}>{componentShow}</div>

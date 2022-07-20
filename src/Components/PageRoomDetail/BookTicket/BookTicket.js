@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import Calendar from "react-calendar";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { httpServ, localStorageServ } from "../../../ServiceWorkers";
+import { httpServ } from "../../../ServiceWorkers";
 import { getInforSearchValue, getVNDMoney } from "../../../Untils";
 import Button from "../../Button/Button";
 import MemberBox from "../../Header/Search/MemberBox/MemberBox";
 import { TailSpin } from "react-loading-icons";
 import "./BookTicket.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setLocation } from "../../../Store/LoginSlice/LoginSlice";
 import _ from "lodash";
 import { toast } from "react-toastify";

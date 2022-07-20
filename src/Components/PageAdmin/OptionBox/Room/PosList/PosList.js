@@ -36,6 +36,7 @@ export default function PosList({
             province === provinceLoc
           );
         });
+        handleChangePos(posValue[0]?._id);
       } else {
         posValue = posData.filter((item) => {
           return item._id === values.locationId;

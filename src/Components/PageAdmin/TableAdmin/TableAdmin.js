@@ -142,12 +142,6 @@ function TableAdmin({ currentNavData }) {
                 return (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => {
-                      if (
-                        column.Header === "Actions" &&
-                        user?.type !== "ADMIN"
-                      ) {
-                        return;
-                      }
                       return (
                         <th {...column.getHeaderProps()}>
                           {column.render("Header")}

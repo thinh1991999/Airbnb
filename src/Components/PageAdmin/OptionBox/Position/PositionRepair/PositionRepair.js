@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -27,8 +27,8 @@ export default function PositionRepair() {
     type: "Success",
     msg: "",
   });
-  const [rules, setRules] = useState(Rules());
-  const [validator, setValidator] = useState(new Validator(rules));
+  const rules = useRef(Rules()).current;
+  const validator = useRef(new Validator(rules)).current;
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -9,7 +9,6 @@ import ImagesShow from "../../Components/PageRoomDetail/ImagesShow/ImagesShow";
 import InfoShow from "../../Components/PageRoomDetail/InfoShow/InfoShow";
 import BookTicket from "../../Components/PageRoomDetail/BookTicket/BookTicket";
 import RatingShow from "../../Components/PageRoomDetail/RatingShow/RatingShow";
-import WarningLayout from "../../Components/WarningLayout/WarningLayout";
 
 import BookTicketMobile from "../../Components/PageRoomDetail/BookTicketMobile/BookTicketMobile";
 import TicketsShow from "../../Components/PageRoomDetail/TicketsShow/TicketsShow";

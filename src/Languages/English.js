@@ -211,4 +211,6 @@ export const ELLanguage = {
   userChangeSuccess: "Change user profile successfully",
   pageNotFound: "Page not found",
   returnHome: "Lets take you",
+  checkAdmin: "You are not ADMIN",
+  checkLogin: "You are not logged in",
 };

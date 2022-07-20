@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import httpServ from "../../../../../ServiceWorkers/http.service";
-import Validator from "../../../../../Shared/Validator";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 import { TailSpin } from "react-loading-icons";
 import "react-calendar/dist/Calendar.css";
+import httpServ from "../../../../../ServiceWorkers/http.service";
+import Validator from "../../../../../Shared/Validator";
 import BtnClose from "../../BtnClose/BtnClose";
-import { useDispatch, useSelector } from "react-redux";
 import {
   setReloadData,
   setShowOptionBox,
@@ -14,7 +15,6 @@ import InputTextForm from "../../../../InputTextForm/InputTextForm";
 import PosList from "../PosList/PosList";
 import Rules from "../Rules";
 import OptionLoading from "../../OptionLoading/OptionLoading";
-import { toast } from "react-toastify";
 
 export default function RoomRepair() {
   const dispatch = useDispatch();
@@ -25,15 +25,14 @@ export default function RoomRepair() {
   const [errors, setErrors] = useState({});
   const [roomValue, setRoomValue] = useState(null);
   const [posData, setPosData] = useState([]);
-
-  const [rules, setRules] = useState(Rules());
-  const [validator, setValidator] = useState(new Validator(rules));
   const [messAdd, setMessAdd] = useState({
     type: "Success",
     msg: "",
   });
   const [btnLoading, setBtnLoading] = useState(false);
   const [loading, setloading] = useState(true);
+  const rules = useRef(Rules()).current;
+  const validator = useRef(new Validator(rules)).current;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,6 +90,7 @@ export default function RoomRepair() {
     httpServ
       .layThongTinChiTietPhong(idOption)
       .then((res) => {
+        console.log(res.data);
         setRoomValue(res.data);
       })
       .then(() => {

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Circles } from "react-loading-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { httpServ } from "../../../../../ServiceWorkers";
 import { unknowRoomImg } from "../../../../../Shared/Constant";
 import { getVNDMoney } from "../../../../../Untils";

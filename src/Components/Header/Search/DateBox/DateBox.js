@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-
 import "./DateBox.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +7,6 @@ import {
   setActiveSearchForm,
   setActiveSearchMobile,
   setSearchValue,
-  setSearchValueMobile,
 } from "../../../../Store/HeaderSlice/HeaderSlice";
 
 function DateBox({ double = true, title = null }) {

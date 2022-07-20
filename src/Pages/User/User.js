@@ -9,7 +9,12 @@ import { AiFillStar } from "react-icons/ai";
 import { getVNDMoney } from "../../Untils";
 import TailSpin from "react-loading-icons/dist/components/tail-spin";
 import { toast } from "react-toastify";
-import { setUser } from "../../Store/RootSlice/RootSlice";
+import {
+  setComponentWarning,
+  setShowWarning,
+  setUser,
+} from "../../Store/RootSlice/RootSlice";
+import WarningDelete from "../../Components/WarningDelete/WarningDelete";
 
 export default function User() {
   const navigate = useNavigate();
@@ -21,6 +26,8 @@ export default function User() {
   const [dataUser, setDataUser] = useState(null);
   const [ticketsData, setTicketsData] = useState([]);
   const [ticketsLoading, setTicketsLoading] = useState(true);
+  const [reloadTickets, setReloadTickets] = useState(true);
+  const [delList, setDelList] = useState({});
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
@@ -47,6 +54,7 @@ export default function User() {
     dispatch(setShowSearch(false));
     if (!user) {
       navigate("/");
+      toast.error(language.checkLogin);
       return;
     }
     httpServ.layThongTinChiTietUser(user._id, true).then((res) => {
@@ -57,31 +65,58 @@ export default function User() {
 
   const getTicketsData = async () => {
     const newTicketsData = [];
-    for (const ticket of dataUser?.tickets) {
+
+    for (let ticket of dataUser?.tickets) {
+      console.log(ticket);
       const asyncResult = await httpServ
         .layThongTinChiTietVe(ticket)
         .then((res) => {
           return res.data;
+        })
+        .catch(() => {
+          return null;
         });
-      newTicketsData.push(asyncResult);
+      asyncResult && newTicketsData.push(asyncResult);
     }
     return newTicketsData;
   };
 
   const handleDelTicket = (id) => {
+    setDelList({ ...delList, [id]: id });
     httpServ.huyVe(id, token).then((res) => {
-      console.log(res);
+      setDelList((prev) => {
+        delete prev[id];
+        return { ...prev };
+      });
+      setReloadTickets(true);
+      toast.success(language.delTicketSuccess);
     });
   };
 
-  useEffect(() => {
-    setTicketsLoading(true);
-    getTicketsData().then((res) => {
-      setTicketsData(res);
-      setTicketsLoading(false);
-    });
-  }, [dataUser]);
+  const handleShowDelTicket = (id) => {
+    dispatch(
+      setComponentWarning(
+        <WarningDelete
+          id={id}
+          handleDelete={handleDelTicket}
+          title={language.delTicket}
+          question={language.delTicketQuestion}
+        />
+      )
+    );
+    dispatch(setShowWarning(true));
+  };
 
+  useEffect(() => {
+    if (reloadTickets) {
+      setTicketsLoading(true);
+      getTicketsData().then((res) => {
+        setTicketsData(res);
+        setTicketsLoading(false);
+        setReloadTickets(false);
+      });
+    }
+  }, [dataUser, reloadTickets]);
   return (
     <div className="m-auto pt-[96px] container lg:px-20 bg-white dark:bg-gray-900 dark:text-white">
       <div className="w-full  flex flex-wrap justify-center py-20">
@@ -195,7 +230,7 @@ export default function User() {
                     return (
                       <div
                         key={index}
-                        className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center justify-start"
+                        className="my-2 py-3 px-5 border-gray-500 border-[1px] rounded-md flex items-center justify-between"
                       >
                         <div className="flex items-center">
                           <div className="mr-5">
@@ -214,7 +249,7 @@ export default function User() {
                         </div>
                         {user?.type === "ADMIN" && (
                           <button
-                            onClick={() => handleDelTicket(ticket._id)}
+                            onClick={() => handleShowDelTicket(ticket._id)}
                             className="px-3 py-2 rounded-md bg-red-500"
                           >
                             {language.delTicket}
