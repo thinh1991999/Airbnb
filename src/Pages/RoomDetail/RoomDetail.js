@@ -31,8 +31,8 @@ export default function RoomDetail() {
     "https://firebasestorage.googleapis.com/v0/b/airbnb-4989d.appspot.com/o/img6.webp?alt=media&token=c3afea08-c868-4d2c-be09-c4d1e13f4ab4",
   ]).current;
 
-  const fetchTickets = async () => {
-    httpServ.layDanhSachVeTheoPhong(id).then((res) => {
+  const fetchTickets = async (idd) => {
+    httpServ.layDanhSachVeTheoPhong(idd).then((res) => {
       setTicketsData(res.data);
     });
   };
@@ -45,14 +45,16 @@ export default function RoomDetail() {
         document.title = res.data?.name;
       })
       .then(() => {
-        fetchTickets();
+        fetchTickets(id);
       });
   }, [id]);
 
   useEffect(() => {
-    fetchTickets().then(() => {
-      setReloadTickets(false);
-    });
+    if (reloadTickets) {
+      fetchTickets(id).then(() => {
+        setReloadTickets(false);
+      });
+    }
   }, [reloadTickets]);
 
   useEffect(() => {

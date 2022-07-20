@@ -60,6 +60,7 @@ class HttpRequestService {
     return AxiosServ.getMethod(uri, false);
   };
   layDanhSachVeTheoPhong = (id) => {
+    AxiosServ.axiosConfig.params = {};
     const uri = "/api/tickets/by-room?roomId=" + id;
     return AxiosServ.getMethod(uri, true);
   };
