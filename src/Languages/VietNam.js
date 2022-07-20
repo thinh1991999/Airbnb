@@ -99,6 +99,7 @@ export const VNLanguage = {
   RoomAddTravelDate: "Thêm ngày đi để biết giá chính xác",
   RoomEnterRating: "Đánh giá của bạn",
   RoomBooking: "đặt phòng",
+  RegisBooking: "đăng ký đặt phòng",
   RoomShowAllImg: "Hiển thị tất cả ảnh",
   RoomSuccessfulBooking: "Đặt phòng thành công",
   RoomChooseDate: "Chọn ngày",
@@ -213,4 +214,5 @@ export const VNLanguage = {
   returnHome: "Đưa bạn đến",
   checkAdmin: "Bạn không phải quản trị viên",
   checkLogin: "Bạn chưa đăng nhập",
+  bookingRequire: "Vui lòng chọn đầy đủ thông tin để đặt phòng",
 };

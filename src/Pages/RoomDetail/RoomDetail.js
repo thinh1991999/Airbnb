@@ -139,7 +139,11 @@ export default function RoomDetail() {
         detailImage={detailData?.image}
       />
       <div className={`md:hidden ${showImages && "hidden"}`}>
-        <BookTicketMobile detailData={detailData} />
+        <BookTicketMobile
+          detailData={detailData}
+          id={id}
+          setReloadTickets={setReloadTickets}
+        />
       </div>
     </div>
   );

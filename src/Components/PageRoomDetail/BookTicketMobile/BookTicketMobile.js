@@ -9,17 +9,24 @@ import DateBox from "../../Header/Search/DateBox/DateBox";
 import MemberBox from "../../Header/Search/MemberBox/MemberBox";
 import RequireSignIn from "../../RequireSignIn/RequireSignIn";
 import ButtonClearDate from "../ButtonClearDate/ButtonClearDate";
+import { httpServ } from "../../../ServiceWorkers";
+import { toast } from "react-toastify";
+import { resetSearchValue } from "../../../Store/HeaderSlice/HeaderSlice";
+import TailSpin from "react-loading-icons/dist/components/tail-spin";
 
-export default function BookTicketMobile({ detailData }) {
+export default function BookTicketMobile({ detailData, id, setReloadTickets }) {
   const dispatch = useDispatch();
   const showBookTicketMB = useSelector(
     (state) => state.roomDetail.showBookTicketMB
   );
+  const token = useSelector((state) => state.root.token);
+
   const language = useSelector((state) => state.root.language);
   const user = useSelector((state) => state.root.user);
   const searchValue = useSelector((state) => state.header.searchValue);
 
   const [timeBooking, setTimeBooking] = useState("");
+  const [loadingBtn, setLoadingBtn] = useState(false);
 
   const checkBooking = useMemo(() => {
     if (
@@ -34,6 +41,23 @@ export default function BookTicketMobile({ detailData }) {
 
   const handleBooking = () => {
     if (checkBooking) {
+      setLoadingBtn(true);
+      httpServ
+        .datPhong(
+          {
+            roomId: id,
+            checkIn: "2022-06-13T17:00:00.000Z",
+            checkOut: "2022-06-21T17:00:00.000Z",
+            userId: user?._id,
+          },
+          token
+        )
+        .then((res) => {
+          setReloadTickets(true);
+          dispatch(resetSearchValue());
+          setLoadingBtn(false);
+          toast.success(language.RoomSuccessfulBooking);
+        });
     } else {
       dispatch(setShowBookTicketMB(true));
     }
@@ -55,7 +79,7 @@ export default function BookTicketMobile({ detailData }) {
 
   return (
     <>
-      <div className="fixed left-0 right-0 bottom-0  bg-white dark:bg-gray-800 border-t z-[53]">
+      <div className="fixed left-0 right-0 bottom-0  bg-white dark:bg-gray-800 border-t z-[1000]">
         <div className="px-5 py-5 flex justify-between items-center">
           <div className={`${user ? "" : "sm:block hidden"} mr-2`}>
             <p className="flex items-center">
@@ -83,9 +107,15 @@ export default function BookTicketMobile({ detailData }) {
           {user ? (
             <button onClick={handleBooking}>
               <Button>
-                <span className="sm:text-base text-xs">
-                  {checkBooking ? "Đặt phòng" : "Đăng ký đặt phòng"}
-                </span>
+                {loadingBtn ? (
+                  <TailSpin width={"1em"} height={"1em"} />
+                ) : (
+                  <span className="sm:text-base text-xs capitalize">
+                    {checkBooking
+                      ? language.RoomBooking
+                      : language.RegisBooking}
+                  </span>
+                )}
               </Button>
             </button>
           ) : (

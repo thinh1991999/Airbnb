@@ -64,7 +64,7 @@
   right: 30px !important;
   bottom: 30px !important;
   background-color: rgb(255, 56, 92) !important;
-  z-index: 9999999 !important;
+  z-index: 999 !important;
 }
 .dark .styles_scroll-to-top__2A70v {
   background-color: white !important;

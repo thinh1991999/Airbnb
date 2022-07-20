@@ -7,8 +7,6 @@ import Button from "../../Button/Button";
 import MemberBox from "../../Header/Search/MemberBox/MemberBox";
 import { TailSpin } from "react-loading-icons";
 import "./BookTicket.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { setLocation } from "../../../Store/LoginSlice/LoginSlice";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import {
@@ -19,8 +17,6 @@ import DateBox from "../../Header/Search/DateBox/DateBox";
 import RequireSignIn from "../../RequireSignIn/RequireSignIn";
 
 export default function BookTicket({ price, id, setReloadTickets }) {
-  const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.header.searchValue);
   const language = useSelector((state) => state.root.language);
@@ -70,17 +66,12 @@ export default function BookTicket({ price, id, setReloadTickets }) {
               mess: language.RoomSuccessfulBooking,
             });
             setLoadingBtn(false);
-            toast.success("Đặt phòng thành công!");
+            toast.success(language.RoomSuccessfulBooking);
           });
       }
     } else {
-      toast.error("Vui lòng chọn đầy đủ thông tin đặt phòng!");
+      toast.error(language.bookingRequire);
     }
-  };
-
-  const handleForwardLogin = () => {
-    dispatch(setLocation(location.pathname));
-    navigate("/account/signIn");
   };
 
   const handleClearDay = () => {

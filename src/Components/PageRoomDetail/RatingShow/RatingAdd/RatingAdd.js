@@ -5,6 +5,7 @@ import { httpServ } from "../../../../ServiceWorkers";
 import { toast } from "react-toastify";
 import { setReloadRating } from "../../../../Store/RoomDetailSlice/RoomDetailSlice";
 import RequireSignIn from "../../../RequireSignIn/RequireSignIn";
+import { unknowImg } from "../../../../Shared/Constant";
 
 export default function RatingAdd({ id }) {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function RatingAdd({ id }) {
       {user ? (
         <div className="flex items-center justify-between">
           <img
-            src={user?.avatar}
+            src={user?.avatar || unknowImg}
             className="w-[40px] h-[40px] rounded-full mr-5"
             alt=""
           />
