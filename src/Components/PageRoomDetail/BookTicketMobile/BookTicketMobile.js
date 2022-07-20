@@ -46,13 +46,13 @@ export default function BookTicketMobile({ detailData, id, setReloadTickets }) {
         .datPhong(
           {
             roomId: id,
-            checkIn: "2022-06-13T17:00:00.000Z",
-            checkOut: "2022-06-21T17:00:00.000Z",
+            checkIn: searchValue.checkIn,
+            checkOut: searchValue.checkOut,
             userId: user?._id,
           },
           token
         )
-        .then((res) => {
+        .then(() => {
           setReloadTickets(true);
           dispatch(resetSearchValue());
           setLoadingBtn(false);
