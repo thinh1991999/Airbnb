@@ -99,8 +99,9 @@ export const ELLanguage = {
   RoomAddTravelDate: "Add travel dates for exact prices",
   RoomEnterRating: "Your Review",
   RoomBooking: "book room",
+  RegisBooking: "Register for a reservation",
   RoomShowAllImg: "show all images",
-  RoomSuccessfulBooking: "successful booking",
+  RoomSuccessfulBooking: "Successful booking",
   RoomChooseDate: "Choose date",
   RoomNewReview: "New review",
   ChangeReview: "edit review",
@@ -213,4 +214,5 @@ export const ELLanguage = {
   returnHome: "Lets take you",
   checkAdmin: "You are not ADMIN",
   checkLogin: "You are not logged in",
+  bookingRequire: "Please select all information to booking",
 };
