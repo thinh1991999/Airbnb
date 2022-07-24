@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TailSpin } from "react-loading-icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ function SignIn() {
     email: "",
     password: "",
   });
-  const [rules, setRules] = useState([
+  const rules = useRef([
     {
       field: "email",
       method: "isEmpty",
@@ -37,8 +37,8 @@ function SignIn() {
       validWhen: false,
       message: language.passwordRequired,
     },
-  ]);
-  const [validator, setValidator] = useState(new Validator(rules));
+  ]).current;
+  const validator = useRef(new Validator(rules)).current;
   const [messSignIn, setMessSignIn] = useState("");
   const [loading, setLoading] = useState(false);
 
