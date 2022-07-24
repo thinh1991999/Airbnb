@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import httpServ from "../../../ServiceWorkers/http.service";
 import Validator from "../../../Shared/Validator";
 import { TailSpin } from "react-loading-icons";
@@ -21,8 +21,8 @@ function SignUp() {
     gender: true,
     address: "",
   });
-  const [rules, setRules] = useState(Rules());
-  const [validator, setValidator] = useState(new Validator(rules));
+  const rules = useRef(Rules()).current;
+  const validator = useRef(new Validator(rules)).current;
   const [messSignUp, setMessSignUp] = useState({
     type: "Success",
     msg: "",
@@ -35,7 +35,7 @@ function SignUp() {
       setLoading(true);
       httpServ
         .dangKy(signUpValue)
-        .then((res) => {
+        .then(() => {
           setSignUpValue({
             email: "",
             password: "",
