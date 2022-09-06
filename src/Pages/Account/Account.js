@@ -14,14 +14,12 @@ function Account({ type }) {
     if (user) {
       navigate("/");
     }
-  }, []);
+  }, [user, navigate]);
 
   useEffect(() => {
-    {
-      type === "SignIn"
-        ? (document.title = "Sign In")
-        : (document.title = "Sign Up");
-    }
+    type === "SignIn"
+      ? (document.title = "Sign In")
+      : (document.title = "Sign Up");
   }, [type]);
 
   return (

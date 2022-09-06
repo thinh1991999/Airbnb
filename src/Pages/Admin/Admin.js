@@ -42,19 +42,19 @@ export default function Admin() {
         dispatch(setLoading(false));
       });
     }
-  }, [currentNav, navData]);
+  }, [currentNav, navData, dispatch]);
 
   useEffect(() => {
     if (user?.type !== "ADMIN") {
       navigate("/");
       toast.error(language.checkAdmin);
     }
-  }, [user]);
+  }, [user, navigate, language]);
 
   useEffect(() => {
     dispatch(setHeaderTrans(false));
     dispatch(setShowSearch(false));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setNavData([

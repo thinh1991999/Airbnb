@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   language: getLanguage(localStorageServ.languageTheme.get()),
   languageHint: localStorageServ.languageTheme.get() || "VN",
-  user: localStorageServ.userInfo.get(),
+  user: localStorageServ.token.get() ? localStorageServ.userInfo.get() : null,
   token: localStorageServ.token.get(),
   mode: localStorageServ.modeTheme.get() || "LIGHT",
   showWarning: false,
